@@ -12,13 +12,12 @@
             <a class="navbar-brand" href="/">LibApp</a>
         </div>
         <ul class="nav navbar-nav">
-                <li><a href="${pageContext.request.contextPath}/users">Users </a></li>
-                <li><a href="${pageContext.request.contextPath}/register">Add User</a></li>
-            </ul>
-        </div>
+            <li><a href="${pageContext.request.contextPath}/users">Users </a></li>
+            <li><a href="${pageContext.request.contextPath}/register">Add User</a></li>
+        </ul>
+    </div>
 </nav>
 </div>
-
 
 
 </body>

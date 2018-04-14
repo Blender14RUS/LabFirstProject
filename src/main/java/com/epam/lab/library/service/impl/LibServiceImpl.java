@@ -1,12 +1,9 @@
-package LibApp.service.impl;
+package com.epam.lab.library.service.impl;
 
-import LibApp.DAO.LibDAO;
-import LibApp.DAO.domain.User;
-import LibApp.service.LibService;
+import com.epam.lab.library.dao.LibDAO;
+import com.epam.lab.library.service.LibService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class LibServiceImpl implements LibService{
@@ -17,6 +14,4 @@ public class LibServiceImpl implements LibService{
     LibServiceImpl(LibDAO libDao) {
         this.libDao = libDao;
     }
-
-
 }
