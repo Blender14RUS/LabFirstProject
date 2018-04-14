@@ -1,4 +1,4 @@
-package LibApp.DAO.domain;
+package com.epam.lab.library.domain;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ public class User {
 
     private Long id;
     private String login;
-    private Date dateofbirth;
+    private Date dateOfBirth;
     private String name;
 
     public User() {}
@@ -32,12 +32,12 @@ public class User {
         this.login = login;
     }
 
-    public Date getDateofbirth() {
-        return dateofbirth;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDateofbirth(Date dateofbirth) {
-        this.dateofbirth = dateofbirth;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getName() {
