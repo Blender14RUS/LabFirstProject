@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface LibService {
 
+    List<User> getAll();
 
+    int createUser(User user);
+
+    void deleteUserById(Long id);
 
 }

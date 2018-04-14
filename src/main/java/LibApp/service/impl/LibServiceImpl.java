@@ -18,5 +18,18 @@ public class LibServiceImpl implements LibService{
         this.libDao = libDao;
     }
 
+    @Override
+    public List<User> getAll() {
+        return libDao.getAll();
+    }
 
+    @Override
+    public int createUser(User user) {
+        return libDao.createUser(user);
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        libDao.deleteUserById(id);
+    }
 }
