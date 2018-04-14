@@ -12,8 +12,8 @@
             <a class="navbar-brand" href="/">LibApp</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="${pageContext.request.contextPath}/users">Users </a></li>
-            <li><a href="${pageContext.request.contextPath}/register">Add User</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin">Admin board </a></li>
+            <li><a href="${pageContext.request.contextPath}/registration">Add user</a></li>
         </ul>
     </div>
 </nav>

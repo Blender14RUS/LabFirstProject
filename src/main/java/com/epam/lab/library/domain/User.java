@@ -6,8 +6,9 @@ public class User {
 
     private Long id;
     private String login;
-    private Date dateOfBirth;
+    private String pass;
     private String name;
+    private String access_level;
 
     public User() {}
 
@@ -16,7 +17,13 @@ public class User {
         this.login = login;
     }
 
-    public long getId() {
+    public User(Long id, String login, String name) {
+        this.id = id;
+        this.login = login;
+        this.name = name;
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -32,12 +39,12 @@ public class User {
         this.login = login;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public String getPass() {
+        return pass;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public String getName() {
@@ -46,5 +53,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAccess_level() {
+        return access_level;
+    }
+
+    public void setAccess_level(String access_level) {
+        this.access_level = access_level;
     }
 }
