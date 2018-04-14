@@ -1,4 +1,4 @@
-package com.epam.lab.library.config;
+package com.epam.lab.library.web.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
