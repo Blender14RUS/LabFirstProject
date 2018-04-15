@@ -10,14 +10,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class UserController {
+public class BookController {
 
     @Autowired
     private LibService libService;
 
-    @RequestMapping(value = {"/", "/index"})
-    public String defaultPage(Model model) {
-        return "index";
+    @RequestMapping("/addBook")
+    public String addBook(Model model) {
+        return "addBook";
+    }
+
+    @RequestMapping(value = "/create-book", method = RequestMethod.POST)
+    public String createBook(@RequestParam("title") String title, @RequestParam("year") int year,
+                             @RequestParam("available") int available) {
+        long book_id = libService.createBook(new Book(null, title, year, available));
+        return book_id >= 1 ? "index" : "bookCreationFailure";
     }
 
 }
