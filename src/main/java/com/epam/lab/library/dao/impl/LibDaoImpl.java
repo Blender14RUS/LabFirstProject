@@ -18,9 +18,6 @@ import java.util.Map;
 public class LibDaoImpl implements LibDao {
 
     @Autowired
-    private JdbcOperations jdbcOperations;
-
-    @Autowired
     NamedParameterJdbcOperations namedParameterJdbcOperations;
 
     private static final String ADD_BOOK = "INSERT INTO books (id, title, year, available) " +
@@ -29,11 +26,8 @@ public class LibDaoImpl implements LibDao {
     @Override
     public Book addBook(Book book) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        Map<String, Object> bookValues = new HashMap<>();
-        bookValues.put("title", book.getTitle());
-        bookValues.put("year", book.getYear());
-        bookValues.put("available", book.getAvailable());
-        SqlParameterSource params = new MapSqlParameterSource().addValues(bookValues);
+        SqlParameterSource params = new MapSqlParameterSource().addValue("title", book.getTitle())
+                .addValue("year", book.getYear()).addValue("available", book.getAvailable());
         namedParameterJdbcOperations.update(ADD_BOOK, params, keyHolder, new String[]{"id"});
         book.setId(keyHolder.getKey().longValue());
         return book;

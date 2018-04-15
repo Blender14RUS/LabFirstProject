@@ -38,6 +38,7 @@ INSERT INTO public.users(id, login, pass, name, access_level) VALUES (nextval('u
 INSERT INTO public.users(id, login, pass, name, access_level) VALUES (nextval('users_seq'), 'killer', 'qwerty1', 'Gocha Novlyansckiy', 'READER');
 INSERT INTO public.users(id, login, pass, name, access_level) VALUES (nextval('users_seq'), 'dog12', '666a66', 'Harry Zaycev', 'READER');
 INSERT INTO public.users(id, login, pass, name, access_level) VALUES (nextval('users_seq'), 'ahmat', '9841asf', 'Ivan Ivanov', 'READER');
+INSERT INTO public.users(id, login, pass, name, access_level) VALUES (nextval('users_seq'), 'egorka', '14567', 'Egor Kravchenko', 'READER');
 
 
 INSERT INTO public.orders(id, user_id, book_id, location, status) VALUES (nextval('orders_seq'), 3, 1, 'READING_ROOM', 'IN_LIBRARY');

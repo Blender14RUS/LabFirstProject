@@ -1,156 +1,148 @@
 CREATE TABLE IF NOT EXISTS public.users
 (
-    id bigint NOT NULL,
-    login character varying(20) NOT NULL,
-    pass character varying(30) NOT NULL,
-    name character varying(30) NOT NULL,
-    access_level character varying(20) NOT NULL,
-    PRIMARY KEY (id)
+  id           BIGINT                NOT NULL,
+  login        CHARACTER VARYING(20) NOT NULL,
+  pass         CHARACTER VARYING(30) NOT NULL,
+  name         CHARACTER VARYING(30) NOT NULL,
+  access_level CHARACTER VARYING(20) NOT NULL,
+  PRIMARY KEY (id)
 )
-WITH (
-    OIDS = FALSE
+WITH (OIDS = FALSE
 );
 
 ALTER TABLE public.users
-    OWNER to libman;
-
-
+  OWNER TO libman;
 
 CREATE TABLE IF NOT EXISTS public.books
 (
-    id bigint NOT NULL,
-    title character varying(50) NOT NULL,
-    year integer NOT NULL,
-    available integer,
-    PRIMARY KEY (id)
+  id        BIGINT                NOT NULL,
+  title     CHARACTER VARYING(50) NOT NULL,
+  year      INTEGER               NOT NULL,
+  available INTEGER,
+  PRIMARY KEY (id)
 )
-WITH (
-    OIDS = FALSE
+WITH (OIDS = FALSE
 );
 
 ALTER TABLE public.books
-    OWNER to libman;
-
+  OWNER TO libman;
 
 
 CREATE TABLE IF NOT EXISTS public.orders
 (
-    id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    book_id bigit NOT NULL,
-    location character varying(30) NOT NULL,
-    status character varying(30) NOT NULL,
-    PRIMARY KEY (id)
+  id       BIGINT                NOT NULL,
+  user_id  BIGINT                NOT NULL,
+  book_id  BIGIT                 NOT NULL,
+  location CHARACTER VARYING(30) NOT NULL,
+  status   CHARACTER VARYING(30) NOT NULL,
+  PRIMARY KEY (id)
 )
 WITH (
-    OIDS = FALSE
+OIDS = FALSE
 );
 
 ALTER TABLE public.orders
-    OWNER to libman;
-	
+  OWNER TO libman;
+
 ALTER TABLE public.orders
-    ADD CONSTRAINT book_id FOREIGN KEY (book_id)
-    REFERENCES public.books (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+  ADD CONSTRAINT book_id FOREIGN KEY (book_id)
+REFERENCES public.books (id) MATCH SIMPLE
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
 CREATE INDEX fki_book_id
-    ON public.orders(book_id);
-	
+  ON public.orders (book_id);
+
 ALTER TABLE public.orders
-    ADD CONSTRAINT user_id FOREIGN KEY (user_id)
-    REFERENCES public.users (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+  ADD CONSTRAINT user_id FOREIGN KEY (user_id)
+REFERENCES public.users (id) MATCH SIMPLE
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
 CREATE INDEX fki_user_id
-    ON public.orders(user_id);
-	
-	
-	
+  ON public.orders (user_id);
+
+
 CREATE TABLE IF NOT EXISTS public.authors
 (
-    id bigint NOT NULL,
-    name character varying(30),
-    PRIMARY KEY (id)
+  id   BIGINT NOT NULL,
+  name CHARACTER VARYING(30),
+  PRIMARY KEY (id)
 )
 WITH (
-    OIDS = FALSE
+OIDS = FALSE
 );
 
 ALTER TABLE public.authors
-    OWNER to libman;
-	
-	
-	
+  OWNER TO libman;
+
+
 CREATE TABLE IF NOT EXISTS public.book_authors
 (
-    book_id bigint NOT NULL,
-    author_id bigint NOT NULL,
-    PRIMARY KEY (book_id, author_id)
+  book_id   BIGINT NOT NULL,
+  author_id BIGINT NOT NULL,
+  PRIMARY KEY (book_id, author_id)
 )
 WITH (
-    OIDS = FALSE
+OIDS = FALSE
 );
 
 ALTER TABLE public.book_authors
-    OWNER to libman;
-	
+  OWNER TO libman;
+
 ALTER TABLE public.book_authors
-    ADD CONSTRAINT book_id FOREIGN KEY (book_id)
-    REFERENCES public.books (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+  ADD CONSTRAINT book_id FOREIGN KEY (book_id)
+REFERENCES public.books (id) MATCH SIMPLE
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
 CREATE INDEX fki_book_id_book_authors
-    ON public.book_authors(book_id);
-	
+  ON public.book_authors (book_id);
+
 ALTER TABLE public.book_authors
-    ADD CONSTRAINT author_id FOREIGN KEY (author_id)
-    REFERENCES public.authors (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+  ADD CONSTRAINT author_id FOREIGN KEY (author_id)
+REFERENCES public.authors (id) MATCH SIMPLE
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
 CREATE INDEX fki_author_id_book_authors
-    ON public.book_authors(author_id);
-	
-	
-	
+  ON public.book_authors (author_id);
+
+
 CREATE SEQUENCE public.orders_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
+INCREMENT 1
+START 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+CACHE 1;
 
 ALTER SEQUENCE public.orders_seq
-    OWNER TO libman;
-	
-	
+OWNER TO libman;
+
+
 CREATE SEQUENCE public.users_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
+INCREMENT 1
+START 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+CACHE 1;
 
 ALTER SEQUENCE public.users_seq
-    OWNER TO libman;
-	
-	
+OWNER TO libman;
+
+
 CREATE SEQUENCE public.books_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
+INCREMENT 1
+START 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+CACHE 1;
 
 ALTER SEQUENCE public.books_seq
-    OWNER TO libman;
-	
+OWNER TO libman;
+
 CREATE SEQUENCE public.authors_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
+INCREMENT 1
+START 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+CACHE 1;
 
 ALTER SEQUENCE public.authors_seq
-    OWNER TO libman;
+OWNER TO libman;
