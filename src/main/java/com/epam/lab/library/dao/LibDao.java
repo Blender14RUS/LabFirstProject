@@ -2,13 +2,14 @@ package com.epam.lab.library.dao;
 
 import com.epam.lab.library.domain.Book;
 
-public interface LibDAO {
+public interface LibDao {
+
     /**
-     * Creates book in the database
+     * Creates new book
      *
      * @param book book to be created
-     * @return id of created book
+     * @return book with id
      */
-    long createBook(Book book);
+    Book addBook(Book book);
 
 }

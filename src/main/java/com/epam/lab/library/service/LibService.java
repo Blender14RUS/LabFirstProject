@@ -1,13 +1,16 @@
 package com.epam.lab.library.service;
 
 import com.epam.lab.library.domain.Book;
+import org.springframework.dao.DataAccessException;
 
 public interface LibService {
+
     /**
-     * Creates book in the database
+     * Creates new book
      *
      * @param book book to be created
-     * @return id of created book
+     * @return book with id
      */
-    long createBook(Book book);
+    Book addBook(Book book) throws DataAccessException;
+
 }

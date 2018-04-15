@@ -1,6 +1,6 @@
 package com.epam.lab.library.dao.impl;
 
-import com.epam.lab.library.dao.LibDAO;
+import com.epam.lab.library.dao.LibDao;
 import com.epam.lab.library.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class LibDaoImpl implements LibDAO {
+public class LibDaoImpl implements LibDao {
 
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -27,7 +27,7 @@ public class LibDaoImpl implements LibDAO {
                                                 "VALUES (nextval('books_seq'), :title, :year, :available)";
 
     @Override
-    public long createBook(Book book) {
+    public Book addBook(Book book) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         Map<String, Object> bookValues = new HashMap<>();
         bookValues.put("title", book.getTitle());
@@ -35,6 +35,7 @@ public class LibDaoImpl implements LibDAO {
         bookValues.put("available", book.getAvailable());
         SqlParameterSource params = new MapSqlParameterSource().addValues(bookValues);
         namedParameterJdbcOperations.update(ADD_BOOK, params, keyHolder, new String[]{"id"});
-        return keyHolder.getKey().longValue();
+        book.setId(keyHolder.getKey().longValue());
+        return book;
     }
 }

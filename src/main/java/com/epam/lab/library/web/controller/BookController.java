@@ -23,8 +23,8 @@ public class BookController {
     @RequestMapping(value = "/create-book", method = RequestMethod.POST)
     public String createBook(@RequestParam("title") String title, @RequestParam("year") int year,
                              @RequestParam("available") int available) {
-        long book_id = libService.createBook(new Book(null, title, year, available));
-        return book_id >= 1 ? "index" : "bookCreationFailure";
+        Book book = libService.addBook(new Book( title, year, available));
+        return book.getId() == null ? "bookCreationFailure" : "redirect:/index";
     }
 
 }

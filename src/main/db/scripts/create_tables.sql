@@ -1,4 +1,4 @@
-CREATE TABLE public.users
+CREATE TABLE IF NOT EXISTS public.users
 (
     id bigint NOT NULL,
     login character varying(20) NOT NULL,
@@ -13,9 +13,10 @@ WITH (
 
 ALTER TABLE public.users
     OWNER to libman;
-	
 
-CREATE TABLE public.books
+
+
+CREATE TABLE IF NOT EXISTS public.books
 (
     id bigint NOT NULL,
     title character varying(50) NOT NULL,
@@ -29,15 +30,14 @@ WITH (
 
 ALTER TABLE public.books
     OWNER to libman;
-	
 
-	
-	
-CREATE TABLE public.orders
+
+
+CREATE TABLE IF NOT EXISTS public.orders
 (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    book_id bigint NOT NULL,
+    book_id bigit NOT NULL,
     location character varying(30) NOT NULL,
     status character varying(30) NOT NULL,
     PRIMARY KEY (id)
@@ -67,7 +67,7 @@ CREATE INDEX fki_user_id
 	
 	
 	
-CREATE TABLE public.authors
+CREATE TABLE IF NOT EXISTS public.authors
 (
     id bigint NOT NULL,
     name character varying(30),
@@ -82,7 +82,7 @@ ALTER TABLE public.authors
 	
 	
 	
-CREATE TABLE public.book_authors
+CREATE TABLE IF NOT EXISTS public.book_authors
 (
     book_id bigint NOT NULL,
     author_id bigint NOT NULL,

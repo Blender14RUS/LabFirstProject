@@ -1,45 +1,40 @@
-/**
- * Class Book with properties <b>id</b>, <b>title</b>, <b>year</b> and <b>available</b>.
- *
- * @autor Igor Ukrainets
- * @version 0.1
- */
 package com.epam.lab.library.domain;
 
 import java.util.Objects;
 
+/**
+ *
+ * @autor Igor Ukrainets
+ */
 public class Book {
 
-    /**
-     * Id of this book
-     */
     private Long id;
-    /**
-     * Full book title without name of author
-     */
-
     private String title;
-    /**
-     * Publication Date
-     */
-
     private int year;
-    /**
-     * Count available copy this book
-     */
     private int available;
 
     /**
-     * Creates a new Book with the given param.
-     *
-     * @param id        {@link Book#id}
-     * @param title     {@link Book#title}
-     * @param year      {@link Book#year}
-     * @param available {@link Book#available}
-     * @return int This returns sum of numA and numB.
+     * Constructor directly set all fields.
+     * @param id
+     * @param title
+     * @param year
+     * @param available
      */
     public Book(Long id, String title, int year, int available) {
         this.id = id;
+        this.title = title;
+        this.year = year;
+        this.available = available;
+    }
+
+    /**
+     * Constructor without id.
+     * Useful for create book instance to the database.
+     * @param title
+     * @param year
+     * @param available
+     */
+    public Book(String title, int year, int available) {
         this.title = title;
         this.year = year;
         this.available = available;
@@ -83,10 +78,10 @@ public class Book {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Book book = (Book) obj;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
         return Objects.equals(id, book.id) &&
                 Objects.equals(title, book.title) && Objects.equals(year, book.year);
     }
@@ -96,4 +91,5 @@ public class Book {
         return String.format("Book[id_book=%s, title=%s, year=%s, count available=%s]",
                 id, title, year, available);
     }
+
 }
