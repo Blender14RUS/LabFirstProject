@@ -2,6 +2,7 @@ package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.LibDao;
 import com.epam.lab.library.domain.Order;
+import com.epam.lab.library.domain.Status;
 import com.epam.lab.library.service.LibService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,12 @@ public class LibServiceImpl implements LibService{
     }
 
     @Override
-    public List<Order> getAllOrderRequests() {
-        return libDao.getAllOrderRequests();
+    public List<Order> getAllOrderByStatus(Enum<Status> status) {
+        return libDao.getAllOrderByStatus(status);
     }
 
     @Override
-    public List<Order> getAllOrderGiven() {
-        return libDao.getAllOrderGiven();
+    public void setBookStatus(Enum<Status> status, Long id) {
+        libDao.setBookStatus(status, id);
     }
 }

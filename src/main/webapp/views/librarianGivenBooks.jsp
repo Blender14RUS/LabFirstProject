@@ -22,13 +22,24 @@
             <th>Book ID</th>
             <th>Location</th>
             <th>Status</th>
+            <th>Return book</th>
         </tr>
         <c:forEach items="${orders}" var="order">
-            <td>${order.id}</td>
-            <td>${order.userId}</td>
-            <td>${order.bookId}</td>
-            <td>${order.location}</td>
-            <td>${order.status}</td>
+            <tr>
+                <td>${order.id}</td>
+                <td>${order.userId}</td>
+                <td>${order.bookId}</td>
+                <td>${order.location}</td>
+                <td>${order.status}</td>
+                <td>
+                    <form action="/return/${order.id}" method="POST">
+                        <label class="switch">
+                            <input type="checkbox"
+                                   onchange="submit()">
+                        </label>
+                    </form>
+                </td>
+            </tr>
         </c:forEach>
         </tbody>
     </table>

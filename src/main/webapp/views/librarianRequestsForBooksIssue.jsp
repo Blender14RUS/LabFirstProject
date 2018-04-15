@@ -12,7 +12,7 @@
 <jsp:include page="_menu.jsp"></jsp:include>
 
 <div class="container">
-    <h2>Requests for books issue list</h2>
+    <h2>Requests for books issue</h2>
     <p>Accept or decline issuing books</p>
     <table class="table table-striped">
         <thead>
@@ -24,24 +24,24 @@
             <th>Book ID</th>
             <th>Location</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th>Give book</th>
         </tr>
         <c:forEach items="${orders}" var="order">
-            <td>${order.id}</td>
-            <td>${order.userId}</td>
-            <td>${order.bookId}</td>
-            <td>${order.location}</td>
-            <td>${order.status}</td>
-            <td><label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-            </label></td>
-            <%--<td>--%>
-                <%--<form action="/delete/${order.id}" method="POST">--%>
-                    <%--<button type="submit" onclick="alarm()" class="btn btn-danger"><span--%>
-                            <%--class="glyphicon glyphicon-trash"></span></button>--%>
-                <%--</form>--%>
-            <%--</td>--%>
+            <tr>
+                <td>${order.id}</td>
+                <td>${order.userId}</td>
+                <td>${order.bookId}</td>
+                <td>${order.location}</td>
+                <td>${order.status}</td>
+                <td>
+                    <form action="/give/${order.id}" method="POST">
+                        <label class="switch">
+                            <input type="checkbox"
+                                   onchange="submit()">
+                        </label>
+                    </form>
+                </td>
+            </tr>
         </c:forEach>
         </tbody>
     </table>

@@ -1,12 +1,13 @@
 package com.epam.lab.library.service;
 
 import com.epam.lab.library.domain.Order;
+import com.epam.lab.library.domain.Status;
 
 import java.util.List;
 
 public interface LibService {
 
-    List<Order> getAllOrderRequests();
+    List<Order> getAllOrderByStatus(Enum<Status> status);
 
-    List<Order> getAllOrderGiven();
+    void setBookStatus(Enum<Status> status, Long id);
 }
