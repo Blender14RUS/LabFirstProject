@@ -28,11 +28,11 @@ class LibServiceImplTest {
     void getAllOrderByStatus() {
         //Given
         Status status = Status.GIVEN;
-        Order order = new Order(1L, 1L, 1L, Location.LIBRARY.toString(), status.toString());
+        Order order = new Order(1L, 1L, 1L, Location.LIBRARY, status);
         List<Order> expectedOrders = new ArrayList<>();
         expectedOrders.add(order);
         List<Order> orders = new ArrayList<>();
-        orders.add(new Order(1L, 1L, 1L, Location.LIBRARY.toString(), status.toString()));
+        orders.add(new Order(1L, 1L, 1L, Location.LIBRARY, status));
         doReturn(orders).when(mockLibDao).getAllOrderByStatus(status);
 
         //When

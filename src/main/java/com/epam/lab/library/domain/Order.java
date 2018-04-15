@@ -6,12 +6,12 @@ public class Order {
     private Long id;
     private Long userId;
     private Long bookId;
-    private String location;
-    private String status;
+    private Location location;
+    private Status status;
 
     public Order() { }
 
-    public Order(Long id, Long userId, Long bookId, String location, String status) {
+    public Order(Long id, Long userId, Long bookId, Location location, Status status) {
         this.id = id;
         this.userId = userId;
         this.bookId = bookId;
@@ -44,19 +44,19 @@ public class Order {
     }
 
     public String getLocation() {
-        return location;
+        return location.toString();
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        this.location = Location.valueOf(location);
     }
 
     public String getStatus() {
-        return status;
+        return status.toString();
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.status = Status.valueOf(status);
     }
 
     @Override
