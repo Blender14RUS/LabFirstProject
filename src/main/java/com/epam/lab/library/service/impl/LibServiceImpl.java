@@ -20,12 +20,12 @@ public class LibServiceImpl implements LibService{
     }
 
     @Override
-    public List<Order> getAllOrderByStatus(Enum<Status> status) {
+    public List<Order> getAllOrderByStatus(Status status) {
         return libDao.getAllOrderByStatus(status);
     }
 
     @Override
-    public void setBookStatus(Enum<Status> status, Long id) {
+    public void setBookStatus(Status status, Long id) {
         libDao.setBookStatus(status, id);
     }
 }

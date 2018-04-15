@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class LibDaoImpl  implements LibDao{
+public class LibDaoImpl implements LibDao {
 
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -24,12 +24,12 @@ public class LibDaoImpl  implements LibDao{
     private static final String SET_BOOK_STATUS = "UPDATE orders SET status = ? WHERE id = ?";
 
     @Override
-    public List<Order> getAllOrderByStatus(Enum<Status> status) {
-        return jdbcOperations.query(GET_ALL_ORDER_BY_STATUS, new BeanPropertyRowMapper<Order>(Order.class), status.toString());
+    public List<Order> getAllOrderByStatus(Status status) {
+        return jdbcOperations.query(GET_ALL_ORDER_BY_STATUS, new BeanPropertyRowMapper<>(Order.class), status.toString());
     }
 
     @Override
-    public void setBookStatus(Enum<Status> status, Long id) {
+    public void setBookStatus(Status status, Long id) {
         jdbcOperations.update(SET_BOOK_STATUS, status.toString(), id);
     }
 }
