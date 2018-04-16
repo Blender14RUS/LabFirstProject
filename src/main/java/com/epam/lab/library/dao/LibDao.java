@@ -1,26 +1,24 @@
-package com.epam.lab.library.service;
+package com.epam.lab.library.dao;
 
 import com.epam.lab.library.domain.Book;
-import org.springframework.dao.DataAccessException;
 import com.epam.lab.library.domain.Order;
 import com.epam.lab.library.domain.Status;
+
 import java.util.List;
 
-public interface LibService {
+public interface LibDao {
+
     /**
-    * Returns list of Books
-    * @return books
-     */
-    List<Book> getAllBooks();
-     /**
      * Creates new book
      *
      * @param book book to be created
      * @return book with id
      */
-    Book addBook(Book book) throws DataAccessException;
+    Book addBook(Book book);
 
     List<Order> getAllOrderByStatus(Status status);
+
+    List<Book> getAllBooks();
 
     void setBookStatus(Status status, Long id);
 }

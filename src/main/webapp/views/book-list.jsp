@@ -36,7 +36,7 @@
                 </td>
                 <td>
                     <form action="books/view/${book.id}" method="POST">
-                        <button type="button" class="btn btn-primary" >View
+                        <button type="submit" class="btn btn-primary" >View
                         </button>
                     </form>
                 </td>

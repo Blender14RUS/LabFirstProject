@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Book {
-
     /**
      * Id of this book
      */
@@ -29,7 +28,9 @@ public class Book {
      * Count available copy this book
      */
     private int available;
-
+    /**
+     * Contains all authors of a book
+     */
     private List<Author> authors;
 
     /**
@@ -47,7 +48,20 @@ public class Book {
         this.year = year;
         this.available = available;
     }
+
     public Book(){}
+    /**
+     * Constructor without id.
+     * Useful for create book instance to the database.
+     * @param title
+     * @param year
+     * @param available
+     */
+    public Book(String title, int year, int available) {
+        this.title = title;
+        this.year = year;
+        this.available = available;
+    }
 
     public Long getId() {
         return id;
@@ -81,7 +95,6 @@ public class Book {
         this.available = available;
     }
 
-
     public List<Author> getAuthors() {
         return authors;
     }
@@ -96,10 +109,10 @@ public class Book {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Book book = (Book) obj;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
         return Objects.equals(id, book.id) &&
                 Objects.equals(title, book.title) && Objects.equals(year, book.year);
     }
@@ -110,4 +123,7 @@ public class Book {
                 id, title, year, available);
     }
 
+
 }
+
+
