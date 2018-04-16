@@ -55,4 +55,11 @@ public class UserController {
         libService.updateUserAccessLevel(id, access_level);
         return "redirect:/admin";
     }
+
+    @RequestMapping ("/profile")
+    public String userProfile (Model model){
+        User user = libService.getUser(1L);
+        model.addAttribute(user);
+        return "UserProfile";
+    }
 }

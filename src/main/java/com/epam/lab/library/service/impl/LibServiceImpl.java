@@ -19,6 +19,11 @@ public class LibServiceImpl implements LibService {
     }
 
     @Override
+    public User getUser(Long id) {
+        return libDao.getUser(id);
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return libDao.getAllUsers();
     }

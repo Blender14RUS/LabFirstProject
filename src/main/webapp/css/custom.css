@@ -58,3 +58,8 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+/* borderless table */
+.table.table-borderless td, .table.table-borderless th {
+    border: 0 !important;
+}

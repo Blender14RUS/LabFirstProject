@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface LibService {
 
+    User getUser(Long id);
+
     /**
      * Creates List of all users from database
      *

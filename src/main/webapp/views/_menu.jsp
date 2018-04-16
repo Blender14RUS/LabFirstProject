@@ -15,6 +15,28 @@
             <li><a href="${pageContext.request.contextPath}/admin">Admin board </a></li>
             <li><a href="${pageContext.request.contextPath}/registration">Add user</a></li>
         </ul>
+        <!--<ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>-->
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="glyphicon glyphicon-user"></span>   ${user.name}<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile"><i class="icon-envelope"></i> Edit profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/auth/logout"><i class="icon-off"></i> Log out</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">EN<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/help/support"><i class="icon-envelope"></i> EN</a></li>
+                    <li><a href="/auth/logout"><i class="icon-off"></i> RU</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </nav>
 </div>

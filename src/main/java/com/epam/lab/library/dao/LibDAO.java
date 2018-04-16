@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface LibDAO {
 
+    User getUser(Long id);
+
     /**
      * Creates List of all users from database
      *

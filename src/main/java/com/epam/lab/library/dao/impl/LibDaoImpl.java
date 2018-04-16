@@ -5,9 +5,12 @@ import com.epam.lab.library.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -25,6 +28,14 @@ public class LibDaoImpl implements LibDAO {
     private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id=?";
     private static final String UPDATE_USER_ACCESS_LEVEL = "UPDATE users SET access_level = ? WHERE id = ?";
 
+
+    @Override
+    public User getUser(Long id) {
+        User user = (User)jdbcOperations.queryForObject(
+                GET_USERS_BY_ID, new Object[] { id },
+                new BeanPropertyRowMapper(User.class));
+        return user;
+    }
 
     @Override
     public List<User> getAllUsers() {
