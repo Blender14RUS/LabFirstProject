@@ -6,6 +6,7 @@
  */
 package com.epam.lab.library.domain;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Book {
@@ -28,6 +29,8 @@ public class Book {
      * Count available copy this book
      */
     private int available;
+
+    private List<Author> authors;
 
     /**
      * Creates a new Book with the given param.
@@ -78,6 +81,15 @@ public class Book {
         this.available = available;
     }
 
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, title, year);
@@ -97,4 +109,5 @@ public class Book {
         return String.format("Book[id_book=%s, title=%s, year=%s, count available=%s]",
                 id, title, year, available);
     }
+
 }

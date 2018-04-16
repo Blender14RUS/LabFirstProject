@@ -20,17 +20,23 @@
             <th>Title</th>
             <th>Year</th>
             <th>Available</th>
+            <th>Authors</th>
             <%--<th>Authors</th>--%>
         </tr>
         <c:forEach items="${books}" var="book">
             <tr>
-            <td>${book.id}</td>
-            <td>${book.title}</td>
-            <td>${book.year}</td>
-            <td>${book.available}</td>
+                <td>${book.id}</td>
+                <td>${book.title}</td>
+                <td>${book.year}</td>
+                <td>${book.available}</td>
+                <td>
+                        <c:forEach items="${book.authors}" var="author">
+                        ${author}<br>
+                        </c:forEach>
+                </td>
             </tr>
         </c:forEach>
-    </tbody>
+        </tbody>
     </table>
 </div>
 </body>
