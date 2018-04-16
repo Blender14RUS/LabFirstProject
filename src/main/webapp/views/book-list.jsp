@@ -21,7 +21,7 @@
             <th>Year</th>
             <th>Available</th>
             <th>Authors</th>
-            <%--<th>Authors</th>--%>
+            <th><th>
         </tr>
         <c:forEach items="${books}" var="book">
             <tr>
@@ -33,6 +33,12 @@
                         <c:forEach items="${book.authors}" var="author">
                         ${author}<br>
                         </c:forEach>
+                </td>
+                <td>
+                    <form action="books/view/${book.id}" method="POST">
+                        <button type="button" class="btn btn-primary" >View
+                        </button>
+                    </form>
                 </td>
             </tr>
         </c:forEach>
