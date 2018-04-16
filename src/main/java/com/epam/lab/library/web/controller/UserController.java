@@ -1,6 +1,5 @@
 package com.epam.lab.library.web.controller;
 
-
 import com.epam.lab.library.domain.AccessLevel;
 import com.epam.lab.library.domain.Order;
 import com.epam.lab.library.domain.User;
@@ -91,4 +90,3 @@ public class UserController {
         return "redirect:/given-books";
     }
 }
-
