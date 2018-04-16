@@ -1,6 +1,7 @@
 package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.LibDAO;
+import com.epam.lab.library.domain.AccessLevel;
 import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.LibService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,11 @@ public class LibServiceImpl implements LibService {
     }
 
     @Override
-    public void updateUserAccessLevel(Long id, String access_level) {
-        if (access_level.equals("READER"))
-            access_level = "LIBRARIAN";
-        else access_level = "READER";
-        libDao.updateUserAccessLevel(id, access_level);
+    public void updateUserAccessLevel(Long id, AccessLevel accessLevel) {
+        if (accessLevel.equals(AccessLevel.READER))
+            accessLevel = AccessLevel.LIBRARIAN;
+        else accessLevel = AccessLevel.READER;
+        libDao.updateUserAccessLevel(id, accessLevel);
 
     }
 }

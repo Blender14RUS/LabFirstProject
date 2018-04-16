@@ -13,9 +13,9 @@
 <jsp:include page="_menu.jsp"></jsp:include>
 
 <div class="container">
-    <h2>Users list</h2>
+    <h2>User list</h2>
     <p>Set or take away the librarian rights</p>
-    <table class="table table-striped">
+    <table class="table table-striped ">
         <thead>
         <tr>
         <tbody>
@@ -32,10 +32,10 @@
             <td>${user.login}</td>
             <td>${user.name}</td>
             <td>
-                <form action="user/update-access/${user.id}/${user.access_level}" method="POST">
+                <form action="user/update-access/${user.id}/${user.accessLevel}" method="POST">
                     <label class="switch">
                         <input type="checkbox"
-                               onchange="submit()" ${user.access_level == 'LIBRARIAN' ?  'checked': ''} >
+                               onchange="submit()" ${user.accessLevel == 'LIBRARIAN' ?  'checked': ''} >
                         <span class="slider round"></span>
                     </label>
                 </form>

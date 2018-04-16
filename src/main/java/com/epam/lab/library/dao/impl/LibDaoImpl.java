@@ -1,6 +1,7 @@
 package com.epam.lab.library.dao.impl;
 
 import com.epam.lab.library.dao.LibDAO;
+import com.epam.lab.library.domain.AccessLevel;
 import com.epam.lab.library.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -56,7 +57,7 @@ public class LibDaoImpl implements LibDAO {
     }
 
     @Override
-    public void updateUserAccessLevel(Long id, String access_level) {
-        jdbcOperations.update(UPDATE_USER_ACCESS_LEVEL, access_level, id);
+    public void updateUserAccessLevel(Long id, AccessLevel accessLevel) {
+        jdbcOperations.update(UPDATE_USER_ACCESS_LEVEL, accessLevel.toString(), id);
     }
 }

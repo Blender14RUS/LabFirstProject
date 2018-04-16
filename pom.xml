@@ -40,13 +40,6 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.webjars.bower/jquery -->
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.2.1</version>
-        </dependency>
-
     </dependencies>
 
     <properties>

@@ -1,5 +1,6 @@
 package com.epam.lab.library.web.controller;
 
+import com.epam.lab.library.domain.AccessLevel;
 import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.LibService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,6 @@ public class UserController {
     @RequestMapping("/admin")
     public String showAll (Model model){
         List<User> users = libService.getAllUsers();
-        //model.addAttribute("checked", );
         model.addAttribute("users",users);
         return  "adminBoard";
     }
@@ -49,10 +49,10 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "/user/update-access/{id}/{access_level}",method = RequestMethod.POST)
+    @RequestMapping(value = "/user/update-access/{id}/{accessLevel}",method = RequestMethod.POST)
     public String updateUserAccessLevel (@PathVariable("id") Long id,
-                                         @PathVariable("access_level") String access_level){
-        libService.updateUserAccessLevel(id, access_level);
+                                         @PathVariable("accessLevel") AccessLevel accessLevel){
+        libService.updateUserAccessLevel(id, accessLevel);
         return "redirect:/admin";
     }
 

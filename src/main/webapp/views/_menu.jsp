@@ -15,10 +15,6 @@
             <li><a href="${pageContext.request.contextPath}/admin">Admin board </a></li>
             <li><a href="${pageContext.request.contextPath}/registration">Add user</a></li>
         </ul>
-        <!--<ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>-->
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">

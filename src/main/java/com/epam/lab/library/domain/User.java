@@ -8,19 +8,22 @@ public class User {
     private String login;
     private String pass;
     private String name;
-    private String access_level;
+
+    private AccessLevel accessLevel;
 
     public User() {}
 
-    public User(Long id, String login) {
+    public User(Long id, String login, String pass, String name, AccessLevel accessLevel) {
         this.id = id;
         this.login = login;
+        this.pass = pass;
+        this.name = name;
+        this.accessLevel = accessLevel;
     }
 
     public User(Long id, String login, String name) {
         this.id = id;
         this.login = login;
-        this.name = name;
     }
 
     public Long getId() {
@@ -55,11 +58,11 @@ public class User {
         this.name = name;
     }
 
-    public String getAccess_level() {
-        return access_level;
+    public AccessLevel getAccessLevel() {
+        return accessLevel;
     }
 
-    public void setAccess_level(String access_level) {
-        this.access_level = access_level;
+    public void setAccessLevel(AccessLevel accessLevel) {
+        this.accessLevel = accessLevel;
     }
 }
