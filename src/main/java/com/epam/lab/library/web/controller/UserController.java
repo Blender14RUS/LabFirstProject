@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
+import static com.epam.lab.library.domain.Status.GIVEN;
+import static com.epam.lab.library.domain.Status.IN_LIBRARY;
+import static com.epam.lab.library.domain.Status.REQUESTED;
+
 @Controller
 public class UserController {
 
@@ -25,27 +29,27 @@ public class UserController {
 
     @RequestMapping("/requests")
     public String librarianRequestsForBooksIssue(Model model) {
-        List<Order> orders = libService.getAllOrderByStatus(Status.REQUESTED);
+        List<Order> orders = libService.getAllOrderByStatus(REQUESTED);
         model.addAttribute("orders", orders);
         return "librarianRequestsForBooksIssue";
     }
 
     @RequestMapping("/given-books")
     public String librarianGivenBooks(Model model) {
-        List<Order> orders = libService.getAllOrderByStatus(Status.GIVEN);
+        List<Order> orders = libService.getAllOrderByStatus(GIVEN);
         model.addAttribute("orders", orders);
         return "librarianGivenBooks";
     }
 
     @RequestMapping(value = "/give/{id}", method = RequestMethod.POST)
     public String giveBook(@PathVariable("id") Long id) {
-        libService.setBookStatus(Status.GIVEN, id);
+        libService.setBookStatus(GIVEN, id);
         return "redirect:/requests";
     }
 
     @RequestMapping(value = "/return/{id}", method = RequestMethod.POST)
     public String returnBook(@PathVariable("id") Long id) {
-        libService.setBookStatus(Status.IN_LIBRARY, id);
+        libService.setBookStatus(IN_LIBRARY, id);
         return "redirect:/given-books";
     }
 }
