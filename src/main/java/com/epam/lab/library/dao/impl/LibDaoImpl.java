@@ -20,6 +20,9 @@ import java.util.List;
 public class LibDaoImpl implements LibDao {
 
     @Autowired
+    JdbcOperations jdbcOperations;
+
+    @Autowired
     NamedParameterJdbcOperations namedParameterJdbcOperations;
 
     private static final String ADD_BOOK = "INSERT INTO books (id, title, year, available) " +
@@ -32,6 +35,7 @@ public class LibDaoImpl implements LibDao {
         namedParameterJdbcOperations.update(ADD_BOOK, params, keyHolder, new String[]{"id"});
         book.setId(keyHolder.getKey().longValue());
         return book;
+    }
       
     private static final String GET_ALL_ORDER_BY_STATUS = "SELECT * FROM orders WHERE status = ?";
     private static final String SET_BOOK_STATUS = "UPDATE orders SET status = ? WHERE id = ?";

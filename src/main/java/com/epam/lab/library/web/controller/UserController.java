@@ -1,8 +1,6 @@
 package com.epam.lab.library.web.controller;
 
-import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
 import com.epam.lab.library.service.LibService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
