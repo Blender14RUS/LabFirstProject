@@ -1,24 +1,46 @@
-package com.epam.lab.library.domain;
-
-import java.util.Objects;
-
 /**
+ * Class Book with properties <b>id</b>, <b>title</b>, <b>year</b> and <b>available</b>.
  *
  * @autor Igor Ukrainets
+ * @version 0.1
  */
-public class Book {
+package com.epam.lab.library.domain;
 
+import java.util.List;
+import java.util.Objects;
+
+public class Book {
+    /**
+     * Id of this book
+     */
     private Long id;
+    /**
+     * Full book title without name of author
+     */
+
     private String title;
+    /**
+     * Publication Date
+     */
+
     private int year;
+    /**
+     * Count available copy this book
+     */
     private int available;
+    /**
+     * Contains all authors of a book
+     */
+    private List<Author> authors;
 
     /**
-     * Constructor directly set all fields.
-     * @param id
-     * @param title
-     * @param year
-     * @param available
+     * Creates a new Book with the given param.
+     *
+     * @param id        {@link Book#id}
+     * @param title     {@link Book#title}
+     * @param year      {@link Book#year}
+     * @param available {@link Book#available}
+     * @return int This returns sum of numA and numB.
      */
     public Book(Long id, String title, int year, int available) {
         this.id = id;
@@ -27,6 +49,7 @@ public class Book {
         this.available = available;
     }
 
+    public Book(){}
     /**
      * Constructor without id.
      * Useful for create book instance to the database.
@@ -72,6 +95,14 @@ public class Book {
         this.available = available;
     }
 
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, title, year);
@@ -92,4 +123,7 @@ public class Book {
                 id, title, year, available);
     }
 
+
 }
+
+

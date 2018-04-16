@@ -14,10 +14,10 @@
         <ul class="nav navbar-nav">
             <li><a href="${pageContext.request.contextPath}/users">Users </a></li>
             <li><a href="${pageContext.request.contextPath}/register">Add User</a></li>
+            <li><a href="${pageContext.request.contextPath}/books">View books</a></li>
         </ul>
     </div>
 </nav>
 </div>
-
 
 </body>

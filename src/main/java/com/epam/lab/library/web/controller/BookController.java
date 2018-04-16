@@ -7,9 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class BookController {
@@ -24,12 +27,23 @@ public class BookController {
         return "addBook";
     }
 
+    @RequestMapping("/books")
+    public String viewAllBooks(Model model){
+        List<Book> books = libService.getAllBooks();
+        model.addAttribute("books",books);
+        return "book-list";
+    }
+
+    @RequestMapping(value="/books/view/{id}",method = RequestMethod.POST)
+    public String viewBook(@PathVariable("id") Long id){
+        return "viewBook";
+    }
+
     @RequestMapping(value = "/create-book", method = RequestMethod.POST)
     public String createBook(@RequestParam("title") String title, @RequestParam("year") int year,
                              @RequestParam("available") int available) {
-        Book book = libService.addBook(new Book( title, year, available));
+        Book book = libService.addBook(new Book(title, year, available));
         LOG.info("Add book: " + book.toString());
         return book.getId() == null ? "bookCreationFailure" : "redirect:/index";
     }
-
 }

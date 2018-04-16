@@ -18,5 +18,7 @@ public interface LibDao {
 
     List<Order> getAllOrderByStatus(Status status);
 
+    List<Book> getAllBooks();
+
     void setBookStatus(Status status, Long id);
 }

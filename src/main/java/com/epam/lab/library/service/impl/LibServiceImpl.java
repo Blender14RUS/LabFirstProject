@@ -15,9 +15,7 @@ import java.util.List;
 
 @Service
 public class LibServiceImpl implements LibService {
-
     private static final Logger LOG = LoggerFactory.getLogger(LibServiceImpl.class);
-
     private LibDao libDao;
 
     @Autowired
@@ -26,6 +24,10 @@ public class LibServiceImpl implements LibService {
     }
 
     @Override
+    public List<Book> getAllBooks(){
+        return libDao.getAllBooks();
+    }
+
     public Book addBook(Book book) {
         try {
             book = libDao.addBook(book);

@@ -1,5 +1,7 @@
 package com.epam.lab.library.web.controller;
 
+
+import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.domain.Order;
 import com.epam.lab.library.service.LibService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import java.util.List;
 
 import static com.epam.lab.library.domain.Status.GIVEN;
 import static com.epam.lab.library.domain.Status.IN_LIBRARY;
 import static com.epam.lab.library.domain.Status.REQUESTED;
+
 
 @Controller
 public class UserController {
@@ -52,3 +54,4 @@ public class UserController {
         return "redirect:/given-books";
     }
 }
+
