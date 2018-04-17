@@ -1,27 +1,11 @@
-package com.epam.lab.library.service;
+package com.epam.lab.library.dao;
 
 import com.epam.lab.library.domain.*;
-import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
-public interface LibService {
-    /**
-    * Returns list of Books
-    * @return books
-     */
-    List<Book> getAllBooks();
-     /**
-     * Creates new book
-     *
-     * @param book book to be created
-     * @return book with id
-     */
-    Book addBook(Book book) throws DataAccessException;
+public interface UserDao {
 
-    List<Order> getAllOrderByStatus(Status status);
-
-    void setBookStatus(Status status, Long id);
     /**
      * Takes user data from database by user id
      *
@@ -59,5 +43,7 @@ public interface LibService {
      * @param accessLevel current value of user access level
      */
     void updateUserAccessLevel(Long id, AccessLevel accessLevel);
+
+    List<Order> getAllOrderByStatus(Status status);
 
 }

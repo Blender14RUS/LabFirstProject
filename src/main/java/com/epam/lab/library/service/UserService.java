@@ -1,10 +1,15 @@
-package com.epam.lab.library.dao;
+package com.epam.lab.library.service;
 
-import com.epam.lab.library.domain.*;
+import com.epam.lab.library.domain.AccessLevel;
+import com.epam.lab.library.domain.Order;
+import com.epam.lab.library.domain.Status;
+import com.epam.lab.library.domain.User;
 
 import java.util.List;
 
-public interface LibDao {
+public interface UserService {
+
+    List<Order> getAllOrderByStatus(Status status);
 
     /**
      * Takes user data from database by user id
@@ -39,21 +44,9 @@ public interface LibDao {
     /**
      * Changes user access level (READER / LIBRARIAN)
      *
-     * @param id It's id of user which access level must be changed
+     * @param id          It's id of user which access level must be changed
      * @param accessLevel current value of user access level
      */
     void updateUserAccessLevel(Long id, AccessLevel accessLevel);
-    /**
-     * Creates new book
-     *
-     * @param book book to be created
-     * @return book with id
-     */
-    Book addBook(Book book);
 
-    List<Order> getAllOrderByStatus(Status status);
-
-    List<Book> getAllBooks();
-
-    void setBookStatus(Status status, Long id);
 }

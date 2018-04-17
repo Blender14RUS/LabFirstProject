@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS public.orders
 (
   id       BIGINT                NOT NULL,
   user_id  BIGINT                NOT NULL,
-  book_id  BIGIT                 NOT NULL,
+  book_id  BIGINT                NOT NULL,
   location CHARACTER VARYING(30) NOT NULL,
   status   CHARACTER VARYING(30) NOT NULL,
   PRIMARY KEY (id)
