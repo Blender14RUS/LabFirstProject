@@ -24,19 +24,19 @@ public class BookController {
 
     @RequestMapping("/addBook")
     public String addBook(Model model) {
-        return "addBook";
+        return "librarian/addBook";
     }
 
     @RequestMapping("/books")
     public String viewAllBooks(Model model){
         List<Book> books = libService.getAllBooks();
         model.addAttribute("books",books);
-        return "book-list";
+        return "common/bookList";
     }
 
     @RequestMapping(value="/books/view/{id}",method = RequestMethod.POST)
     public String viewBook(@PathVariable("id") Long id){
-        return "viewBook";
+        return "common/viewBook";
     }
 
     @RequestMapping(value = "/create-book", method = RequestMethod.POST)
@@ -44,6 +44,6 @@ public class BookController {
                              @RequestParam("available") int available) {
         Book book = libService.addBook(new Book(title, year, available));
         LOG.info("Add book: " + book.toString());
-        return book.getId() == null ? "bookCreationFailure" : "redirect:/index";
+        return book.getId() == null ? "bookCreationFailure" : "redirect:/common/index";
     }
 }

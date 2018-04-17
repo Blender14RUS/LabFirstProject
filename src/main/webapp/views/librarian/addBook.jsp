@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<jsp:include page="_menu.jsp"></jsp:include>
+<jsp:include page="../common/_menu.jsp"></jsp:include>
 
 <div class="col-sm-6">
     <form method="POST" action="/create-book">
