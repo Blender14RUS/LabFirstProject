@@ -1,4 +1,4 @@
-package com.epam.lab.library.config;
+package com.epam.lab.library;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
