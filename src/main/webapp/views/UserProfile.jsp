@@ -14,7 +14,7 @@
 <div class="col-md-2 col-md-offset-5 center-pill">
     <div class="panel panel-info ">
         <div class="panel-heading">
-            <h2 class="panel-title">${user.access_level}</h2>
+            <h2 class="panel-title">${user.accessLevel}</h2>
         </div>
         <div class="panel-body">
             <table class="table table-condensed table-hover table-borderless">
