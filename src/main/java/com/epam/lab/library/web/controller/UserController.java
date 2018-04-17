@@ -24,32 +24,32 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/index"})
     public String defaultPage(Model model) {
-        return "index";
+        return "common/index";
     }
 
-    @RequestMapping("/requests")
+    @RequestMapping("/requested-books")
     public String librarianRequestsForBooksIssue(Model model) {
         List<Order> orders = libService.getAllOrderByStatus(REQUESTED);
         model.addAttribute("orders", orders);
-        return "librarianRequestsForBooksIssue";
+        return "librarian/requestedBooks";
     }
 
-    @RequestMapping("/given-books")
+    @RequestMapping("/returned-books")
     public String librarianGivenBooks(Model model) {
         List<Order> orders = libService.getAllOrderByStatus(GIVEN);
         model.addAttribute("orders", orders);
-        return "librarianGivenBooks";
+        return "librarian/returnedBooks";
     }
     @RequestMapping("/admin")
     public String showAll (Model model){
         List<User> users = libService.getAllUsers();
         model.addAttribute("users",users);
-        return  "adminBoard";
+        return  "admin/adminBoard";
     }
 
     @RequestMapping("/registration")
     public String register (Model model){
-        return "registration";
+        return "user/registration";
     }
 
     @RequestMapping(value="/user/create", method = RequestMethod.POST )
@@ -68,7 +68,7 @@ public class UserController {
     @RequestMapping(value = "/give/{id}", method = RequestMethod.POST)
     public String giveBook(@PathVariable("id") Long id) {
         libService.setBookStatus(GIVEN, id);
-        return "redirect:/requests";
+        return "redirect:/requested-books";
     }
     @RequestMapping(value = "/user/update-access/{id}/{accessLevel}",method = RequestMethod.POST)
     public String updateUserAccessLevel (@PathVariable("id") Long id,
@@ -81,12 +81,12 @@ public class UserController {
     public String userProfile (Model model){
         User user = libService.getUser(1L);
         model.addAttribute(user);
-        return "UserProfile";
+        return "user/UserProfile";
     }
 
     @RequestMapping(value = "/return/{id}", method = RequestMethod.POST)
     public String returnBook(@PathVariable("id") Long id) {
         libService.setBookStatus(IN_LIBRARY, id);
-        return "redirect:/given-books";
+        return "redirect:/returned-books";
     }
 }
