@@ -31,8 +31,9 @@ public class BookController {
     }
 
     @RequestMapping("/books")
-    public String viewAllBooks(Model model){
-        List<Book> books = bookService.getAllBooks();
+    public String viewBooks(Model model,@RequestParam(value="bookTitle", defaultValue = "") String bookTitle,
+                            @RequestParam(value = "available",required = false) boolean showNotAvailable){
+        List<Book> books = bookService.getBooks(bookTitle,showNotAvailable);
         model.addAttribute("books",books);
         return "common/bookList";
     }

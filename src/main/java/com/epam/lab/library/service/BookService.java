@@ -18,11 +18,11 @@ public interface BookService {
     Book addBook(Book book, String authors);
 
     /**
-     * Get all book with authors
+     * Returns list of Books
      *
-     * @return List of book
+     * @return books
      */
-    List<Book> getAllBooks();
+    List<Book> getBooks(String searchingTitle, boolean showNotAvailable);
 
     /**
      * Set book status

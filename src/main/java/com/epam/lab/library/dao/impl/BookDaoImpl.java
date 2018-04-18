@@ -3,6 +3,7 @@ package com.epam.lab.library.dao.impl;
 import com.epam.lab.library.dao.BookDao;
 import com.epam.lab.library.domain.Author;
 import com.epam.lab.library.domain.Book;
+import com.epam.lab.library.domain.Filter;
 import com.epam.lab.library.domain.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,8 +58,9 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<Book> getAllBooks() {
-        List<Book> books = jdbcOperations.query(GET_ALL_AVAILABLE_BOOKS, new BeanPropertyRowMapper<Book>(Book.class));
+    public List<Book> getBooks(String searchingTitle,boolean showNotAvailable) {
+        Filter filter= new Filter(searchingTitle,showNotAvailable);
+        List<Book> books = jdbcOperations.query(filter.getSelect(), new BeanPropertyRowMapper<Book>(Book.class));
         for (Book b : books) {
             b.setAuthors(jdbcOperations.query(GET_AUTHORS, new BeanPropertyRowMapper<Author>(Author.class), b.getId()));
         }
