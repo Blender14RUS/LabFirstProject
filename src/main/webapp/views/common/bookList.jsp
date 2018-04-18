@@ -44,6 +44,15 @@
         </c:forEach>
         </tbody>
     </table>
+    <form action="/books" method="POST">
+        <td><input name="bookTitle" class="form-control" placeholder="Enter the title"></td>
+        <label class="switch">
+            <input type="checkbox" name="available">
+            <span class="slider round">Show books that not available</span>
+        </label>
+        <button type="submit" class="btn btn-primary"> Search
+        </button>
+    </form>
 </div>
 </body>
 </html>

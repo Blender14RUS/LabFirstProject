@@ -17,11 +17,12 @@ public interface BookDao {
     Book addBook(Book book);
 
     /**
-     * Get all book with authors
+     * Selects list of books
      *
-     * @return List of book
+     * @param searchingTitle
+     * @return
      */
-    List<Book> getAllBooks();
+    List<Book> getBooks(String searchingTitle,boolean showNotAvailable);
 
     /**
      * Set book status
