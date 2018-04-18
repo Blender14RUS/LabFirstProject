@@ -1,17 +1,15 @@
 package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.BookDao;
-import com.epam.lab.library.dao.UserDao;
 import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.service.BookService;
-import com.epam.lab.library.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class BookServiceImplTest {
+class BookServiceImplTest {
     private BookDao mockBookDao;
     private BookService bookService;
 

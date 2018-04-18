@@ -1,10 +1,8 @@
 package com.epam.lab.library.dao.impl;
 
+import com.epam.lab.library.dao.BookDao;
 import com.epam.lab.library.dao.UserDao;
-import com.epam.lab.library.domain.AccessLevel;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
-import com.epam.lab.library.domain.User;
+import com.epam.lab.library.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,26 +17,29 @@ public class UserDaoImpl implements UserDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserDaoImpl.class);
 
-    private static final String GET_USERS_BY_ID = "SELECT * FROM users WHERE id=?";
+    private static final String GET_USERS_BY_ID = "SELECT * FROM users WHERE id = ?";
     private static final String GET_ALL_USERS = "SELECT * FROM users ORDER BY id";
     private static final String CREATE_NEW_USER = "INSERT INTO users (id, login, name, access_level, pass) " +
             "VALUES (nextval('users_seq'),?,?,'READER','pass')";
-    private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id=?";
+    private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id = ?";
     private static final String UPDATE_USER_ACCESS_LEVEL = "UPDATE users SET access_level = ? WHERE id = ?";
     private static final String GET_ALL_ORDER_BY_STATUS = "SELECT * FROM orders WHERE status = ?";
+    private static final String GET_ALL_USER_ORDERS = "SELECT * FROM orders WHERE id = ?";
+
+    @Autowired
+    private BookDao bookDao;
 
     @Autowired
     private JdbcOperations jdbcOperations;
 
     @Override
     public User getUser(Long id) {
-        User user = (User) jdbcOperations.queryForObject(GET_USERS_BY_ID, new Object[]{id}, new BeanPropertyRowMapper(User.class));
-        return user;
+        return jdbcOperations.queryForObject(GET_USERS_BY_ID, new Object[]{id}, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = jdbcOperations.query(GET_ALL_USERS, new BeanPropertyRowMapper<User>(User.class));
+        List<User> users = jdbcOperations.query(GET_ALL_USERS, new BeanPropertyRowMapper<>(User.class));
         return !users.isEmpty() ? users : null;
     }
 
@@ -60,6 +61,15 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<Order> getAllOrderByStatus(Status status) {
         return jdbcOperations.query(GET_ALL_ORDER_BY_STATUS, new BeanPropertyRowMapper<>(Order.class), status.toString());
+    }
+
+    @Override
+    public List<Order> getAllUserOrders(Long id) {
+        List<Order> orders = jdbcOperations.query(GET_ALL_USER_ORDERS, new BeanPropertyRowMapper<>(Order.class), id);
+        for (Order order : orders) {
+            order.setBook(bookDao.getBook(order.getBookId()));
+        }
+        return orders;
     }
 
 }

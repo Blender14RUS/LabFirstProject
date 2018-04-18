@@ -1,10 +1,7 @@
 package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.UserDao;
-import com.epam.lab.library.domain.AccessLevel;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
-import com.epam.lab.library.domain.User;
+import com.epam.lab.library.domain.*;
 import com.epam.lab.library.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +52,11 @@ public class UserServiceImpl implements UserService {
             accessLevel = AccessLevel.LIBRARIAN;
         else accessLevel = AccessLevel.READER;
         userDao.updateUserAccessLevel(id, accessLevel);
+    }
+
+    @Override
+    public List<Order> getAllUserOrders(Long id) {
+        return userDao.getAllUserOrders(id);
     }
 
 }
