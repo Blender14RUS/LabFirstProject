@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<link rel="stylesheet" type="text/css" href="css/custom.css"/>
-<script src="jquery/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../../css/custom.css"/>
+<script src="../../jquery/jquery-3.3.1.min.js"></script>
 
 <html>
 <head>

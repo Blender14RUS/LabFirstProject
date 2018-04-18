@@ -8,6 +8,7 @@ public class Order {
     private Long bookId;
     private Location location;
     private Status status;
+    private Book book;
 
     public Order() { }
 
@@ -57,6 +58,14 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = Status.valueOf(status);
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     @Override
