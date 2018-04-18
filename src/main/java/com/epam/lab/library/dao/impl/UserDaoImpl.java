@@ -27,9 +27,6 @@ public class UserDaoImpl implements UserDao {
     private static final String GET_ALL_USER_ORDERS = "SELECT * FROM orders WHERE id = ?";
 
     @Autowired
-    private BookDao bookDao;
-
-    @Autowired
     private JdbcOperations jdbcOperations;
 
     @Override
@@ -65,11 +62,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<Order> getAllUserOrders(Long id) {
-        List<Order> orders = jdbcOperations.query(GET_ALL_USER_ORDERS, new BeanPropertyRowMapper<>(Order.class), id);
-        for (Order order : orders) {
-            order.setBook(bookDao.getBook(order.getBookId()));
-        }
-        return orders;
+        return jdbcOperations.query(GET_ALL_USER_ORDERS, new BeanPropertyRowMapper<>(Order.class), id);
     }
 
 }
