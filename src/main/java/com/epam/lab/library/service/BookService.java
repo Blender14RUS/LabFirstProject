@@ -22,7 +22,7 @@ public interface BookService {
      *
      * @return books
      */
-    List<Book> getBooks(String searchingTitle, boolean showNotAvailable);
+    List<Book> getBooks(String searchingTitle, boolean showNotAvailable,String sortType);
 
     /**
      * Set book status

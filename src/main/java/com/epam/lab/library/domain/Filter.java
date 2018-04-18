@@ -9,7 +9,7 @@ public class Filter {
 
     public Filter(){}
 
-    public Filter(String searchingTitle,boolean showNotAvailable){
+    public Filter(String searchingTitle,boolean showNotAvailable,String sortType){
         boolean hasWhere=false;
         if (!searchingTitle.equals("")){
             select+="WHERE title LIKE '%"+searchingTitle+"%'";
@@ -22,8 +22,28 @@ public class Filter {
                 select+="WHERE books.available!=0";
                 hasWhere=true;
             }
+        select+=getSort(sortType);
     }
 
+    private String getSort(String sortType){
+        String sort="ORDER BY ";
+        if(sortType.equals("alphabet")){
+            return sort+"title ASC";
+        }
+        if(sortType.equals("alphabetRev")){
+            return sort+"title DESC";
+        }
+        if(sortType.equals("year")){
+            return sort+"year";
+        }
+        if(sortType.equals("amountL")){
+            return sort+"available ASC";
+        }
+        if(sortType.equals("amountH")){
+            return sort+"available DESC";
+        }
+        return "";
+    }
 
     public String getSelect() {
         return select;
