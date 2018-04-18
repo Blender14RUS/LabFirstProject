@@ -22,7 +22,7 @@ public interface BookDao {
      * @param searchingTitle
      * @return
      */
-    List<Book> getBooks(String searchingTitle,boolean showNotAvailable);
+    List<Book> getBooks(String searchingTitle,boolean showNotAvailable,String sortType);
 
     /**
      * Set book status

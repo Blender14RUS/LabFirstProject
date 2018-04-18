@@ -46,8 +46,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBooks(String searchingTitle,boolean showNotAvailable){
-        return bookDao.getBooks(searchingTitle,showNotAvailable);
+    public List<Book> getBooks(String searchingTitle,boolean showNotAvailable,String sortType){
+        return bookDao.getBooks(searchingTitle,showNotAvailable,sortType);
     }
 
     @Override
