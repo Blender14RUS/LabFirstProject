@@ -44,6 +44,20 @@ public interface UserDao {
      */
     void updateUserAccessLevel(Long id, AccessLevel accessLevel);
 
+    /**
+     * Get all orders by status
+     *
+     * @param status status of the book
+     * @return List of all orders by status
+     */
     List<Order> getAllOrderByStatus(Status status);
+
+    /**
+     * Get all user's orders
+     *
+     * @param id user's id
+     * @return list of all user's orders
+     */
+    List<Order> getAllUserOrders(Long id);
 
 }

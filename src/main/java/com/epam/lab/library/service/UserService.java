@@ -1,9 +1,6 @@
 package com.epam.lab.library.service;
 
-import com.epam.lab.library.domain.AccessLevel;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
-import com.epam.lab.library.domain.User;
+import com.epam.lab.library.domain.*;
 
 import java.util.List;
 
@@ -49,4 +46,11 @@ public interface UserService {
      */
     void updateUserAccessLevel(Long id, AccessLevel accessLevel);
 
+    /**
+     * Get all user orders
+     *
+     * @param id user
+     * @return list of user's orders
+     */
+    List<Order> getAllUserOrders(Long id);
 }

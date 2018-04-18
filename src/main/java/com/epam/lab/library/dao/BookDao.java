@@ -57,4 +57,5 @@ public interface BookDao {
      */
     void createBookAuthors(Long book_id, List<Long> list_author_id);
 
+    Book getBook(Long bookId);
 }

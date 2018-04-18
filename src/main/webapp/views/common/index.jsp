@@ -2,6 +2,6 @@
 <html>
 <body>
 
-<jsp:include page="_menu.jsp"></jsp:include>
+<jsp:include page="../common/_menu.jsp"></jsp:include>
 
 </body>

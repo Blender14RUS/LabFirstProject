@@ -33,7 +33,8 @@ public class BookDaoImpl implements BookDao {
     private static final String CREATE_BOOK_AUTHORS = "INSERT INTO book_authors (book_id, author_id) VALUES (:book_id, :author_id)";
     private static final String GET_AUTHOR = "SELECT * FROM authors WHERE name = ?";
     private static final String GET_AUTHORS = "SELECT * FROM authors JOIN book_authors ON authors.id = book_authors.author_id WHERE book_authors.book_id=?";
-    private static final String GET_ALL_AVAILABLE_BOOKS = "SELECT * FROM books WHERE available!=0";
+    private static final String GET_ALL_AVAILABLE_BOOKS = "SELECT * FROM books WHERE available != 0";
+    private static final String GET_BOOK_BY_ID = "SELECT * FROM books WHERE id=?";
 
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -46,9 +47,9 @@ public class BookDaoImpl implements BookDao {
         int rowCount = jdbcOperations.queryForObject(GET_AUTHOR, new Object[]{name}, Integer.class);
         if (rowCount >= 0) {
             LOG.info("getAuthor: " + author.getId() + " " + author.getName());
-            return (Author) jdbcOperations.queryForObject(
+            return jdbcOperations.queryForObject(
                     GET_AUTHOR, new Object[]{name},
-                    new BeanPropertyRowMapper(Author.class));
+                    new BeanPropertyRowMapper<>(Author.class));
         }
         author.setId(null);
         author.setName(null);
@@ -58,9 +59,9 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> getAllBooks() {
-        List<Book> books = jdbcOperations.query(GET_ALL_AVAILABLE_BOOKS, new BeanPropertyRowMapper<Book>(Book.class));
+        List<Book> books = jdbcOperations.query(GET_ALL_AVAILABLE_BOOKS, new BeanPropertyRowMapper<>(Book.class));
         for (Book b : books) {
-            b.setAuthors(jdbcOperations.query(GET_AUTHORS, new BeanPropertyRowMapper<Author>(Author.class), b.getId()));
+            b.setAuthors(jdbcOperations.query(GET_AUTHORS, new BeanPropertyRowMapper<>(Author.class), b.getId()));
         }
         return books;
     }
@@ -114,6 +115,13 @@ public class BookDaoImpl implements BookDao {
             namedParameterJdbcOperations.update(CREATE_BOOK_AUTHORS, params);
             LOG.info(String.format("write book_id = %s, author_id = %s", book_id, author_id));
         }
+    }
+
+    @Override
+    public Book getBook(Long bookId) {
+        Book book = jdbcOperations.queryForObject(GET_BOOK_BY_ID, new Object[]{bookId}, new BeanPropertyRowMapper<>(Book.class));
+        book.setAuthors(jdbcOperations.query(GET_AUTHORS, new BeanPropertyRowMapper<>(Author.class), book.getId()));
+        return book;
     }
 
 }

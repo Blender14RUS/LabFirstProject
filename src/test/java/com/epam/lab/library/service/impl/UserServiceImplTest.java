@@ -1,7 +1,6 @@
 package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.UserDao;
-import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.domain.Location;
 import com.epam.lab.library.domain.Order;
 import com.epam.lab.library.domain.Status;
