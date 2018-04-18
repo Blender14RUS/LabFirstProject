@@ -2,6 +2,7 @@ package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.UserDao;
 import com.epam.lab.library.domain.*;
+import com.epam.lab.library.service.BookService;
 import com.epam.lab.library.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Autowired
+    private BookService bookService;
+
+    @Autowired
     UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -24,7 +28,6 @@ public class UserServiceImpl implements UserService {
     public List<Order> getAllOrderByStatus(Status status) {
         return userDao.getAllOrderByStatus(status);
     }
-
 
     @Override
     public User getUser(Long id) {
@@ -56,7 +59,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Order> getAllUserOrders(Long id) {
-        return userDao.getAllUserOrders(id);
+        List<Order> orders = userDao.getAllUserOrders(id);
+        for (Order order : orders) {
+            order.setBook(bookService.getBook(order.getBookId()));
+        }
+        return orders;
     }
 
 }

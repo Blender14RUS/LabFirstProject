@@ -34,7 +34,6 @@ public class BookDaoImpl implements BookDao {
     private static final String CREATE_BOOK_AUTHORS = "INSERT INTO book_authors (book_id, author_id) VALUES (:book_id, :author_id)";
     private static final String GET_AUTHOR = "SELECT * FROM authors WHERE name = ?";
     private static final String GET_AUTHORS = "SELECT * FROM authors JOIN book_authors ON authors.id = book_authors.author_id WHERE book_authors.book_id=?";
-    private static final String GET_ALL_AVAILABLE_BOOKS = "SELECT * FROM books WHERE available != 0";
     private static final String GET_BOOK_BY_ID = "SELECT * FROM books WHERE id=?";
 
     @Autowired
