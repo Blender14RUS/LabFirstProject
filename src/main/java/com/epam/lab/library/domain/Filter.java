@@ -12,14 +12,15 @@ public class Filter {
     public Filter(String searchingTitle,boolean showNotAvailable,String sortType){
         boolean hasWhere=false;
         if (!searchingTitle.equals("")){
-            select+="WHERE title LIKE '%"+searchingTitle+"%'";
+            select+="WHERE LOWER(title) LIKE LOWER(?) ";
+            this.searchingTitle=searchingTitle;
             hasWhere=true;
         }
         if (!showNotAvailable)
             if (hasWhere){
-                select+="AND books.available!=0";
+                select+="AND books.available!=0 ";
             }else {
-                select+="WHERE books.available!=0";
+                select+="WHERE books.available!=0 ";
                 hasWhere=true;
             }
         select+=getSort(sortType);

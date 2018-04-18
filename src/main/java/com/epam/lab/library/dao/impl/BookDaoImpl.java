@@ -35,7 +35,7 @@ public class BookDaoImpl implements BookDao {
     private static final String GET_AUTHOR = "SELECT * FROM authors WHERE name = ?";
     private static final String GET_AUTHORS = "SELECT * FROM authors JOIN book_authors ON authors.id = book_authors.author_id WHERE book_authors.book_id=?";
     private static final String GET_ALL_AVAILABLE_BOOKS = "SELECT * FROM books WHERE available!=0";
-
+    private static final String GET_BOOKS="SELECT * FROM books WHERE title LIKE ? AND books.available!=0 ORDER BY title ASC";
     @Autowired
     private JdbcOperations jdbcOperations;
     @Autowired
@@ -60,7 +60,10 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> getBooks(String searchingTitle,boolean showNotAvailable,String sortType) {
         Filter filter= new Filter(searchingTitle,showNotAvailable,sortType);
-        List<Book> books = jdbcOperations.query(filter.getSelect(), new BeanPropertyRowMapper<>(Book.class));
+        List<Book> books;
+        if (!searchingTitle.equals(""))
+        books = jdbcOperations.query(filter.getSelect(), new BeanPropertyRowMapper<>(Book.class),"%"+searchingTitle+"%");
+        else books = jdbcOperations.query(filter.getSelect(), new BeanPropertyRowMapper<>(Book.class));
         for (Book b : books) {
             b.setAuthors(jdbcOperations.query(GET_AUTHORS, new BeanPropertyRowMapper<>(Author.class), b.getId()));
         }
