@@ -61,7 +61,10 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> getBooks(String searchingTitle,boolean showNotAvailable,String sortType) {
         Filter filter= new Filter(searchingTitle,showNotAvailable,sortType);
-        List<Book> books = jdbcOperations.query(filter.getSelect(), new BeanPropertyRowMapper<>(Book.class));
+        List<Book> books;
+        if (!searchingTitle.equals(""))
+        books = jdbcOperations.query(filter.getSelect(), new BeanPropertyRowMapper<>(Book.class),"%"+searchingTitle+"%");
+        else books = jdbcOperations.query(filter.getSelect(), new BeanPropertyRowMapper<>(Book.class));
         for (Book b : books) {
             b.setAuthors(jdbcOperations.query(GET_AUTHORS, new BeanPropertyRowMapper<>(Author.class), b.getId()));
         }
