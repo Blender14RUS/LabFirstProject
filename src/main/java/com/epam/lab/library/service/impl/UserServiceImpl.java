@@ -7,6 +7,7 @@ import com.epam.lab.library.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,14 +16,16 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
     private UserDao userDao;
+    private final PasswordEncoder bcryptEncoder;
+
+    public UserServiceImpl(UserDao userDao, PasswordEncoder bcryptEncoder) {
+        this.userDao = userDao;
+        this.bcryptEncoder = bcryptEncoder;
+    }
 
     @Autowired
     private BookService bookService;
 
-    @Autowired
-    UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
-    }
 
     @Override
     public List<Order> getAllOrderByStatus(Status status) {
@@ -37,11 +40,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
-    }
-
-    @Override
-    public int createUser(User user) {
-        return userDao.createUser(user);
     }
 
     @Override
@@ -64,6 +62,16 @@ public class UserServiceImpl implements UserService {
             order.setBook(bookService.getBook(order.getBookId()));
         }
         return orders;
+    }
+
+    @Override
+    public boolean createUser(User user) {
+        if (userDao.isUserLoginAlreadyExists(user.getLogin())){ return false; }
+        else {
+            user.setPass(bcryptEncoder.encode(user.getPass()));
+            if (userDao.createUser(user)==0){ return false; }
+            else return true;
+        }
     }
 
 }

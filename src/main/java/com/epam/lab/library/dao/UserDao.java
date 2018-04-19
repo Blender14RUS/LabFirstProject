@@ -60,4 +60,18 @@ public interface UserDao {
      */
     List<Order> getAllUserOrders(Long id);
 
+    /**
+     *
+     * @param login
+     * @return
+     */
+    public User getUserByLogin(String login);
+
+    /**
+     *
+     * @param login
+     * @return
+     */
+    public boolean isUserLoginAlreadyExists(String login);
+
 }

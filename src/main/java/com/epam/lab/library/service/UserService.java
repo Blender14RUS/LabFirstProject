@@ -29,7 +29,7 @@ public interface UserService {
      * @param user - an instances of User filled with data must be recorded in the database
      * @return Count of changes rows in database
      */
-    int createUser(User user);
+    boolean createUser(User user);
 
     /**
      * Method removes user from database

@@ -2,6 +2,7 @@ package com.epam.lab.library.web.controller;
 
 import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.service.BookService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 import static com.epam.lab.library.domain.Status.GIVEN;
@@ -31,9 +33,11 @@ public class BookController {
     }
 
     @RequestMapping("/books")
-    public String viewBooks(Model model,@RequestParam(value="bookTitle", defaultValue = "") String bookTitle,
+    public String viewBooks(Model model, Principal principal, Authentication authentication, @RequestParam(value="bookTitle", defaultValue = "") String bookTitle,
                             @RequestParam(value = "available",required = false) boolean showNotAvailable,
                             @RequestParam(value= "sort",defaultValue = "alphabet") String sortType){
+        System.out.println(principal);
+        System.out.println(authentication);
         List<Book> books = bookService.getBooks(bookTitle,showNotAvailable,sortType);
         model.addAttribute("books",books);
         return "common/bookList";

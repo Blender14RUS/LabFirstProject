@@ -53,16 +53,17 @@ public class UserController {
         return "admin/adminBoard";
     }
 
-    @RequestMapping("/registration")
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String register(Model model) {
         return "user/registration";
     }
 
-    @RequestMapping(value = "/user/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String createUser(@RequestParam("login") String login,
-                             @RequestParam("name") String name) {
-        int insertedRowsCount = userService.createUser(new User(null, login, name));
-        return insertedRowsCount == 1 ? "redirect:/admin" : "creationFailure";
+                             @RequestParam("password") String pass) {
+        boolean isCreated = userService.createUser(new User(null, login, pass));
+        LOG.info("User has been created: " + login + " " + pass );
+        return isCreated  ? "redirect:/" : "redirect:/registration-failure";
     }
 
     @RequestMapping(value = "/user/delete/{id}", method = RequestMethod.POST)

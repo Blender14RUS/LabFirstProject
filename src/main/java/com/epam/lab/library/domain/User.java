@@ -19,9 +19,10 @@ public class User {
         this.accessLevel = accessLevel;
     }
 
-    public User(Long id, String login, String name) {
+    public User(Long id, String login, String pass) {
         this.id = id;
         this.login = login;
+        this.pass = pass;
     }
 
     public Long getId() {
