@@ -1,7 +1,9 @@
 package com.epam.lab.library.web.controller;
 
-import com.epam.lab.library.domain.Book;
+import com.epam.lab.library.domain.*;
 import com.epam.lab.library.service.BookService;
+import com.epam.lab.library.service.UserService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 import static com.epam.lab.library.domain.Status.GIVEN;
@@ -27,8 +30,15 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @RequestMapping("/addBook")
-    public String addBook(Model model) {
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping("/books/addBook")
+    public String addBook(Model model, @RequestParam(value = "id", required = false) Long bookId) {
+        if (bookId != null) {
+            Book book = bookService.getBook(bookId);
+            model.addAttribute("book", book);
+        }
         return "librarian/addBook";
     }
 
@@ -58,28 +68,48 @@ public class BookController {
     }
 
     @RequestMapping(value = "/books/view/{id}", method = RequestMethod.POST)
-    public String viewBook(@PathVariable("id") Long id) {
+    public String viewBook(Model model, @PathVariable("id") Long id) {
+        Book book = bookService.getBook(id);
+        model.addAttribute("book", book);
         return "common/viewBook";
     }
 
-    @RequestMapping(value = "/create-book", method = RequestMethod.POST)
+    @RequestMapping(value = "/books/create-book", method = RequestMethod.POST)
     public String createBook(@RequestParam("title") String title, @RequestParam("year") int year,
-                             @RequestParam("authors") String authors, @RequestParam("available") int available) {
-        Book book = bookService.addBook(new Book(title, year, available), authors);
-        LOG.info("Add book: " + book.toString());
-        return book.getId() == null ? "bookCreationFailure" : "redirect:/common/bookList";
+                             @RequestParam("author") String author, @RequestParam("available") int available) {
+        Book book = bookService.addBook(new Book(null, title, year, available), author);
+        return book.getId() == null ? "bookCreationFailure" : "redirect:/books";
     }
 
-    @RequestMapping(value = "/give/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/books/give/{id}", method = RequestMethod.POST)
     public String giveBook(@PathVariable("id") Long id) {
         bookService.setBookStatus(GIVEN, id);
         return "redirect:/requested-books";
     }
 
-    @RequestMapping(value = "/return/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/books/return/{id}", method = RequestMethod.POST)
     public String returnBook(@PathVariable("id") Long id) {
         bookService.setBookStatus(IN_LIBRARY, id);
         return "redirect:/returned-books";
+    }
+
+    @RequestMapping(value = "/books/request/{id}", method = RequestMethod.POST)
+    public String requestBook(@PathVariable("id") Long bookId, @RequestParam("location") Location location, Principal principal) {
+        User user = userService.getUserByLogin(principal.getName());
+        Order order = new Order(null, user.getId(), bookId, location, Status.REQUESTED);
+        bookService.requestBook(order);
+        return order.getId() == null ? "bookCreationFailure" : "redirect:/user/orders/" + user.getId();
+    }
+
+    @RequestMapping(value = "/books/edit", method = RequestMethod.POST)
+    public String editBook(Model model, @RequestParam("title") String title, @RequestParam("year") int year,
+                           @RequestParam("authors") String authors, @RequestParam("available") int available,
+                           @RequestParam("id") Long id) {
+        Book book = new Book(id, title, year, available);
+        bookService.updateBook(book, authors);
+        book = bookService.getBook(id);
+        model.addAttribute("book", book);
+        return "/common/viewBook";
     }
 
 }

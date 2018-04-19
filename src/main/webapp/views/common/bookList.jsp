@@ -11,7 +11,7 @@
 <jsp:include page="../layout/_menu.jsp"></jsp:include>
 <div class="container">
     <h2>Catalog</h2>
-    <form action="/${pageContext.request.contextPath}/books" method="POST">
+    <form action="${pageContext.request.contextPath}/books" method="POST">
         <input name="bookTitle" class="form-control" placeholder="Enter the title">
         Show books that not available
         <label class="switch">
