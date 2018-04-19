@@ -9,7 +9,8 @@ public class Order {
     private Location location;
     private Status status;
 
-    public Order() { }
+    public Order() {
+    }
 
     public Order(Long id, Long userId, Long bookId, Location location, Status status) {
         this.id = id;

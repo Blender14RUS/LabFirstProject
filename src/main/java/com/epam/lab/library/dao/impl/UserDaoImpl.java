@@ -32,13 +32,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUser(Long id) {
-        User user = (User) jdbcOperations.queryForObject(GET_USERS_BY_ID, new Object[]{id}, new BeanPropertyRowMapper(User.class));
+        User user = jdbcOperations.queryForObject(GET_USERS_BY_ID, new Object[]{id}, new BeanPropertyRowMapper<>(User.class));
         return user;
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = jdbcOperations.query(GET_ALL_USERS, new BeanPropertyRowMapper<User>(User.class));
+        List<User> users = jdbcOperations.query(GET_ALL_USERS, new BeanPropertyRowMapper<>(User.class));
         return !users.isEmpty() ? users : null;
     }
 

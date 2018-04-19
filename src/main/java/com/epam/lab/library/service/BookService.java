@@ -1,7 +1,7 @@
 package com.epam.lab.library.service;
 
-import com.epam.lab.library.domain.Author;
 import com.epam.lab.library.domain.Book;
+import com.epam.lab.library.domain.Order;
 import com.epam.lab.library.domain.Status;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public interface BookService {
     /**
      * Creates new book with all authors
      *
-     * @param book an instances of Book filled with data (not include id) must be recorded in the database
+     * @param book    an instances of Book filled with data (not include id) must be recorded in the database
      * @param authors String with all names authors
      * @return instances of Book with id
      */
@@ -32,14 +32,6 @@ public interface BookService {
      */
     void setBookStatus(Status status, Long id);
 
-    /**
-     * Takes author data from database by author name
-     * if author with such name does not exist in database - inserting author
-     *
-     * @param name
-     * @return
-     */
-    Author getAuthor(String name);
 
     /**
      * Splitting names and added author_id to list
@@ -58,4 +50,9 @@ public interface BookService {
      */
     void createBookAuthors(Long book_id, List<Long> list_author_id);
 
+    Book getBook(Long book_id);
+
+    Book editBook(Book book, String authors);
+
+    Order requestBook(Order order);
 }
