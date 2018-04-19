@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="../../bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <script src="../../jquery/jquery-3.3.1.min.js"></script>
     <script src="../../bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/custom.css"/>
 </head>
 <body>
 <nav class="navbar navbar-inverse">

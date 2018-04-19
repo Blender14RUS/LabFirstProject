@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link rel="stylesheet" type="text/css" href="css/custom.css"/>
+<link rel="stylesheet" type="text/css" href="../../css/custom.css"/>
 
 <html>
 <head>
@@ -29,8 +29,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Password:</td>
-                    <td>${user.pass}</td>
+                    <td>Change password</td>
+                    <td></td>
                     <td>
                         <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-pencil"></span>

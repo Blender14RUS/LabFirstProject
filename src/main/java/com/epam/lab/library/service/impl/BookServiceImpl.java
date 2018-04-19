@@ -45,6 +45,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Book getBook(Long id) {
+        return bookDao.getBook(id);
+    }
+
+    @Override
     public List<Long> createAuthors(String names) {
         String[] arrayNames = names.split(",");
         List<Long> authorId = new ArrayList<>();
@@ -76,8 +81,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBooks(String searchingTitle, boolean showNotAvailable) {
-        return bookDao.getBooks(searchingTitle, showNotAvailable);
+    public List<Book> getBooks(String searchingTitle,boolean showNotAvailable,String sortType){
+        return bookDao.getBooks(searchingTitle,showNotAvailable,sortType);
     }
 
     @Override

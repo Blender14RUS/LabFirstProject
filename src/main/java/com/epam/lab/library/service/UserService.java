@@ -1,9 +1,6 @@
 package com.epam.lab.library.service;
 
-import com.epam.lab.library.domain.AccessLevel;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
-import com.epam.lab.library.domain.User;
+import com.epam.lab.library.domain.*;
 
 import java.util.List;
 
@@ -14,10 +11,10 @@ public interface UserService {
     /**
      * Takes user data from database by user id
      *
-     * @param id It's user id value in database
+     * @param login It's user unique login value in database
      * @return an instances of User filled with data from the database
      */
-    User getUser(Long id);
+    User getUserByLogin(String login);
 
     /**
      * Creates List of all users from database
@@ -32,7 +29,7 @@ public interface UserService {
      * @param user - an instances of User filled with data must be recorded in the database
      * @return Count of changes rows in database
      */
-    int createUser(User user);
+    boolean createUser(User user);
 
     /**
      * Method removes user from database
@@ -49,4 +46,11 @@ public interface UserService {
      */
     void updateUserAccessLevel(Long id, AccessLevel accessLevel);
 
+    /**
+     * Get all user orders
+     *
+     * @param id user
+     * @return list of user's orders
+     */
+    List<Order> getAllUserOrders(Long id);
 }
