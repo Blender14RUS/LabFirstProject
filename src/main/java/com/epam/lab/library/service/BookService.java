@@ -22,7 +22,7 @@ public interface BookService {
      *
      * @return books
      */
-    List<Book> getBooks(String searchingTitle, boolean showNotAvailable);
+    List<Book> getBooks(String searchingTitle, boolean showNotAvailable,String sortType);
 
     /**
      * Set book status
@@ -42,17 +42,11 @@ public interface BookService {
      */
     List<Long> createAuthors(String names);
 
-    /**
-     * Add author_id for book_id
-     *
-     * @param book_id        Book id
-     * @param list_author_id List of author for book
-     */
-    void createBookAuthors(Long book_id, List<Long> list_author_id);
-
-    Book getBook(Long book_id);
+    void createBookAuthors(Long bookId, List<Long> listAuthorId);
 
     Book editBook(Book book, String authors);
 
     Order requestBook(Order order);
+
+    Book getBook(Long id);
 }
