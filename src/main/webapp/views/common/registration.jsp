@@ -16,8 +16,8 @@ ${message}
     <br>
     <input name="name" placeholder="Name" value="${user.name}">
     <br>
-    <input type="password" id="pass" placeholder="Password" >
-    <input type="password" id="confirm-pass" placeholder="Confirm Password">
+    <input type="password" name="password" placeholder="Password" >
+    <input type="password" name="confirm-password" placeholder="Confirm Password">
     <br>
     <input type="submit" value="Create">
 </form>

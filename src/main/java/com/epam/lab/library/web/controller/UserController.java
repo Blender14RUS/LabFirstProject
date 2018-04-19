@@ -68,8 +68,8 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String createUser(Model model, @RequestParam("login") String login,
-                             @RequestParam("pass") String pass,
-                             @RequestParam("confirm-pass") String confPass,
+                             @RequestParam("password") String pass,
+                             @RequestParam("confirm-password") String confPass,
                              @RequestParam("name") String name) {
         User user = new User();
         user.setId(null);
