@@ -18,7 +18,7 @@
             <li><a href="${pageContext.request.contextPath}/">Add user(null)</a></li>
             <li><a href="${pageContext.request.contextPath}/requested-books">Requested books</a></li>
             <li><a href="${pageContext.request.contextPath}/returned-books">Returned books</a></li>
-            <li><a href="${pageContext.request.contextPath}/addBook">Add book</a></li>
+            <li><a href="${pageContext.request.contextPath}/book/addBook">Add book</a></li>
 
         </ul>
         <ul class="nav navbar-nav navbar-right">

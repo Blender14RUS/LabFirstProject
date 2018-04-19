@@ -6,7 +6,7 @@
 
 <c:if test="${empty book}">
     <div class="col-sm-6">
-        <form method="POST" action="/create-book">
+        <form method="POST" action="/book/create-book">
             <div class="form-group col-md-12">
                 <label>Title</label>
                 <input name="title" class="form-control" placeholder="War and Peace">
@@ -37,7 +37,7 @@
 
 <c:if test="${not empty book}">
     <div class="col-sm-6">
-        <form method="POST" action="/edit">
+        <form method="POST" action="/book/edit">
             <div class="form-group col-md-12">
                 <label>Title</label>
                 <input name="title" class="form-control" value="${book.title}">

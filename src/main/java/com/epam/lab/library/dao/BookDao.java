@@ -48,7 +48,7 @@ public interface BookDao {
 
     int checkBook(String title, int year);
 
-    void editBook(Book book);
+    void updateBook(Book book);
 
     int checkAuthor(String name);
 
@@ -59,5 +59,7 @@ public interface BookDao {
     void requestBook(Book book);
 
     Order createOrder(Order order);
+
+    int checkOrder(Long bookId, Long userId);
 
 }

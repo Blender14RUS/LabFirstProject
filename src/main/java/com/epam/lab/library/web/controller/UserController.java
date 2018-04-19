@@ -108,7 +108,7 @@ public class UserController {
         return "user/UserProfile";
     }
 
-    @RequestMapping(value = "user/orders/{id}", method = RequestMethod.POST)
+    @RequestMapping("user/orders/{id}")
     public String userOrders(@PathVariable("id") Long id, Model model) {
         List<Order> orders = userService.getAllUserOrders(id);
         model.addAttribute("orders", orders);

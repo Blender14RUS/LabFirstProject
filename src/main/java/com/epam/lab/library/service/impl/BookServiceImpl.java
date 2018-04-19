@@ -32,8 +32,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book editBook(Book book, String authors) {
-        bookDao.editBook(book);
+    public Book updateBook(Book book, String authors) {
+        bookDao.updateBook(book);
         bookDao.deleteBookAuthors(book.getId());
         createBookAuthors(book.getId(), createAuthors(authors));
         return bookDao.getBook(book.getId());
@@ -47,16 +47,16 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Long> createAuthors(String names) {
         String[] arrayNames = names.split(",");
-        List<Long> authorId = new ArrayList<>();
+        List<Long> authorIdList = new ArrayList<>();
         for (String name : arrayNames) {
             if (bookDao.checkAuthor(name.trim()) > 0) {
                 Author author = bookDao.getAuthor(name.trim());
-                authorId.add(author.getId());
+                authorIdList.add(author.getId());
             } else {
-                authorId.add(bookDao.addAuthor(name.trim()));
+                authorIdList.add(bookDao.addAuthor(name.trim()));
             }
         }
-        return authorId;
+        return authorIdList;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class BookServiceImpl implements BookService {
         int row = bookDao.checkBook(book.getTitle(), book.getYear());
         if (row == 0) {
             book = bookDao.addBook(book);
-            LOG.info(book.toString());
+            LOG.info("Created new book = {}", book);
             createBookAuthors(book.getId(), createAuthors(authors));
         }
         return book;
@@ -83,11 +83,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public Order requestBook(Order order) {
         Book book = getBook(order.getBookId());
-        if (book.getAvailable() > 0) {
+        if (book.getAvailable() > 0 & bookDao.checkOrder(order.getBookId(), order.getUserId()) == 0) {
             bookDao.requestBook(book);
             if (book.getAvailable() > getBook(order.getBookId()).getAvailable())
                 bookDao.createOrder(order);
         }
         return order;
     }
+
 }

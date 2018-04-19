@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <body>
 
@@ -30,9 +31,9 @@
                         <h3>Count available copy: ${book.available} </h3>
                     </div>
                 </c:if>
-                <form action="/request/${book.getId()}" method="POST">
+                <form action="/book/request/${book.getId()}" method="POST">
                     <div class="form-row">
-                        <a href="index" class="btn btn-danger">Cancel</a>
+                        <a href="books" class="btn btn-danger">Cancel</a>
                         <div class="btn-group">
                             <button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Request book <span class="caret"></span></button>
                             <ul class="dropdown-menu">
@@ -48,7 +49,7 @@
                 </form>
                 <br>
                 <c:if test="${not empty book}">
-                    <form action="/addBook" method="POST">
+                    <form action="/book/addBook" method="POST">
                         <div class="form-row">
                             <button type="submit" class="btn btn-info" name="id" value="${book.id}">Edit book</button>
                         </div>

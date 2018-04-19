@@ -38,6 +38,7 @@ public class BookDaoImpl implements BookDao {
     private static final String CREATE_ORDER = "INSERT INTO orders (id, user_id, book_id, location, status) " +
             "VALUES (nextval('orders_seq'), :userId, :bookId, :location, :status)";
     private static final String REQUEST_BOOK = "UPDATE books SET available = :newCount WHERE id = :bookId AND available = :nowCount";
+    private static final String CHECK_ORDER = "SELECT count(*) FROM orders WHERE status = 'GIVEN' AND user_id = ? AND book_id = ? ";
 
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -46,12 +47,12 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public int checkAuthor(String name) {
-        return jdbcOperations.queryForObject(SELECT_AUTHOR, new Object[]{name}, Integer.class);
+        return jdbcOperations.queryForObject(SELECT_AUTHOR, Integer.class, name);
     }
 
     @Override
     public Author getAuthor(String name) {
-        return jdbcOperations.queryForObject(GET_AUTHOR, new Object[]{name}, new BeanPropertyRowMapper<>(Author.class));
+        return jdbcOperations.queryForObject(GET_AUTHOR, new BeanPropertyRowMapper<>(Author.class), name);
     }
 
     @Override
@@ -104,18 +105,18 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Book getBook(Long bookId) {
-        Book book = jdbcOperations.queryForObject(GET_BOOK_BY_ID, new Object[]{bookId}, new BeanPropertyRowMapper<>(Book.class));
+        Book book = jdbcOperations.queryForObject(GET_BOOK_BY_ID, new BeanPropertyRowMapper<>(Book.class), bookId);
         book.setAuthors(jdbcOperations.query(GET_AUTHORS, new BeanPropertyRowMapper<>(Author.class), book.getId()));
         return book;
     }
 
     @Override
     public int checkBook(String title, int year) {
-        return jdbcOperations.queryForObject(SELECT_BOOK, new Object[]{title, year}, Integer.class);
+        return jdbcOperations.queryForObject(SELECT_BOOK, Integer.class, title, year);
     }
 
     @Override
-    public void editBook(Book book) {
+    public void updateBook(Book book) {
         SqlParameterSource params = new MapSqlParameterSource().addValue("title", book.getTitle())
                 .addValue("year", book.getYear()).addValue("available", book.getAvailable())
                 .addValue("id", book.getId());
@@ -139,4 +140,8 @@ public class BookDaoImpl implements BookDao {
         return order;
     }
 
+    @Override
+    public int checkOrder(Long bookId, Long userId){
+        return jdbcOperations.queryForObject(CHECK_ORDER, Integer.class, userId, bookId);
+    }
 }

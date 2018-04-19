@@ -21,19 +21,6 @@ class BookServiceImplTest {
 
     @Test
     void addBook() {
-//        //Given
-//        Long id = 1L;
-//        String author = " ";
-//        Book expectedBook = new Book(id, "Title", 2000, 42);
-//        doReturn(new Book(id, "Title", 2000, 42)).when(mockBookDao)
-//                .addBook(new Book("Title", 2000, 42));
-//
-//        //When
-//        Book actualBook = bookService.addBook(new Book("Title", 2000, 42), author);
-//
-//        //Then
-//        verify(mockBookDao).addBook(new Book("Title", 2000, 42));
-//        assertEquals(expectedBook, actualBook);
     }
 
 }

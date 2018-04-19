@@ -44,7 +44,7 @@ public interface BookService {
 
     void createBookAuthors(Long bookId, List<Long> listAuthorId);
 
-    Book editBook(Book book, String authors);
+    Book updateBook(Book book, String authors);
 
     Order requestBook(Order order);
 
