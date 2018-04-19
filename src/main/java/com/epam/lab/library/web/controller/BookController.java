@@ -1,9 +1,12 @@
 package com.epam.lab.library.web.controller;
 
-import com.epam.lab.library.domain.*;
+import com.epam.lab.library.domain.Book;
+import com.epam.lab.library.domain.Location;
+import com.epam.lab.library.domain.Order;
+import com.epam.lab.library.domain.Status;
 import com.epam.lab.library.service.BookService;
 import com.epam.lab.library.service.UserService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import com.epam.lab.library.service.impl.DataBaseUserDetailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.List;
 
-import static com.epam.lab.library.domain.Status.GIVEN;
-import static com.epam.lab.library.domain.Status.IN_LIBRARY;
+import static com.epam.lab.library.domain.Status.*;
 
 @Controller
 public class BookController {
@@ -33,7 +35,24 @@ public class BookController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/books/addBook")
+    @Autowired
+    private DataBaseUserDetailService detailsService;
+
+    @RequestMapping("/lib/requested-books")
+    public String librarianRequestsForBooksIssue(Model model) {
+        List<Order> orders = userService.getAllOrderByStatus(REQUESTED);
+        model.addAttribute("orders", orders);
+        return "librarian/requestedBooks";
+    }
+
+    @RequestMapping("/lib/returned-books")
+    public String librarianGivenBooks(Model model) {
+        List<Order> orders = userService.getAllOrderByStatus(GIVEN);
+        model.addAttribute("orders", orders);
+        return "librarian/returnedBooks";
+    }
+
+    @RequestMapping("/lib/addBook")
     public String addBook(Model model, @RequestParam(value = "id", required = false) Long bookId) {
         if (bookId != null) {
             Book book = bookService.getBook(bookId);
@@ -71,6 +90,7 @@ public class BookController {
     public String viewBook(Model model, @PathVariable("id") Long id) {
         Book book = bookService.getBook(id);
         model.addAttribute("book", book);
+        model.addAttribute("role", detailsService.getRole());
         return "common/viewBook";
     }
 
@@ -95,10 +115,9 @@ public class BookController {
 
     @RequestMapping(value = "/books/request/{id}", method = RequestMethod.POST)
     public String requestBook(@PathVariable("id") Long bookId, @RequestParam("location") Location location, Principal principal) {
-        User user = userService.getUserByLogin(principal.getName());
-        Order order = new Order(null, user.getId(), bookId, location, Status.REQUESTED);
-        bookService.requestBook(order);
-        return order.getId() == null ? "bookCreationFailure" : "redirect:/user/orders/" + user.getId();
+        Order order = new Order(null, null, bookId, location, Status.REQUESTED);
+        Order orderCreated = bookService.requestBook(order);
+        return orderCreated.getId() == null ? "bookCreationFailure" : "redirect:/user/orders/";
     }
 
     @RequestMapping(value = "/books/edit", method = RequestMethod.POST)
@@ -109,6 +128,7 @@ public class BookController {
         bookService.updateBook(book, authors);
         book = bookService.getBook(id);
         model.addAttribute("book", book);
+        model.addAttribute("role", detailsService.getRole());
         return "/common/viewBook";
     }
 

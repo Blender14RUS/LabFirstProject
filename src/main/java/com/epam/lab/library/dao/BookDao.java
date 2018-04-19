@@ -60,6 +60,8 @@ public interface BookDao {
 
     Order createOrder(Order order);
 
-    int checkOrder(Long bookId, Long userId);
+    int checkOrderGiven(Long bookId, Long userId);
+
+    int checkOrderRequested(Long bookId, Long userId);
 
 }
