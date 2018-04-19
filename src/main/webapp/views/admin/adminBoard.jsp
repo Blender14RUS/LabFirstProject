@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<link rel="stylesheet" type="text/css" href="../../css/custom.css"/>
 <script src="../../jquery/jquery-3.3.1.min.js"></script>
 
 <html>
@@ -41,7 +40,7 @@
                 </form>
             </td>
             <td>
-                <form action="user/delete/${user.id}" method="POST">
+                <form action="admin/delete-user" method="POST">
                     <button type="submit" class="btn btn-danger">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
