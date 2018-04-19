@@ -85,5 +85,4 @@ public class UserDaoImpl implements UserDao {
         if (rowCount!=0){ return true; }
         else { return false; }
     }
-
 }

@@ -29,8 +29,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Password:</td>
-                    <td>${user.pass}</td>
+                    <td>Change password</td>
+                    <td></td>
                     <td>
                         <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-pencil"></span>
