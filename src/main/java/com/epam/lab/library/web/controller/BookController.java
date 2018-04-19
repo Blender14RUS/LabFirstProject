@@ -2,18 +2,18 @@ package com.epam.lab.library.web.controller;
 
 import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.service.BookService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
 import java.util.List;
 
 import static com.epam.lab.library.domain.Status.GIVEN;
@@ -32,15 +32,29 @@ public class BookController {
         return "librarian/addBook";
     }
 
-    @RequestMapping("/books")
-    public String viewBooks(Model model, Principal principal, Authentication authentication, @RequestParam(value="bookTitle", defaultValue = "") String bookTitle,
-                            @RequestParam(value = "available",required = false) boolean showNotAvailable,
-                            @RequestParam(value= "sort",defaultValue = "alphabet") String sortType){
-        System.out.println(principal);
-        System.out.println(authentication);
-        List<Book> books = bookService.getBooks(bookTitle,showNotAvailable,sortType);
-        model.addAttribute("books",books);
-        return "common/bookList";
+    @RequestMapping(value = "/books")
+    public ModelAndView listOfUsers(@RequestParam(required = false) Integer page,
+                                    @RequestParam(value = "bookTitle", defaultValue = "") String bookTitle,
+                                    @RequestParam(value = "available", required = false) boolean showNotAvailable,
+                                    @RequestParam(value = "sort", defaultValue = "alphabet") String sortType) {
+        ModelAndView modelAndView = new ModelAndView("common/bookList");
+        List<Book> books = bookService.getBooks(bookTitle, showNotAvailable, sortType);
+        PagedListHolder<Book> pagedListHolder = new PagedListHolder<>(books);
+        int booksByPage = 2;
+        pagedListHolder.setPageSize(booksByPage);
+        modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
+        if (page == null || page < 1 || page > pagedListHolder.getPageCount()) {
+            page = 1;
+        }
+        modelAndView.addObject("page", page);
+        if (page < 1 || page > pagedListHolder.getPageCount()) {
+            pagedListHolder.setPage(0);
+            modelAndView.addObject("books", pagedListHolder.getPageList());
+        } else if (page <= pagedListHolder.getPageCount()) {
+            pagedListHolder.setPage(page - 1);
+            modelAndView.addObject("books", pagedListHolder.getPageList());
+        }
+        return modelAndView;
     }
 
     @RequestMapping(value = "/books/view/{id}", method = RequestMethod.POST)

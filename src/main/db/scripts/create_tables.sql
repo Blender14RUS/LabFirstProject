@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS public.users
 (
   id           BIGINT                NOT NULL,
   login        CHARACTER VARYING(20) NOT NULL,
-  pass         CHARACTER VARYING(30) NOT NULL,
+  pass         CHARACTER VARYING(400) NOT NULL,
   name         CHARACTER VARYING(30) NOT NULL,
   access_level CHARACTER VARYING(20) NOT NULL,
   PRIMARY KEY (id)
