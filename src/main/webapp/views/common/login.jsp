@@ -2,13 +2,13 @@
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../../css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/custom.css"/>
 
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<jsp:include page="../common/_menu.jsp"></jsp:include>
+<jsp:include page="../layout/_menu.jsp"></jsp:include>
 
 <c:url value="/login" var="loginUrl"/>
 <form action="/login" method="post">
