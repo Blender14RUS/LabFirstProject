@@ -1,10 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../../bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <script src="../../jquery/jquery-3.3.1.min.js"></script>
-    <script src="../../bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../css/custom.css"/>
+    <link rel="stylesheet" href="../../resources/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="../../resources/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../../resources/bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/custom.css"/>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -26,9 +26,9 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <span class="glyphicon glyphicon-user"></span>   ${user.name}<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/profile"><i class="icon-envelope"></i> Edit profile(null)</a></li>
+                    <li><a href="/profile"><i class="icon-envelope"></i> Edit profile</a></li>
                     <li class="divider"></li>
-                    <li><a href="/auth/logout"><i class="icon-off"></i> Log out(null)</a></li>
+                    <li><a href="/auth/logout"><i class="icon-off"></i> Log out</a></li>
                 </ul>
             </li>
             <li class="dropdown">

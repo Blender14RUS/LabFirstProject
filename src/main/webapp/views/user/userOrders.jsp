@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<link rel="stylesheet" type="text/css" href="../../css/custom.css"/>
-<script src="../../jquery/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../../resources/css/custom.css"/>
+<script src="../../resources/jquery/jquery-3.3.1.min.js"></script>
 
 <html>
 <head>
@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<jsp:include page="../common/_menu.jsp"></jsp:include>
+<jsp:include page="../layout/_menu.jsp"></jsp:include>
 
 <div class="container">
     <h2>Your orders</h2>

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<jsp:include page="_menu.jsp"></jsp:include>
+<jsp:include page="../layout/_menu.jsp"></jsp:include>
 <div class="container">
     <h2>Catalog</h2>
     <form action="/${pageContext.request.contextPath}/books" method="POST">
