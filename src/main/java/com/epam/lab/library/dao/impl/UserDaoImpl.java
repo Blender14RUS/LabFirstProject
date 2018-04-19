@@ -1,15 +1,15 @@
 package com.epam.lab.library.dao.impl;
 
-import com.epam.lab.library.dao.BookDao;
 import com.epam.lab.library.dao.UserDao;
-import com.epam.lab.library.domain.*;
+import com.epam.lab.library.domain.AccessLevel;
+import com.epam.lab.library.domain.Order;
+import com.epam.lab.library.domain.Status;
+import com.epam.lab.library.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -73,16 +73,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {
-        User user = (User)jdbcOperations.queryForObject(
-                GET_USER_BY_LOGIN, new Object[] { login },
-                new BeanPropertyRowMapper(User.class));
-        return user;
+        return jdbcOperations.queryForObject(
+                GET_USER_BY_LOGIN, new Object[]{login},
+                new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
     public boolean isUserLoginAlreadyExists(String login) {
         int rowCount = jdbcOperations.queryForObject(USER_COUNT, new Object[]{login}, Integer.class);
-        if (rowCount!=0){ return true; }
-        else { return false; }
+        return rowCount != 0;
     }
 }

@@ -23,8 +23,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void createBookAuthors(Long book_id, List<Long> list_author_id) {
-        bookDao.createBookAuthors(book_id, list_author_id);
+    public void createBookAuthors(Long bookId, List<Long> listAuthorId) {
+        bookDao.createBookAuthors(bookId, listAuthorId);
     }
 
     @Override
@@ -46,13 +46,12 @@ public class BookServiceImpl implements BookService {
         book = bookDao.addBook(book);
         if (book.getId() != null) createBookAuthors(book.getId(), createAuthors(authors));
         else book.setId(null);
-
         return book;
     }
 
     @Override
-    public List<Book> getBooks(String searchingTitle,boolean showNotAvailable,String sortType){
-        return bookDao.getBooks(searchingTitle,showNotAvailable,sortType);
+    public List<Book> getBooks(String searchingTitle, boolean showNotAvailable, String sortType) {
+        return bookDao.getBooks(searchingTitle, showNotAvailable, sortType);
     }
 
     @Override

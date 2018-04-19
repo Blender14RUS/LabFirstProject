@@ -66,11 +66,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean createUser(User user) {
-        if (userDao.isUserLoginAlreadyExists(user.getLogin())){ return false; }
-        else {
+        if (userDao.isUserLoginAlreadyExists(user.getLogin())) {
+            return false;
+        } else {
             user.setPass(bcryptEncoder.encode(user.getPass()));
-            if (userDao.createUser(user)==0){ return false; }
-            else return true;
+            return userDao.createUser(user) != 0;
         }
     }
 
