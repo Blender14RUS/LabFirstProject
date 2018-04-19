@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/custom.css"/>
 </head>
 <body>
-<jsp:include page="_menu.jsp"></jsp:include>
+<jsp:include page="../layout/_menu.jsp"></jsp:include>
 <h1>Later</h1>
 </body>
 </html>
