@@ -1,16 +1,15 @@
 CREATE TABLE IF NOT EXISTS public.users
 (
-  id           BIGINT                NOT NULL,
-  login        CHARACTER VARYING(20) NOT NULL,
-  pass         CHARACTER VARYING(30) NOT NULL,
-  name         CHARACTER VARYING(30) NOT NULL,
-  access_level CHARACTER VARYING(20) NOT NULL,
+  id    BIGINT                 NOT NULL,
+  login CHARACTER VARYING(20)  NOT NULL,
+  pass  CHARACTER VARYING(100) NOT NULL,
+  name  CHARACTER VARYING(30)  NOT NULL,
   PRIMARY KEY (id)
 )
 WITH (OIDS = FALSE
 );
 
-ALTER TABLE public.users
+ALTER TABLE  public.users
   OWNER TO libman;
 
 CREATE TABLE IF NOT EXISTS public.books
@@ -105,6 +104,50 @@ CREATE INDEX fki_author_id_book_authors
   ON public.book_authors (author_id);
 
 
+CREATE TABLE IF NOT EXISTS public.roles
+(
+  role_id BIGINT,
+  role    CHARACTER VARYING(20),
+  PRIMARY KEY (role_id)
+)
+WITH (
+OIDS = FALSE
+);
+
+ALTER TABLE public.roles
+  OWNER TO libman;
+
+
+CREATE TABLE IF NOT EXISTS public.user_role
+(
+  user_id BIGINT,
+  role_id BIGINT,
+  PRIMARY KEY (user_id, role_id)
+)
+WITH (
+OIDS = FALSE
+);
+
+ALTER TABLE public.user_role
+  OWNER TO libman;
+
+ALTER TABLE public.user_role
+  ADD CONSTRAINT login FOREIGN KEY (user_id)
+REFERENCES public.users (id) MATCH SIMPLE
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+CREATE INDEX fki_login
+  ON public.user_role (user_id);
+
+ALTER TABLE public.user_role
+  ADD CONSTRAINT role_user FOREIGN KEY (role_id)
+REFERENCES public.roles (role_id) MATCH SIMPLE
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+CREATE INDEX fki_role_user
+  ON public.user_role (role_id);
+
+
 CREATE SEQUENCE public.orders_seq
 INCREMENT 1
 START 1
@@ -146,3 +189,4 @@ CACHE 1;
 
 ALTER SEQUENCE public.authors_seq
 OWNER TO libman;
+

@@ -32,11 +32,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book getBook(Long bookId) {
-        return bookDao.getBook(bookId);
-    }
-
-    @Override
     public Book editBook(Book book, String authors) {
         bookDao.editBook(book);
         bookDao.deleteBookAuthors(book.getId());
