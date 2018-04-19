@@ -67,7 +67,7 @@ public class BookController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/books/view/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/books/view/{id}")
     public String viewBook(Model model, @PathVariable("id") Long id) {
         Book book = bookService.getBook(id);
         model.addAttribute("book", book);

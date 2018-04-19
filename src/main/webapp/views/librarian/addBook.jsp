@@ -27,9 +27,9 @@
             </div>
             <div class="form-group col-md-3 pull-right">
                 <div class="text-right">
-                    <a href="index" class="btn btn-danger">Cancel</a>
-                    <button type="submit" class="btn btn-primary">Add book</button>
+                    <a href="${pageContext.request.contextPath}/books/" class="btn btn-danger">Cancel</a>
                 </div>
+                <button type="submit" class="btn btn-primary">Add book</button>
             </div>
         </form>
     </div>
@@ -58,7 +58,7 @@
             </div>
             <div class="form-group col-md-3 pull-right">
                 <div class="text-right">
-                    <a href="index" class="btn btn-danger">Cancel</a>
+                    <a href="${pageContext.request.contextPath}/books/" class="btn btn-danger">Cancel</a>
                     <button type="submit" class="btn btn-primary" name="id" value="${book.id}">Save</button>
                 </div>
             </div>

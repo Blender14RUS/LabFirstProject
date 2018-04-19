@@ -19,13 +19,13 @@
             <span class="slider round"></span>
         </label>
         Sort by:
-            <select name="sort">
-                <option value="alphabet">A-Z</option>
-                <option value="alphabetRev">Z-A</option>
-                <option value="year">Year</option>
-                <option value="amountL">Amount L-H</option>
-                <option value="amountH">Amount H-L</option>
-            </select>
+        <select name="sort">
+            <option value="alphabet">A-Z</option>
+            <option value="alphabetRev">Z-A</option>
+            <option value="year">Year</option>
+            <option value="amountL">Amount L-H</option>
+            <option value="amountH">Amount H-L</option>
+        </select>
         <button type="submit" class="btn btn-primary"> Search
         </button>
     </form>
@@ -54,7 +54,7 @@
                     </c:forEach>
                 </td>
                 <td>
-                    <form action="books/view/${book.id}" method="POST">
+                    <form action="${pageContext.request.contextPath}/books/view/${book.id}" method="POST">
                         <button type="submit" class="btn btn-primary">View
                         </button>
                     </form>
