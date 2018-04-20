@@ -22,7 +22,7 @@
             <th>Book ID</th>
             <th>Location</th>
             <th>Status</th>
-            <th>Return book</th>
+            <th>Book returned</th>
         </tr>
         <c:forEach items="${orders}" var="order">
             <tr>
@@ -33,11 +33,9 @@
                 <td>${order.status}</td>
                 <td>
                     <form action="/books/return/${order.id}" method="POST">
-                        <label class="switch">
-                            <input type="checkbox"
-                                   onchange="submit()">
-                            <span class="slider round"></span>
-                        </label>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
                     </form>
                 </td>
             </tr>

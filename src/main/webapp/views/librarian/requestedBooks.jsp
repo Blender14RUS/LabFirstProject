@@ -35,11 +35,9 @@
                 <td>${order.status}</td>
                 <td>
                     <form action="/books/give/${order.id}" method="POST">
-                        <label class="switch">
-                            <input type="checkbox"
-                                   onchange="submit()">
-                            <span class="slider round"></span>
-                        </label>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
                     </form>
                 </td>
             </tr>
