@@ -10,7 +10,8 @@ public class Order {
     private Status status;
     private Book book;
 
-    public Order() { }
+    public Order() {
+    }
 
     public Order(Long id, Long userId, Long bookId, Location location, Status status) {
         this.id = id;
@@ -83,5 +84,17 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(id, userId, bookId, location, status);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", bookId=" + bookId +
+                ", location=" + location +
+                ", status=" + status +
+                ", book=" + book +
+                '}';
     }
 }

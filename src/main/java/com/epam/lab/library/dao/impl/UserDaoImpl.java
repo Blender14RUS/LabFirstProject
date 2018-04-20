@@ -20,15 +20,17 @@ public class UserDaoImpl implements UserDao {
     private static final Logger LOG = LoggerFactory.getLogger(UserDaoImpl.class);
 
     private static final String GET_USERS_BY_ID = "SELECT * FROM users WHERE id = ?";
-    private static final String GET_ALL_USERS = "SELECT * FROM users ORDER BY id";
+    private static final String GET_ALL_USERS = "SELECT * FROM users WHERE access_level != 'ADMIN' ORDER BY id";
     private static final String CREATE_NEW_USER = "INSERT INTO users (id, login, name, access_level, pass) " +
-            "VALUES (nextval('users_seq'),?,'','READER',?)";
+            "VALUES (nextval('users_seq'),?,?,?,?)";
     private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id = ?";
     private static final String UPDATE_USER_ACCESS_LEVEL = "UPDATE users SET access_level = ? WHERE id = ?";
     private static final String GET_ALL_ORDER_BY_STATUS = "SELECT * FROM orders WHERE status = ?";
     private static final String GET_ALL_USER_ORDERS = "SELECT * FROM orders WHERE id = ?";
     private static final String GET_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?";
+    private static final String GET_USER_DATA_BY_LOGIN = "SELECT login, name, access_level FROM users WHERE login = ?";
     private static final String USER_COUNT = "SELECT count(*) FROM users WHERE login=?";
+    private static final String UPDATE_USER_NAME = "UPDATE users SET name = ? WHERE login = ?";
 
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -45,9 +47,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int createUser(User user) {
+    public int createUser(User user, AccessLevel accessLevel) {
         return jdbcOperations.update(CREATE_NEW_USER,
                 user.getLogin(),
+                user.getName(),
+                accessLevel,
                 user.getPass());
     }
 
@@ -82,5 +86,22 @@ public class UserDaoImpl implements UserDao {
     public boolean isUserLoginAlreadyExists(String login) {
         int rowCount = jdbcOperations.queryForObject(USER_COUNT, new Object[]{login}, Integer.class);
         return rowCount != 0;
+    }
+
+    @Override
+    public User getUserDataDataByLogin(String login) {
+        User user = (User) jdbcOperations.queryForObject(
+                GET_USER_DATA_BY_LOGIN, new Object[]{login},
+                new BeanPropertyRowMapper(User.class));
+        return user;
+    }
+
+    @Override
+    public int updateUserNameByLogin(User user) {
+        return jdbcOperations.update(UPDATE_USER_NAME,
+                user.getName(),
+                user.getLogin());
+
+
     }
 }

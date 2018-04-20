@@ -53,4 +53,13 @@ public interface UserService {
      * @return list of user's orders
      */
     List<Order> getAllUserOrders(Long id);
+
+    /**
+     *
+     * @param login
+     * @return
+     */
+    User getUserDataByLogin(String login);
+
+    boolean updateUserNameByLogin(User user);
 }

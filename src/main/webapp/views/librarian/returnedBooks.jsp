@@ -32,7 +32,7 @@
                 <td>${order.location}</td>
                 <td>${order.status}</td>
                 <td>
-                    <form action="/return/${order.id}" method="POST">
+                    <form action="/books/return/${order.id}" method="POST">
                         <label class="switch">
                             <input type="checkbox"
                                    onchange="submit()">

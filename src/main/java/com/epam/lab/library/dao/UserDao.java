@@ -1,6 +1,9 @@
 package com.epam.lab.library.dao;
 
-import com.epam.lab.library.domain.*;
+import com.epam.lab.library.domain.AccessLevel;
+import com.epam.lab.library.domain.Order;
+import com.epam.lab.library.domain.Status;
+import com.epam.lab.library.domain.User;
 
 import java.util.List;
 
@@ -27,7 +30,7 @@ public interface UserDao {
      * @param user - an instances of User filled with data must be recorded in the database
      * @return Count of changes rows in database
      */
-    int createUser(User user);
+    int createUser(User user, AccessLevel accessLevel);
 
     /**
      * Method removes user from database
@@ -39,7 +42,7 @@ public interface UserDao {
     /**
      * Changes user access level (READER / LIBRARIAN)
      *
-     * @param id It's id of user which access level must be changed
+     * @param id          It's id of user which access level must be changed
      * @param accessLevel current value of user access level
      */
     void updateUserAccessLevel(Long id, AccessLevel accessLevel);
@@ -74,4 +77,17 @@ public interface UserDao {
      */
     public boolean isUserLoginAlreadyExists(String login);
 
+    /**
+     *
+     * @param login
+     * @return
+     */
+    User getUserDataDataByLogin(String login);
+
+    /**
+     *
+     * @param login
+     * @return
+     */
+    int updateUserNameByLogin(User user);
 }

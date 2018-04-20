@@ -34,7 +34,7 @@
                 <td>${order.location}</td>
                 <td>${order.status}</td>
                 <td>
-                    <form action="/give/${order.id}" method="POST">
+                    <form action="/books/give/${order.id}" method="POST">
                         <label class="switch">
                             <input type="checkbox"
                                    onchange="submit()">

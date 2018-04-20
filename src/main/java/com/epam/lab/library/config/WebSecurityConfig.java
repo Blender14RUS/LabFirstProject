@@ -37,10 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/registration", "/books", "/",
                         "/registration-failure", "/resources/**").permitAll()
-                .antMatchers("/admin").hasRole(ADMIN.toString())
-                .antMatchers("/books/**").hasAnyRole(READER.toString(), LIBRARIAN.toString(), ADMIN.toString())
-                .antMatchers("/user/**").hasRole(READER.toString())
-                .antMatchers("/library/**").hasAnyRole(LIBRARIAN.toString(), ADMIN.toString())
+                .antMatchers("/admin/**").hasRole(ADMIN.toString())
+                .antMatchers("/lib/**").hasAnyRole(LIBRARIAN.toString(), ADMIN.toString())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
