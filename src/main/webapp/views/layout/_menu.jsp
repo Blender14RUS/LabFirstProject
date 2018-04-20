@@ -14,7 +14,8 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="${pageContext.request.contextPath}/books">Catalog</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin">Admin board </a></li>
+
+            <li><a href="${pageContext.request.contextPath}/admin/board">Admin board </a></li>
             <li><a href="${pageContext.request.contextPath}/user/orders">My orders</a></li>
             <li><a href="${pageContext.request.contextPath}/">Register(null)</a></li>
             <li><a href="${pageContext.request.contextPath}/lib/requested-books">Requested books</a></li>

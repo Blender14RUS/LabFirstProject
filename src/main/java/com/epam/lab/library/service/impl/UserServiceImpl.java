@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
         return userDao.getAllOrderByStatus(status);
     }
 
-    @Override
     public User getUserByLogin(String login) {
         return userDao.getUserByLogin(login);
     }
@@ -66,12 +65,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserDataByLogin(String login) {
+        return userDao.getUserByLogin(login);
+    }
+
+    @Override
+    public boolean updateUserNameByLogin(User user) {
+        return (userDao.updateUserNameByLogin(user)!=0) ? true : false;
+    }
+
+    @Override
     public boolean createUser(User user) {
-        if (userDao.isUserLoginAlreadyExists(user.getLogin())) {
-            return false;
-        } else {
+        if (user.getLogin().length()==0 ||
+                user.getPass().length()==0 ||
+                userDao.isUserLoginAlreadyExists(user.getLogin())){ return false; }
+        else {
             user.setPass(bcryptEncoder.encode(user.getPass()));
-            return userDao.createUser(user) != 0;
+            if (userDao.createUser(user, AccessLevel.READER)==0){ return false; }
+            else return true;
         }
     }
 

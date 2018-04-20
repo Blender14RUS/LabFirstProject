@@ -31,7 +31,7 @@
             <td>${user.login}</td>
             <td>${user.name}</td>
             <td>
-                <form action="user/update-access/${user.id}/${user.accessLevel}" method="POST">
+                <form action="../admin/update-access/${user.id}/${user.accessLevel}" method="POST">
                     <label class="switch">
                         <input type="checkbox"
                                onchange="submit()" ${user.accessLevel == 'LIBRARIAN' ?  'checked': ''} >
@@ -40,7 +40,7 @@
                 </form>
             </td>
             <td>
-                <form action="admin/delete-user" method="POST">
+                <form action="../admin/delete-user/${user.id}" method="POST">
                     <button type="submit" class="btn btn-danger">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
