@@ -48,16 +48,11 @@ public class UserController {
         return "admin/adminBoard";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String register(Model model) {
-        return "common/registration";
-    }
-
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String createUser(Model model, @RequestParam("login") String login,
-                             @RequestParam("password") String pass,
-                             @RequestParam("confirm-password") String confPass,
-                             @RequestParam("name") String name) {
+    @RequestMapping(value = "/registration")
+    public String createUser(Model model, @RequestParam(value = "login", defaultValue = "") String login,
+                             @RequestParam(value = "password", defaultValue = "") String pass,
+                             @RequestParam(value = "confirm-password", defaultValue = "") String confPass,
+                             @RequestParam(value = "name", defaultValue = "") String name) {
         User user = new User();
         user.setName(name);
         user.setLogin(login);
@@ -65,18 +60,19 @@ public class UserController {
             user.setPass(pass);
             if (userService.createUser(user)) {
                 LOG.info("User has been created: " + login + " " + pass);
-                model.addAttribute("user-created", "1");
+                model.addAttribute("userCreated", true);
                 return "redirect: /login";
             } else {
-                model.addAttribute("error-create", "err");
+                model.addAttribute("errorCreate", true);
             }
         } else {
-            model.addAttribute("error-password", "erro");
+            model.addAttribute("errorPassword", true);
         }
         model.addAttribute("user", user);
         model.addAttribute("message", "hi there");
         return "common/registration";
     }
+
 
     @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.POST)
     public String deleteUser(@PathVariable("id") long id) {
