@@ -93,13 +93,13 @@ public class UserController {
         return "redirect: common/registration";
     }
 
-    @RequestMapping(value = "admin/delete-user/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.POST)
     public String deleteUser(@PathVariable("id") long id) {
         userService.deleteUserById(id);
         return "redirect:/admin/board";
     }
 
-    @RequestMapping(value = "admin/update-access/{id}/{accessLevel}", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/update-access/{id}/{accessLevel}", method = RequestMethod.POST)
     public String updateUserAccessLevel(@PathVariable("id") Long id,
                                         @PathVariable("accessLevel") AccessLevel accessLevel) {
         userService.updateUserAccessLevel(id, accessLevel);
@@ -124,7 +124,7 @@ public class UserController {
         return "redirect:/profile";
     }
   
-    @RequestMapping("user/orders")
+    @RequestMapping("/user/orders")
     public String userOrders(Model model) {
         User user = userService.getUserByLogin(detailsService.getCurrentUsername());
         List<Order> orders = userService.getAllUserOrders(user.getId());

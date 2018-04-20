@@ -14,8 +14,6 @@
 <div class="container">
     <h2>Given books</h2>
     <table class="table table-striped">
-        <thead>
-        <tbody>
         <tr>
             <th>Order ID</th>
             <th>User ID</th>
@@ -40,7 +38,6 @@
                 </td>
             </tr>
         </c:forEach>
-        </tbody>
     </table>
 </div>
 </body>

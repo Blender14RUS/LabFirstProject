@@ -79,13 +79,6 @@ public interface UserDao {
 
     /**
      *
-     * @param login
-     * @return
-     */
-    User getUserDataDataByLogin(String login);
-
-    /**
-     *
      * @param
      * @return
      */

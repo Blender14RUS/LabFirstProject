@@ -62,14 +62,14 @@ public class BookController {
     }
 
     @RequestMapping(value = "/books")
-    public ModelAndView listOfUsers(@RequestParam(required = false) Integer page,
-                                    @RequestParam(value = "bookTitle", defaultValue = "") String bookTitle,
-                                    @RequestParam(value = "available", required = false) boolean showNotAvailable,
-                                    @RequestParam(value = "sort", defaultValue = "alphabet") String sortType) {
+    public ModelAndView booksList(@RequestParam(required = false) Integer page,
+                                  @RequestParam(value = "bookTitle", defaultValue = "") String bookTitle,
+                                  @RequestParam(value = "available", required = false) boolean showNotAvailable,
+                                  @RequestParam(value = "sort", defaultValue = "alphabet") String sortType) {
         ModelAndView modelAndView = new ModelAndView("common/bookList");
         List<Book> books = bookService.getBooks(bookTitle, showNotAvailable, sortType);
         PagedListHolder<Book> pagedListHolder = new PagedListHolder<>(books);
-        int booksByPage = 1;
+        int booksByPage = 5;
         pagedListHolder.setPageSize(booksByPage);
         modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
         if (page == null || page < 1 || page > pagedListHolder.getPageCount()) {

@@ -15,9 +15,6 @@
     <h2>Requests for books issue</h2>
     <p>Accept or decline issuing books</p>
     <table class="table table-striped">
-        <thead>
-        <tr>
-        <tbody>
         <tr>
             <th>Order ID</th>
             <th>User ID</th>
@@ -42,7 +39,6 @@
                 </td>
             </tr>
         </c:forEach>
-        </tbody>
     </table>
 </div>
 </body>
