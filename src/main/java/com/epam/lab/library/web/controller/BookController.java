@@ -104,13 +104,13 @@ public class BookController {
     @RequestMapping(value = "/books/give/{id}", method = RequestMethod.POST)
     public String giveBook(@PathVariable("id") Long id) {
         bookService.setBookStatus(GIVEN, id);
-        return "redirect:/requested-books";
+        return "redirect:/lib/requested-books";
     }
 
     @RequestMapping(value = "/books/return/{id}", method = RequestMethod.POST)
     public String returnBook(@PathVariable("id") Long id) {
         bookService.setBookStatus(IN_LIBRARY, id);
-        return "redirect:/returned-books";
+        return "redirect:/lib/returned-books";
     }
 
     @RequestMapping(value = "/books/request/{id}", method = RequestMethod.POST)
