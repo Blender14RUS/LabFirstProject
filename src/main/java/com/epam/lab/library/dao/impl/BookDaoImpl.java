@@ -40,6 +40,7 @@ public class BookDaoImpl implements BookDao {
     private static final String REQUEST_BOOK = "UPDATE books SET available = :newCount WHERE id = :bookId AND available = :nowCount";
     private static final String CHECK_ORDER_GIVEN = "SELECT COUNT(*) FROM orders WHERE status = 'GIVEN' AND user_id = ? AND book_id = ? ";
     private static final String CHECK_ORDER_REQUESTED = "SELECT COUNT(*) FROM orders WHERE status = 'REQUESTED' AND user_id = ? AND book_id = ?";
+    private static final String PLUS_BOOK = "UPDATE books SET available = available + 1 WHERE id = ?";
 
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -149,5 +150,10 @@ public class BookDaoImpl implements BookDao {
     @Override
     public int checkOrderRequested(Long bookId, Long userId) {
         return jdbcOperations.queryForObject(CHECK_ORDER_REQUESTED, Integer.class, userId, bookId);
+    }
+
+    @Override
+    public void plusBook(Long id) {
+        jdbcOperations.update(PLUS_BOOK, id);
     }
 }

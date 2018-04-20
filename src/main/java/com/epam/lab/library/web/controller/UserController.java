@@ -41,21 +41,6 @@ public class UserController {
         return "common/index";
     }
 
-
-    @RequestMapping("/requested-books")
-    public String librarianRequestsForBooksIssue(Model model) {
-        List<Order> orders = userService.getAllOrderByStatus(REQUESTED);
-        model.addAttribute("orders", orders);
-        return "librarian/requestedBooks";
-    }
-
-    @RequestMapping("/returned-books")
-    public String librarianGivenBooks(Model model) {
-        List<Order> orders = userService.getAllOrderByStatus(GIVEN);
-        model.addAttribute("orders", orders);
-        return "librarian/returnedBooks";
-    }
-
     @RequestMapping("/admin/board")
     public String showAll(Model model) {
         List<User> users = userService.getAllUsers();
@@ -80,7 +65,7 @@ public class UserController {
             user.setPass(pass);
             if (userService.createUser(user)) {
                 LOG.info("User has been created: " + login + " " + pass);
-                model.addAttribute("user-created", 1);
+                model.addAttribute("user-created", "1");
                 return "redirect: /login";
             } else {
                 model.addAttribute("error-create", "err");
@@ -90,7 +75,7 @@ public class UserController {
         }
         model.addAttribute("user", user);
         model.addAttribute("message", "hi there");
-        return "redirect: common/registration";
+        return "common/registration";
     }
 
     @RequestMapping(value = "admin/delete-user/{id}", method = RequestMethod.POST)
@@ -130,6 +115,12 @@ public class UserController {
         List<Order> orders = userService.getAllUserOrders(user.getId());
         model.addAttribute("orders", orders);
         return "user/userOrders";
+    }
+
+    @RequestMapping(value = "/user/delete-request", method = RequestMethod.POST)
+    public String returnBook(@RequestParam("orderId") Long orderId, @RequestParam("bookId") Long bookId) {
+        userService.deleteRequest(orderId, bookId);
+        return "redirect:/user/orders";
     }
 
 }

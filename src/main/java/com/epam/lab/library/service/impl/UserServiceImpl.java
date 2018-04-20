@@ -1,5 +1,6 @@
 package com.epam.lab.library.service.impl;
 
+import com.epam.lab.library.dao.BookDao;
 import com.epam.lab.library.dao.UserDao;
 import com.epam.lab.library.domain.AccessLevel;
 import com.epam.lab.library.domain.Order;
@@ -20,6 +21,10 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
     private final PasswordEncoder bcryptEncoder;
     private UserDao userDao;
+
+    @Autowired
+    private BookDao bookDao;
+
     @Autowired
     private BookService bookService;
 
@@ -30,7 +35,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Order> getAllOrderByStatus(Status status) {
-        return userDao.getAllOrderByStatus(status);
+        List<Order> orderList = userDao.getAllOrderByStatus(status);
+        for (Order order: orderList){
+            order.setBook(bookDao.getBook(order.getBookId()));
+            order.setUser(userDao.getUser(order.getUserId()));
+        }
+        return orderList;
     }
 
     public User getUserByLogin(String login) {
@@ -85,6 +95,12 @@ public class UserServiceImpl implements UserService {
             user.setPass(bcryptEncoder.encode(user.getPass()));
             return userDao.createUser(user, AccessLevel.READER) != 0;
         }
+    }
+
+    @Override
+    public void deleteRequest(Long orderId, Long bookId) {
+        userDao.deleteRequest(orderId);
+        bookDao.plusBook(bookId);
     }
 
 }

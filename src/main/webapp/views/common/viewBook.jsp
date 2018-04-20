@@ -1,20 +1,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
-<body>
 <jsp:include page="../layout/_menu.jsp"></jsp:include>
 
-<div class="col-sm-6">
+    <c:if test="${not empty alreadyRequsted}">
+        <div class="alert alert-warning" role="alert" align="center">
+            <strong>Oh snap!</strong> You already requested this book.
+        </div>
+    </c:if>
+
+
+    <div class="col-sm-6">
         <div items="${book}" var="book">
             <div class="preview col-md-4">
                 <div id="pic"><img class="img-responsive" src="https://cdn.rbt.ru/images/item/image/420/419265_1553993988_3e21c40135b4fa96cb7c9437993fde3a.jpg" /></div>
             </div>
             <div class="details col-md-8">
                 <div class="form-row">
-                    <h3>Title: ${book.getTitle()}</h3>
+                    <h3>Title: ${book.title}</h3>
                 </div>
                 <div class="form-row">
-                    <h3>Year: ${book.getYear()} </h3>
+                    <h3>Year: ${book.year} </h3>
                 </div>
                 <div class="form-row">
                     <h3>Author:
@@ -30,7 +36,8 @@
                         <h3>Count available copy: ${book.available} </h3>
                     </div>
                 </c:if>
-                <form action="/books/request/${book.getId()}" method="POST">
+                <br>
+                <form action="/books/request/${book.id}" method="POST">
                     <div class="form-row">
                         <a href="${pageContext.request.contextPath}/books" class="btn btn-danger">Cancel</a>
                         <div class="btn-group">
@@ -56,7 +63,6 @@
                 </c:if>
             </div>
         </div>
-</div>
-
+    </div>
 </body>
 </html>

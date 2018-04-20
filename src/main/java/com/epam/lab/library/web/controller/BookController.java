@@ -61,7 +61,7 @@ public class BookController {
         return "librarian/addBook";
     }
 
-    @RequestMapping(value = "/books")
+    @RequestMapping(value = "/books", method ={RequestMethod.POST, RequestMethod.GET})
     public ModelAndView listOfUsers(@RequestParam(required = false) Integer page,
                                     @RequestParam(value = "bookTitle", defaultValue = "") String bookTitle,
                                     @RequestParam(value = "available", required = false) boolean showNotAvailable,
@@ -69,7 +69,7 @@ public class BookController {
         ModelAndView modelAndView = new ModelAndView("common/bookList");
         List<Book> books = bookService.getBooks(bookTitle, showNotAvailable, sortType);
         PagedListHolder<Book> pagedListHolder = new PagedListHolder<>(books);
-        int booksByPage = 1;
+        int booksByPage = 5;
         pagedListHolder.setPageSize(booksByPage);
         modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
         if (page == null || page < 1 || page > pagedListHolder.getPageCount()) {
@@ -114,10 +114,18 @@ public class BookController {
     }
 
     @RequestMapping(value = "/books/request/{id}", method = RequestMethod.POST)
-    public String requestBook(@PathVariable("id") Long bookId, @RequestParam("location") Location location, Principal principal) {
+    public String requestBook(@PathVariable("id") Long bookId, @RequestParam("location") Location location, Model model) {
         Order order = new Order(null, null, bookId, location, Status.REQUESTED);
         Order orderCreated = bookService.requestBook(order);
-        return orderCreated.getId() == null ? "bookCreationFailure" : "redirect:/user/orders/";
+        if (orderCreated.getId() == null) {
+            model.addAttribute("alreadyRequsted", true);
+            Book book = bookService.getBook(bookId);
+            model.addAttribute("book", book);
+            model.addAttribute("role", detailsService.getRole());
+            return "common/viewBook";
+        } else {
+            return "redirect:/user/orders/";
+        }
     }
 
     @RequestMapping(value = "/books/edit", method = RequestMethod.POST)
