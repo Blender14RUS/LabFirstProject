@@ -60,4 +60,6 @@ public interface UserService {
      * @return
      */
     User getUserDataByLogin(String login);
+
+    boolean updateUserNameByLogin(User user);
 }

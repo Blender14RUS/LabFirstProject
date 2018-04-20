@@ -78,12 +78,11 @@ public class UserController {
         user.setLogin(login);
         if (pass.equals(confPass)) {
             user.setPass(pass);
-            if(userService.createUser(user)){
+            if (userService.createUser(user)) {
                 LOG.info("User has been created: " + login + " " + pass);
                 model.addAttribute("user-created", 1);
                 return "redirect: /login";
-            }
-            else{
+            } else {
                 model.addAttribute("error-create", "err");
             }
         } else {
@@ -109,9 +108,20 @@ public class UserController {
 
     @RequestMapping("/profile")
     public String userProfile(Model model) {
-        User user = userService.getUserByLogin(detailsService.getCurrentUsername());
+        User user = userService.getUserDataByLogin(detailsService.getCurrentUsername());
         model.addAttribute(user);
         return "user/UserProfile";
+    }
+
+    @RequestMapping(value = "/profile/change-name/{login}", method = RequestMethod.POST)
+    public String changeUserName(@PathVariable String login,
+                                 @RequestParam("name") String newName) {
+        User user = new User();
+        user.setLogin(login);
+        user.setName(newName);
+        userService.updateUserNameByLogin(user);
+        return "redirect:/profile";
+
     }
 
     @RequestMapping("user/orders/{id}")

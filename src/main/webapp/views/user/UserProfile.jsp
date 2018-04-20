@@ -9,39 +9,29 @@
 
 <jsp:include page="../layout/_menu.jsp"></jsp:include>
 
-</body>
-</html>
-<div class="col-md-2 col-md-offset-5 center-pill">
-    <div class="panel panel-info ">
-        <div class="panel-heading">
-            <h2 class="panel-title">${user.accessLevel}</h2>
+</body class="text-center">
+<div class=" center-pill panel panel-info form-signin ">
+
+    <div class="panel-heading">
+        <h2 class="panel-title">${user.accessLevel}</h2>
+    </div>
+    <div class="panel-body">
+        <div class="form-control">Login: ${user.login}
         </div>
-        <div class="panel-body">
-            <table class="table table-condensed table-hover table-borderless">
-                <tbody>
-                <tr>
-                    <td>Login:</td>
-                    <td>${user.login}</td>
-                    <td>
-                        <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Name:</td>
-                    <td>${user.name}</td>
-                    <td>
-                        <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                    </td>
-                </tr>
-                <form action="/user/change-password" method="POST">
-                    <button type="submit" class="btn btn-default">Change password</button>
-                </form>
-                </tbody>
-            </table>
-        </div>
+        <form action="/profile/change-name/${user.login}" method="POST">
+            <div class="form-control">
+                <p>Name:</p>
+                <input name="name" class="form-control" value="${user.name}"></td>
+
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+
+            </div>
+        </form>
+        <button type="submit" class="btn btn-default">Change password</button>
+        </tbody>
+        </table>
     </div>
 </div>
+</html>

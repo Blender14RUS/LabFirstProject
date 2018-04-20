@@ -30,7 +30,7 @@ public interface UserDao {
      * @param user - an instances of User filled with data must be recorded in the database
      * @return Count of changes rows in database
      */
-    int createUser(User user);
+    int createUser(User user, AccessLevel accessLevel);
 
     /**
      * Method removes user from database
@@ -77,5 +77,17 @@ public interface UserDao {
      */
     public boolean isUserLoginAlreadyExists(String login);
 
+    /**
+     *
+     * @param login
+     * @return
+     */
     User getUserDataDataByLogin(String login);
+
+    /**
+     *
+     * @param login
+     * @return
+     */
+    int updateUserNameByLogin(User user);
 }
