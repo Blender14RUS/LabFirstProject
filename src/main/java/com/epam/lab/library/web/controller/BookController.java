@@ -69,7 +69,7 @@ public class BookController {
         ModelAndView modelAndView = new ModelAndView("common/bookList");
         List<Book> books = bookService.getBooks(bookTitle, showNotAvailable, sortType);
         PagedListHolder<Book> pagedListHolder = new PagedListHolder<>(books);
-        int booksByPage = 2;
+        int booksByPage = 1;
         pagedListHolder.setPageSize(booksByPage);
         modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
         if (page == null || page < 1 || page > pagedListHolder.getPageCount()) {

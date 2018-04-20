@@ -5,13 +5,9 @@ import com.epam.lab.library.domain.Order;
 import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.UserService;
 import com.epam.lab.library.service.impl.DataBaseUserDetailService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import com.epam.lab.library.service.impl.DataBaseUserDetailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+
+import static com.epam.lab.library.domain.Status.GIVEN;
+import static com.epam.lab.library.domain.Status.REQUESTED;
 
 @Controller
 public class UserController {

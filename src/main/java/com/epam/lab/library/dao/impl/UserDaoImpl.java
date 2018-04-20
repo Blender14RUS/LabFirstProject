@@ -90,9 +90,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserDataDataByLogin(String login) {
-        User user = (User) jdbcOperations.queryForObject(
+        User user = jdbcOperations.queryForObject(
                 GET_USER_DATA_BY_LOGIN, new Object[]{login},
-                new BeanPropertyRowMapper(User.class));
+                new BeanPropertyRowMapper<>(User.class));
         return user;
     }
 

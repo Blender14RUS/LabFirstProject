@@ -23,16 +23,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDao userDao;
 
     @Autowired
-    WebSecurityConfig (UserDao userDao) {this.userDao = userDao; }
+    WebSecurityConfig(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Autowired
     DataBaseUserDetailService dataBaseUserDetailService;
 
     @Bean
-    public PasswordEncoder passwordEncoder(){return PasswordEncoderFactories.createDelegatingPasswordEncoder();}
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 
     @Override
-    protected void configure (HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/registration", "/books", "/",
@@ -48,10 +52,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutUrl("/auth/logout").
                 logoutSuccessUrl("/login")
                 .permitAll();
-
-
     }
-
-
 
 }
