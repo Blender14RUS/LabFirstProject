@@ -62,4 +62,6 @@ public interface UserService {
     User getUserDataByLogin(String login);
 
     boolean updateUserNameByLogin(User user);
+
+    void deleteRequest(Long orderId, Long bookId);
 }

@@ -26,12 +26,13 @@ public class UserDaoImpl implements UserDao {
     private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id = ?";
     private static final String UPDATE_USER_ACCESS_LEVEL = "UPDATE users SET access_level = ? WHERE id = ?";
     private static final String GET_ALL_ORDER_BY_STATUS = "SELECT * FROM orders WHERE status = ?";
-    private static final String GET_ALL_USER_ORDERS = "SELECT * FROM orders WHERE id = ?";
+    private static final String GET_ALL_USER_ORDERS = "SELECT * FROM orders WHERE user_id = ?";
     private static final String GET_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?";
     private static final String GET_USER_DATA_BY_LOGIN = "SELECT login, name, access_level FROM users WHERE login = ?";
     private static final String USER_COUNT = "SELECT count(*) FROM users WHERE login=?";
     private static final String UPDATE_USER_NAME = "UPDATE users SET name = ? WHERE login = ?";
     private static final String DELETE_ORDERS_BY_USER_ID = "DELETE FROM orders WHERE user_id = ?";
+    private static final String DELETE_REQUEST = "DELETE FROM orders WHERE id = ? AND status = 'REQUESTED'";
 
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -101,4 +102,8 @@ public class UserDaoImpl implements UserDao {
         jdbcOperations.update(DELETE_ORDERS_BY_USER_ID, id);
     }
 
+    @Override
+    public void deleteRequest(Long id) {
+        jdbcOperations.update(DELETE_REQUEST, id);
+    }
 }

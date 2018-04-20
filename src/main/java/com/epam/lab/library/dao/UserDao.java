@@ -85,4 +85,6 @@ public interface UserDao {
     int updateUserNameByLogin(User user);
 
     void deleteOrdersByUserId(Long id);
+
+    void deleteRequest(Long id);
 }

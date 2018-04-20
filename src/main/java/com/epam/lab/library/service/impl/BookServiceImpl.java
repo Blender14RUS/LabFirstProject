@@ -66,6 +66,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void setBookStatus(Status status, Long id) {
         bookDao.setBookStatus(status, id);
+        bookDao.plusBook(id);
     }
 
     @Override
@@ -101,5 +102,6 @@ public class BookServiceImpl implements BookService {
         }
         return orderCreated;
     }
+
 
 }

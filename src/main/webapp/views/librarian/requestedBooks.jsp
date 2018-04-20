@@ -17,8 +17,8 @@
     <table class="table table-striped">
         <tr>
             <th>Order ID</th>
-            <th>User ID</th>
-            <th>Book ID</th>
+            <th>User</th>
+            <th>Book</th>
             <th>Location</th>
             <th>Status</th>
             <th>Give book</th>
@@ -26,8 +26,8 @@
         <c:forEach items="${orders}" var="order">
             <tr>
                 <td>${order.id}</td>
-                <td>${order.userId}</td>
-                <td>${order.bookId}</td>
+                <td>${order.user.name}</td>
+                <td>${order.book.title} (${order.book.year})</td>
                 <td>${order.location}</td>
                 <td>${order.status}</td>
                 <td>
