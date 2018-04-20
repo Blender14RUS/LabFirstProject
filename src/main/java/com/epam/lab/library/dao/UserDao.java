@@ -77,4 +77,5 @@ public interface UserDao {
      */
     public boolean isUserLoginAlreadyExists(String login);
 
+    User getUserDataDataByLogin(String login);
 }

@@ -64,4 +64,10 @@ public class User {
     public void setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
     }
+
+    public User(String login, String name, AccessLevel accessLevel) {
+        this.login = login;
+        this.name = name;
+        this.accessLevel = accessLevel;
+    }
 }

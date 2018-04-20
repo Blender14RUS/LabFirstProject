@@ -29,15 +29,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Change password</td>
-                    <td></td>
-                    <td>
-                        <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
                     <td>Name:</td>
                     <td>${user.name}</td>
                     <td>
@@ -46,6 +37,9 @@
                         </button>
                     </td>
                 </tr>
+                <form action="/user/change-password" method="POST">
+                    <button type="submit" class="btn btn-default">Change password</button>
+                </form>
                 </tbody>
             </table>
         </div>

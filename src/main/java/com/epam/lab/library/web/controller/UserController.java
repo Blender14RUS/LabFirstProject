@@ -5,9 +5,13 @@ import com.epam.lab.library.domain.Order;
 import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.UserService;
 import com.epam.lab.library.service.impl.DataBaseUserDetailService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import com.epam.lab.library.service.impl.DataBaseUserDetailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +25,6 @@ import static com.epam.lab.library.domain.Status.REQUESTED;
 public class UserController {
 
     private static final Logger LOG = LoggerFactory.getLogger(BookController.class);
-
-    private static String MESSAGE = "Passwords don't match";
 
     @Autowired
     private UserService userService;
@@ -54,7 +56,7 @@ public class UserController {
         return "librarian/returnedBooks";
     }
 
-    @RequestMapping("/admin")
+    @RequestMapping("/admin/board")
     public String showAll(Model model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
@@ -72,33 +74,37 @@ public class UserController {
                              @RequestParam("confirm-password") String confPass,
                              @RequestParam("name") String name) {
         User user = new User();
-        user.setId(null);
         user.setName(name);
         user.setLogin(login);
-
         if (pass.equals(confPass)) {
             user.setPass(pass);
-            boolean isCreated = userService.createUser(user);
-            LOG.info("User has been created: " + login + " " + pass);
-            return isCreated ? "redirect:/" : "redirect:/registration-failure";
+            if(userService.createUser(user)){
+                LOG.info("User has been created: " + login + " " + pass);
+                model.addAttribute("user-created", 1);
+                return "redirect: /login";
+            }
+            else{
+                model.addAttribute("error-create", "err");
+            }
+        } else {
+            model.addAttribute("error-password", "erro");
         }
-        else { model.addAttribute("message", MESSAGE);
-                model.addAttribute("user", user);
-        }
-        return "common/registration";
+        model.addAttribute("user", user);
+        model.addAttribute("message", "hi there");
+        return "redirect: common/registration";
     }
 
-    @RequestMapping(value = "/admin/delete-user", method = RequestMethod.POST)
-    public String deleteUser(@RequestParam("id") long id) {
+    @RequestMapping(value = "admin/delete-user/{id}", method = RequestMethod.POST)
+    public String deleteUser(@PathVariable("id") long id) {
         userService.deleteUserById(id);
-        return "redirect:/admin";
+        return "redirect:/admin/board";
     }
 
-    @RequestMapping(value = "/user/update-access/{id}/{accessLevel}", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/update-access/{id}/{accessLevel}", method = RequestMethod.POST)
     public String updateUserAccessLevel(@PathVariable("id") Long id,
                                         @PathVariable("accessLevel") AccessLevel accessLevel) {
         userService.updateUserAccessLevel(id, accessLevel);
-        return "redirect:/admin";
+        return "redirect:/admin/board";
     }
 
     @RequestMapping("/profile")
