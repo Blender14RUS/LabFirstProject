@@ -64,4 +64,6 @@ public interface BookDao {
 
     int checkOrderRequested(Long bookId, Long userId);
 
+    void plusBook(Long id);
+
 }
