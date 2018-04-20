@@ -31,6 +31,7 @@ public class UserDaoImpl implements UserDao {
     private static final String GET_USER_DATA_BY_LOGIN = "SELECT login, name, access_level FROM users WHERE login = ?";
     private static final String USER_COUNT = "SELECT count(*) FROM users WHERE login=?";
     private static final String UPDATE_USER_NAME = "UPDATE users SET name = ? WHERE login = ?";
+    private static final String DELETE_ORDERS_BY_USER_ID = "DELETE FROM orders WHERE user_id = ?";
 
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -101,7 +102,11 @@ public class UserDaoImpl implements UserDao {
         return jdbcOperations.update(UPDATE_USER_NAME,
                 user.getName(),
                 user.getLogin());
-
-
     }
+
+    @Override
+    public void deleteOrdersByUserId(Long id) {
+        jdbcOperations.update(DELETE_ORDERS_BY_USER_ID, id);
+    }
+
 }

@@ -68,14 +68,14 @@ public interface UserDao {
      * @param login
      * @return
      */
-    public User getUserByLogin(String login);
+    User getUserByLogin(String login);
 
     /**
      *
      * @param login
      * @return
      */
-    public boolean isUserLoginAlreadyExists(String login);
+    boolean isUserLoginAlreadyExists(String login);
 
     /**
      *
@@ -86,8 +86,10 @@ public interface UserDao {
 
     /**
      *
-     * @param login
+     * @param
      * @return
      */
     int updateUserNameByLogin(User user);
+
+    void deleteOrdersByUserId(Long id);
 }
