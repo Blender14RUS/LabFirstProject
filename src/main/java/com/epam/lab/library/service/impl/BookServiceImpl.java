@@ -1,10 +1,7 @@
 package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.BookDao;
-import com.epam.lab.library.domain.Author;
-import com.epam.lab.library.domain.Book;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
+import com.epam.lab.library.domain.*;
 import com.epam.lab.library.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +14,14 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
+
     private BookDao bookDao;
+
+    @Autowired
+    private DataBaseUserDetailService detailsService;
+
+    @Autowired
+    private UserServiceImpl userService;
 
     @Autowired
     BookServiceImpl(BookDao bookDao) {
@@ -82,13 +86,20 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Order requestBook(Order order) {
+        String userName = detailsService.getCurrentUsername();
+        User user = userService.getUserByLogin(userName);
+        order.setUserId(user.getId());
         Book book = getBook(order.getBookId());
-        if (book.getAvailable() > 0 & bookDao.checkOrder(order.getBookId(), order.getUserId()) == 0) {
+        Order orderCreated = new Order();
+        if (book.getAvailable() > 0 && bookDao.checkOrderGiven(order.getBookId(), order.getUserId()) == 0) {
+            int countRequested = bookDao.checkOrderRequested(order.getBookId(), order.getUserId());
+            if (countRequested > 0)
+                return orderCreated;
             bookDao.requestBook(book);
             if (book.getAvailable() > getBook(order.getBookId()).getAvailable())
-                bookDao.createOrder(order);
+                orderCreated = bookDao.createOrder(order);
         }
-        return order;
+        return orderCreated;
     }
 
 }

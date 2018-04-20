@@ -25,7 +25,7 @@
                         </span>
                     </h3>
                 </div>
-                <c:if test="${not empty book}">
+                <c:if test="${(role eq 'ROLE_ADMIN') || (role eq 'ROLE_LIBRARIAN')}">
                     <div class="form-row">
                         <h3>Count available copy: ${book.available} </h3>
                     </div>
@@ -47,8 +47,8 @@
                     </div>
                 </form>
                 <br>
-                <c:if test="${not empty book}">
-                    <form action="/books/addBook" method="POST">
+                <c:if test="${(role == 'ROLE_ADMIN') || (role == 'ROLE_LIBRARIAN')}">
+                    <form action="/lib/addBook" method="POST">
                         <div class="form-row">
                             <button type="submit" class="btn btn-info" name="id" value="${book.id}">Edit book</button>
                         </div>

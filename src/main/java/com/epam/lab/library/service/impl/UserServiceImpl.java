@@ -1,7 +1,10 @@
 package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.UserDao;
-import com.epam.lab.library.domain.*;
+import com.epam.lab.library.domain.AccessLevel;
+import com.epam.lab.library.domain.Order;
+import com.epam.lab.library.domain.Status;
+import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.BookService;
 import com.epam.lab.library.service.UserService;
 import org.slf4j.Logger;
@@ -15,17 +18,15 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
-    private UserDao userDao;
     private final PasswordEncoder bcryptEncoder;
+    private UserDao userDao;
+    @Autowired
+    private BookService bookService;
 
     public UserServiceImpl(UserDao userDao, PasswordEncoder bcryptEncoder) {
         this.userDao = userDao;
         this.bcryptEncoder = bcryptEncoder;
     }
-
-    @Autowired
-    private BookService bookService;
-
 
     @Override
     public List<Order> getAllOrderByStatus(Status status) {

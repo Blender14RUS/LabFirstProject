@@ -21,7 +21,7 @@ public class BookDaoImpl implements BookDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserDaoImpl.class);
 
-    private static final String SELECT_BOOK = "SELECT count(*) FROM books WHERE title = ? AND year = ?";
+    private static final String SELECT_BOOK = "SELECT COUNT(*) FROM books WHERE title = ? AND year = ?";
     private static final String ADD_BOOK = "INSERT INTO books (id, title, year, available) " +
             "VALUES (nextval('books_seq'), :title, :year, :available)";
     private static final String SET_BOOK_STATUS = "UPDATE orders SET status = ? WHERE id = ?";
@@ -29,7 +29,7 @@ public class BookDaoImpl implements BookDao {
             "VALUES (nextval('authors_seq'), :name)";
     private static final String CREATE_BOOK_AUTHORS = "INSERT INTO book_authors (book_id, author_id) VALUES (:bookId, :authorId)";
     private static final String GET_AUTHOR = "SELECT * FROM authors WHERE name = ?";
-    private static final String SELECT_AUTHOR = "SELECT count(*) FROM authors WHERE name = ?";
+    private static final String SELECT_AUTHOR = "SELECT COUNT(*) FROM authors WHERE name = ?";
     private static final String GET_AUTHORS = "SELECT * FROM authors JOIN book_authors ON authors.id = book_authors.author_id WHERE book_authors.book_id=?";
     private static final String GET_ALL_AVAILABLE_BOOKS = "SELECT * FROM books WHERE available!=0";
     private static final String GET_BOOK_BY_ID = "SELECT * FROM books WHERE id=?";
@@ -38,7 +38,8 @@ public class BookDaoImpl implements BookDao {
     private static final String CREATE_ORDER = "INSERT INTO orders (id, user_id, book_id, location, status) " +
             "VALUES (nextval('orders_seq'), :userId, :bookId, :location, :status)";
     private static final String REQUEST_BOOK = "UPDATE books SET available = :newCount WHERE id = :bookId AND available = :nowCount";
-    private static final String CHECK_ORDER = "SELECT count(*) FROM orders WHERE status = 'GIVEN' AND user_id = ? AND book_id = ? ";
+    private static final String CHECK_ORDER_GIVEN = "SELECT COUNT(*) FROM orders WHERE status = 'GIVEN' AND user_id = ? AND book_id = ? ";
+    private static final String CHECK_ORDER_REQUESTED = "SELECT COUNT(*) FROM orders WHERE status = 'REQUESTED' AND user_id = ? AND book_id = ?";
 
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -56,11 +57,11 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<Book> getBooks(String searchingTitle,boolean showNotAvailable,String sortType) {
-        Filter filter= new Filter(searchingTitle,showNotAvailable,sortType);
+    public List<Book> getBooks(String searchingTitle, boolean showNotAvailable, String sortType) {
+        Filter filter = new Filter(searchingTitle, showNotAvailable, sortType);
         List<Book> books;
         if (!searchingTitle.equals(""))
-        books = jdbcOperations.query(filter.getSelect(), new BeanPropertyRowMapper<>(Book.class),"%"+searchingTitle+"%");
+            books = jdbcOperations.query(filter.getSelect(), new BeanPropertyRowMapper<>(Book.class), "%" + searchingTitle + "%");
         else books = jdbcOperations.query(filter.getSelect(), new BeanPropertyRowMapper<>(Book.class));
         for (Book b : books) {
             b.setAuthors(jdbcOperations.query(GET_AUTHORS, new BeanPropertyRowMapper<>(Author.class), b.getId()));
@@ -141,7 +142,12 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public int checkOrder(Long bookId, Long userId){
-        return jdbcOperations.queryForObject(CHECK_ORDER, Integer.class, userId, bookId);
+    public int checkOrderGiven(Long bookId, Long userId) {
+        return jdbcOperations.queryForObject(CHECK_ORDER_GIVEN, Integer.class, userId, bookId);
+    }
+
+    @Override
+    public int checkOrderRequested(Long bookId, Long userId) {
+        return jdbcOperations.queryForObject(CHECK_ORDER_REQUESTED, Integer.class, userId, bookId);
     }
 }

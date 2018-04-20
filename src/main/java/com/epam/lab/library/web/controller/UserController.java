@@ -14,12 +14,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-
-import static com.epam.lab.library.domain.Status.GIVEN;
-import static com.epam.lab.library.domain.Status.REQUESTED;
 
 @Controller
 public class UserController {
@@ -41,6 +41,7 @@ public class UserController {
     public String defaultPage(Model model) {
         return "common/index";
     }
+
 
     @RequestMapping("/requested-books")
     public String librarianRequestsForBooksIssue(Model model) {
@@ -113,6 +114,7 @@ public class UserController {
         return "user/UserProfile";
     }
 
+
     @RequestMapping(value = "/profile/change-name/{login}", method = RequestMethod.POST)
     public String changeUserName(@PathVariable String login,
                                  @RequestParam("name") String newName) {
@@ -121,12 +123,12 @@ public class UserController {
         user.setName(newName);
         userService.updateUserNameByLogin(user);
         return "redirect:/profile";
-
     }
-
-    @RequestMapping("user/orders/{id}")
-    public String userOrders(@PathVariable("id") Long id, Model model) {
-        List<Order> orders = userService.getAllUserOrders(id);
+  
+    @RequestMapping("user/orders")
+    public String userOrders(Model model) {
+        User user = userService.getUserByLogin(detailsService.getCurrentUsername());
+        List<Order> orders = userService.getAllUserOrders(user.getId());
         model.addAttribute("orders", orders);
         return "user/userOrders";
     }

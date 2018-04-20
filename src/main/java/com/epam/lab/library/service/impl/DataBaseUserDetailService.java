@@ -19,7 +19,7 @@ import java.util.Set;
 @Service
 @Transactional
 public class DataBaseUserDetailService implements UserDetailsService {
-    private static final String ROLE ="ROLE_";
+    private static final String ROLE = "ROLE_";
 
     private UserDao userDao;
 
@@ -47,5 +47,10 @@ public class DataBaseUserDetailService implements UserDetailsService {
         return auth.getName();
     }
 
+    public String getRole() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String role = auth.getAuthorities().toString();
+        return role.substring(1, role.length() - 1);
+    }
 
 }

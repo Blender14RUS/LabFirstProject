@@ -14,11 +14,13 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="${pageContext.request.contextPath}/books">Catalog</a></li>
+
             <li><a href="${pageContext.request.contextPath}/admin/board">Admin board </a></li>
-            <li><a href="${pageContext.request.contextPath}/">Add user(null)</a></li>
-            <li><a href="${pageContext.request.contextPath}/requested-books">Requested books</a></li>
-            <li><a href="${pageContext.request.contextPath}/returned-books">Returned books</a></li>
-            <li><a href="${pageContext.request.contextPath}/books/addBook">Add book</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/orders">My orders</a></li>
+            <li><a href="${pageContext.request.contextPath}/">Register(null)</a></li>
+            <li><a href="${pageContext.request.contextPath}/lib/requested-books">Requested books</a></li>
+            <li><a href="${pageContext.request.contextPath}/lib/returned-books">Returned books</a></li>
+            <li><a href="${pageContext.request.contextPath}/lib/addBook">Add book</a></li>
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
