@@ -1,9 +1,7 @@
 package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.UserDao;
-import com.epam.lab.library.domain.Location;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
+import com.epam.lab.library.domain.*;
 import com.epam.lab.library.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,5 +43,20 @@ class UserServiceImplTest {
 //        verify(mockUserDao).getAllOrderByStatus(status);
 //        verifyNoMoreInteractions(mockUserDao);
 //        assertEquals(expectedOrders, actualOrders);
+    }
+
+    @Test
+    void getUserByLoginTest() {
+        Long id = 2L;
+        String login = "login";
+        User expectedUser = new User(id, login, "pass", "name", AccessLevel.READER);
+        doReturn(new User(id, login, "pass", "name", AccessLevel.READER))
+                .when(mockUserDao).getUserByLogin("login");
+
+        User actualUser = userService.getUserByLogin(login);
+
+        verify(mockUserDao).getUserByLogin(login);
+        verifyNoMoreInteractions(mockUserDao);
+        assertEquals(expectedUser, actualUser);
     }
 }
