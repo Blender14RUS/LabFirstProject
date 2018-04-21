@@ -44,7 +44,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(Long id) {
         orderDao.deleteOrdersByUserId(id);
-        if (!userDao.deleteUserById(id)) {
+        LOG.info("Orders of user with id: " +
+                +id + " has been deleted");
+        if (userDao.deleteUserById(id)) {
+            LOG.error("Delete user with id: " + id + "failed.");
+        } else {
             LOG.error("Delete user failed.");
         }
     }
@@ -66,7 +70,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserNameByLogin(User user) {
-        if (!userDao.updateUserNameByLogin(user)) {
+        if (userDao.updateUserNameByLogin(user)) {
+            LOG.info("Update userName success " + user.toString());
+        } else {
             LOG.error("Update userName by login failed.");
         }
     }
@@ -78,13 +84,16 @@ public class UserServiceImpl implements UserService {
                 user.getLogin().isEmpty() ||
                 user.getPass().isEmpty() ||
                 userDao.isUserLoginAlreadyExists(user.getLogin())) {
+            LOG.error("Create user failed: " +
+                    "necessary field is empty (" + user.toString() + ")");
             return false;
         } else {
             user.setPass(bcryptEncoder.encode(user.getPass()));
             if (userDao.createUser(user, AccessLevel.READER)) {
+                LOG.info("New user has been created: " + user.toString());
                 return true;
             }
-            LOG.error("Create user failed.");
+            LOG.error("Create user failed: " + user.toString());
             return false;
         }
     }
@@ -94,12 +103,14 @@ public class UserServiceImpl implements UserService {
         if (login != null && !login.isEmpty()) {
             return userDao.isUserLoginAlreadyExists(login);
         } else {
+            LOG.error("User " + login + " already exist: ");
             return false;
         }
     }
 
     @Override
     public boolean equalsPasswords(String password, String confirmPassword) {
+        LOG.info("checking passwords");
         return (password != null &&
                 !password.isEmpty() &&
                 password.equals(confirmPassword));

@@ -25,7 +25,7 @@ public interface UserService {
     /**
      * Creates new user through web form
      *
-     * @param user - an instances of User filled with data must be recorded in the database
+     * @param user an instances of User filled with data must be recorded in the database
      * @return Count of changes rows in database
      */
     boolean createUser(User user);
@@ -48,7 +48,7 @@ public interface UserService {
     /**
      * Takes user data from database by login
      *
-     * @param login
+     * @param login user's login
      * @return an instances of User filled with data from the database
      */
     User getUserDataByLogin(String login);
@@ -56,23 +56,24 @@ public interface UserService {
     /**
      * Update userName by login
      *
-     * @param user
+     * @param user instance of user model with new name
      */
     void updateUserNameByLogin(User user);
 
     /**
      * Check is user already exists
      *
-     * @param login
+     * @param login user's login
      * @return true if exist
      */
     boolean isUserLoginAlreadyExists(String login);
 
     /**
+     * compares password and password confirmation
      *
-     * @param password
-     * @param confirmPassword
-     * @return
+     * @param password        user password
+     * @param confirmPassword confirmed user password
+     * @return true if password are the same or false if are not
      */
     boolean equalsPasswords(String password, String confirmPassword);
 

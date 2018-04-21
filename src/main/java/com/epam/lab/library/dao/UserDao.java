@@ -34,6 +34,8 @@ public interface UserDao {
      * Method removes user from database
      *
      * @param id It's id of user which must be deleted from the database
+     * @return true if user has been deleted successfully
+     * or false otherwise
      */
     boolean deleteUserById(Long id);
 
@@ -42,13 +44,15 @@ public interface UserDao {
      *
      * @param id          It's id of user which access level must be changed
      * @param accessLevel current value of user access level
+     * @return true if user access level name has been changed successfully
+     * or false otherwise
      */
     boolean updateUserAccessLevel(Long id, AccessLevel accessLevel);
 
     /**
      * Takes user data from database by login
      *
-     * @param login
+     * @param login User login in database (should be unique)
      * @return an instances of User filled with data from the database
      */
     User getUserByLogin(String login);
@@ -56,14 +60,17 @@ public interface UserDao {
     /**
      * Check is user already exists.
      *
-     * @param login
+     * @param login User login in database (should be unique)
      * @return true if exist
      */
     boolean isUserLoginAlreadyExists(String login);
 
     /**
-     * @param
-     * @return
+     * Updates user name
+     *
+     * @param user User with new new name in user.name field
+     * @return true if name has been changed successfully
+     * or false otherwise
      */
     boolean updateUserNameByLogin(User user);
 

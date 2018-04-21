@@ -20,8 +20,6 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BookController.class);
-
     @Autowired
     private final DataBaseUserDetailService detailsService;
 
@@ -37,8 +35,8 @@ public class UserController {
     public String defaultPage(Model model,
                               @RequestParam(value = "lang", defaultValue = "en_US") String language,
                               @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed
-                              ){
-        if(lang_changed) {
+    ) {
+        if (lang_changed) {
             LocalizationController.setLang(language);
         }
         model.addAttribute("language", LocalizationController.getLang());
@@ -52,7 +50,7 @@ public class UserController {
                           @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        if(lang_changed)
+        if (lang_changed)
             LocalizationController.setLang(language);
         model.addAttribute("language", LocalizationController.getLang());
         return "admin/adminBoard";
@@ -68,7 +66,7 @@ public class UserController {
         User user = new User();
         user.setName(name);
         user.setLogin(login);
-        if(lang_changed)
+        if (lang_changed)
             LocalizationController.setLang(language);
         model.addAttribute("language", LocalizationController.getLang());
         boolean validPasswords = userService.equalsPasswords(pass, confPass);
@@ -80,7 +78,6 @@ public class UserController {
             } else {
                 user.setPass(pass);
                 if (userService.createUser(user)) {
-                    LOG.info("User has been created: " + user.toString());
                     model.addAttribute("successCreate", true);
                     return "common/login";
                 } else {
@@ -88,7 +85,7 @@ public class UserController {
                 }
             }
         }
-        if(lang_changed)
+        if (lang_changed)
             LocalizationController.setLang(language);
         model.addAttribute("language", LocalizationController.getLang());
         model.addAttribute("user", user);
@@ -101,7 +98,7 @@ public class UserController {
                              @RequestParam(value = "lang", defaultValue = "en_US") String language,
                              @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         userService.deleteUserById(id);
-        if(lang_changed) {
+        if (lang_changed) {
 
             LocalizationController.setLang(language);
         }
@@ -116,7 +113,7 @@ public class UserController {
                                         @RequestParam(value = "lang", defaultValue = "en_US") String language,
                                         @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         userService.updateUserAccessLevel(id, accessLevel);
-        if(lang_changed) {
+        if (lang_changed) {
 
             LocalizationController.setLang(language);
         }
@@ -130,7 +127,7 @@ public class UserController {
                               @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         User user = userService.getUserDataByLogin(detailsService.getCurrentUsername());
         model.addAttribute(user);
-        if(lang_changed) {
+        if (lang_changed) {
 
             LocalizationController.setLang(language);
         }
@@ -149,7 +146,7 @@ public class UserController {
         user.setLogin(login);
         user.setName(newName);
         userService.updateUserNameByLogin(user);
-        if(lang_changed) {
+        if (lang_changed) {
 
             LocalizationController.setLang(language);
         }
