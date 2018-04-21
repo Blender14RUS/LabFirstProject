@@ -41,7 +41,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <security:authorize access="!isAuthenticated()">
-                    <li><a class="btn btn-lg " href="${pageContext.request.contextPath}/login">Lod In</a></li>
+                    <li><a class="btn btn-lg " href="${pageContext.request.contextPath}/login">Log In</a></li>
                     <li><a class="btn btn-clear " href="${pageContext.request.contextPath}/registration"><fmt:message
                             key="menu.register"/></a></li>
                 </security:authorize>
@@ -60,18 +60,19 @@
                     </li>
                 </security:authorize>
 
-
-                <form action="${self}" method="POST">
-                    <input name="lang_changed" value="true" hidden/>
-                    <select name="lang" onchange="submit()">
-                        <option value="en_US">EN</option>
-                        <option value="ru_RU" <c:if test="${language == 'ru_RU'}">
-                            selected
-                        </c:if>
-                        >RU
-                        </option>
-                    </select>
-                </form>
+                <il btn btn-clear>
+                    <form action="${self}" method="POST">
+                        <input name="lang_changed" value="true" hidden/>
+                        <select name="lang" onchange="submit()">
+                            <option value="en_US">EN</option>
+                            <option value="ru_RU" <c:if test="${language == 'ru_RU'}">
+                                selected
+                            </c:if>
+                            >RU
+                            </option>
+                        </select>
+                    </form>
+                </il>
             </ul>
         </div>
     </nav>

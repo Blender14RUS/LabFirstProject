@@ -111,9 +111,9 @@ public class UserController {
             } else {
                 user.setPass(pass);
                 if (userService.createUser(user)) {
-                    LOG.info("User has been created: " + login + " " + pass);
+                    LOG.info("User has been created: " + user.toString());
                     model.addAttribute("successCreate", true);
-                    return "login";
+                    return "common/login";
                 } else {
                     model.addAttribute("errorCreate", true);
                 }
