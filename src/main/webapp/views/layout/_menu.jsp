@@ -25,27 +25,33 @@
             <security:authorize access="hasRole('ADMIN')">
                 <li><a href="${pageContext.request.contextPath}/admin/board"><fmt:message  key="menu.adminBoard"/> </a></li>
             </security:authorize>
-            <li><a href="${pageContext.request.contextPath}/user/orders"><fmt:message  key="menu.myOrders"/></a></li>
-            <li><a href="${pageContext.request.contextPath}/"><fmt:message  key="menu.register"/></a></li>
-            <li><a href="${pageContext.request.contextPath}/lib/requested-books"><fmt:message  key="menu.requestedBooks"/></a></li>
-            <li><a href="${pageContext.request.contextPath}/lib/returned-books"><fmt:message  key="menu.returnedBooks"/></a></li>
-            <li><a href="${pageContext.request.contextPath}/lib/addBook"><fmt:message  key="menu.addBook"/></a></li>
-
+            <security:authorize access="isAuthenticated()">
+                <li><a href="${pageContext.request.contextPath}/user/orders"><fmt:message  key="menu.myOrders"/></a></li>
+            </security:authorize>
+            <security:authorize access="hasAnyRole('ADMIN','LIBRARIAN')">
+                <li><a href="${pageContext.request.contextPath}/lib/requested-books"><fmt:message  key="menu.requestedBooks"/></a></li>
+                <li><a href="${pageContext.request.contextPath}/lib/returned-books"><fmt:message  key="menu.returnedBooks"/></a></li>
+                <li><a href="${pageContext.request.contextPath}/lib/addBook"><fmt:message  key="menu.addBook"/></a></li>
+            </security:authorize>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <security:authorize access="isAuthenticated()">
+            <security:authorize access="!isAuthenticated()">
+                <li><a class="btn btn-lg " href="${pageContext.request.contextPath}/login">Lod In</a></li>
+                <li><a class="btn btn-clear " href="${pageContext.request.contextPath}/registration"><fmt:message  key="menu.register"/></a></li>
+            </security:authorize>
+            <security:authorize access="isAuthenticated()">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-user"></span>
                         <security:authentication property="principal.username"/>
-                    </security:authorize>
-                    <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/profile"><i class="icon-envelope"></i><fmt:message  key="menu.editProfile"/></a></li>
-                    <li class="divider"></li>
-                    <li><a href="/auth/logout"><i class="icon-off"></i><fmt:message  key="menu.logOut"/></a></li>
-                </ul>
-            </li>
+                        <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/profile"><i class="icon-envelope"></i><fmt:message  key="menu.editProfile"/></a></li>
+                        <li class="divider"></li>
+                        <li><a href="/auth/logout"><i class="icon-off"></i><fmt:message  key="menu.logOut"/></a></li>
+                    </ul>
+                </li>
+            </security:authorize>
             <form action="${self}" method="POST">
                 <input name="lang_changed" value="true" hidden/>
                 <select name="lang" onchange="submit()">
