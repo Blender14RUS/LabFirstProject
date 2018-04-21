@@ -108,3 +108,7 @@ input:checked + .slider:before {
     padding: 10px;
 @include box-sizing(border-box);
 }
+
+p.blue {
+    color: #2D9CDB;
+}

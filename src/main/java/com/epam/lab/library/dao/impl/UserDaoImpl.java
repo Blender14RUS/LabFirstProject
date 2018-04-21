@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
         return jdbcOperations.update(CREATE_NEW_USER,
                 user.getLogin(),
                 user.getName(),
-                accessLevel,
+                accessLevel.toString(),
                 user.getPass());
     }
 

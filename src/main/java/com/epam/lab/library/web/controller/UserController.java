@@ -50,26 +50,30 @@ public class UserController {
 
     @RequestMapping(value = "/registration")
     public String createUser(Model model, @RequestParam(value = "login", defaultValue = "") String login,
-                             @RequestParam(value = "password", defaultValue = "") String pass,
-                             @RequestParam(value = "confirm-password", defaultValue = "") String confPass,
+                             @RequestParam(value = "password", defaultValue = " ") String pass,
+                             @RequestParam(value = "confirm-password", defaultValue = " ") String confPass,
                              @RequestParam(value = "name", defaultValue = "") String name) {
         User user = new User();
         user.setName(name);
         user.setLogin(login);
-        if (pass.equals(confPass)) {
-            user.setPass(pass);
-            if (userService.createUser(user)) {
-                LOG.info("User has been created: " + login + " " + pass);
-                model.addAttribute("userCreated", true);
-                return "redirect: /login";
-            } else {
-                model.addAttribute("errorCreate", true);
-            }
+        boolean validPasswords = userService.equalsPasswords(pass, confPass);
+        if (userService.isUserLoginAlreadyExists(login)) {
+            model.addAttribute("errorIsExist", true);
         } else {
-            model.addAttribute("errorPassword", true);
+            if (!validPasswords) {
+                model.addAttribute("errorPassword", true);
+            } else {
+                user.setPass(pass);
+                if (userService.createUser(user)) {
+                    LOG.info("User has been created: " + login + " " + pass);
+                    model.addAttribute("successCreate", true);
+                    return "login";
+                } else {
+                    model.addAttribute("errorCreate", true);
+                }
+            }
         }
         model.addAttribute("user", user);
-        model.addAttribute("message", "hi there");
         return "common/registration";
     }
 
@@ -104,7 +108,7 @@ public class UserController {
         userService.updateUserNameByLogin(user);
         return "redirect:/profile";
     }
-  
+
     @RequestMapping("/user/orders")
     public String userOrders(Model model) {
         User user = userService.getUserByLogin(detailsService.getCurrentUsername());
