@@ -16,9 +16,9 @@
         <ul class="nav navbar-nav">
             <li><a href="${pageContext.request.contextPath}/books">Catalog</a></li>
 
-            <sec:authorize access="hasRole('ADMIN')">
-            <li><a href="${pageContext.request.contextPath}/admin/board">Admin board </a></li>
-            </sec:authorize>
+            <security:authorize access="hasRole('ADMIN')">
+                <li><a href="${pageContext.request.contextPath}/admin/board">Admin board </a></li>
+            </security:authorize>
             <li><a href="${pageContext.request.contextPath}/user/orders">My orders</a></li>
             <li><a href="${pageContext.request.contextPath}/">Register(null)</a></li>
             <li><a href="${pageContext.request.contextPath}/lib/requested-books">Requested books</a></li>
@@ -29,7 +29,11 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <span class="glyphicon glyphicon-user"></span>   ${user.name}<b class="caret"></b></a>
+                    <span class="glyphicon glyphicon-user"></span>
+                    <security:authorize access="isAuthenticated()">
+                        <security:authentication property="principal.username"/>
+                    </security:authorize>
+                    <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/profile"><i class="icon-envelope"></i> Edit profile</a></li>
                     <li class="divider"></li>
@@ -47,8 +51,5 @@
     </div>
 </nav>
 </div>
-<security:authorize access="isAuthenticated()">
-authenticated as <security:authentication property="principal.username" />
-</security:authorize>
 </body>
-        </html>
+</html>
