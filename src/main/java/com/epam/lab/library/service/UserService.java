@@ -64,4 +64,8 @@ public interface UserService {
     boolean updateUserNameByLogin(User user);
 
     void deleteRequest(Long orderId, Long bookId);
+
+    boolean isUserLoginAlreadyExists(String login);
+
+    boolean equalsPasswords(String password, String confirmPassword);
 }

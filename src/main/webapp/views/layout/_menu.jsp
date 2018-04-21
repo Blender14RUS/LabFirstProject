@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <link rel="stylesheet" href="../../resources/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
@@ -15,7 +16,9 @@
         <ul class="nav navbar-nav">
             <li><a href="${pageContext.request.contextPath}/books">Catalog</a></li>
 
+            <sec:authorize access="hasRole('ADMIN')">
             <li><a href="${pageContext.request.contextPath}/admin/board">Admin board </a></li>
+            </sec:authorize>
             <li><a href="${pageContext.request.contextPath}/user/orders">My orders</a></li>
             <li><a href="${pageContext.request.contextPath}/">Register(null)</a></li>
             <li><a href="${pageContext.request.contextPath}/lib/requested-books">Requested books</a></li>
@@ -44,5 +47,8 @@
     </div>
 </nav>
 </div>
-
+<security:authorize access="isAuthenticated()">
+authenticated as <security:authentication property="principal.username" />
+</security:authorize>
 </body>
+        </html>

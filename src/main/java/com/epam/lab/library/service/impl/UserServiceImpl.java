@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Order> getAllOrderByStatus(Status status) {
         List<Order> orderList = userDao.getAllOrderByStatus(status);
-        for (Order order: orderList){
+        for (Order order : orderList) {
             order.setBook(bookDao.getBook(order.getBookId()));
             order.setUser(userDao.getUser(order.getUserId()));
         }
@@ -87,7 +87,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean createUser(User user) {
-        if (user.getLogin().length() == 0 ||
+        if (user.getLogin() == null ||
+                user.getPass() == null ||
+                user.getLogin().length() == 0 ||
                 user.getPass().length() == 0 ||
                 userDao.isUserLoginAlreadyExists(user.getLogin())) {
             return false;
@@ -101,6 +103,22 @@ public class UserServiceImpl implements UserService {
     public void deleteRequest(Long orderId, Long bookId) {
         userDao.deleteRequest(orderId);
         bookDao.plusBook(bookId);
+    }
+
+    @Override
+    public boolean isUserLoginAlreadyExists(String login) {
+        if (login != null && !login.equals("")) {
+            return userDao.isUserLoginAlreadyExists(login);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean equalsPasswords(String password, String confirmPassword) {
+        return (password != null &&
+                password != "" &&
+                password.equals(confirmPassword));
     }
 
 }

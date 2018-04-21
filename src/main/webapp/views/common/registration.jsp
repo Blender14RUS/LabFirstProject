@@ -5,16 +5,16 @@
     <title>Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
+<body class="text-center">
 
 <jsp:include page="../layout/_menu.jsp"></jsp:include>
 
 <div class="wrapper">
     <form class="form-signin" action="/registration" method="POST">
         <img class="mb-4" src="../../resources/static/logo.png" height="200">
-        <h1 class="h3 mb-3 font-weight-normal">LOGIN</h1>
-        <c:if test="${not empty errorCreate}">
-            <p>
+        <h1 class="h3 mb-3 font-weight-normal">REGISTER</h1>
+        <c:if test="${not empty errorIsExist}">
+            <p class="blue">
                 User with this name already exists.
             </p>
         </c:if>
@@ -23,7 +23,7 @@
         <input name="name" placeholder="Name" class="form-control" value="${user.name}">
         <br>
         <c:if test="${not empty errorPassword}">
-            <p>
+            <p class="blue">
                 Passwords don't match.
             </p>
         </c:if>
