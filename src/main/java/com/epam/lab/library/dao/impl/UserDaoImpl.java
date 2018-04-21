@@ -22,6 +22,7 @@ public class UserDaoImpl implements UserDao {
     private static final String GET_USER_BY_LOGIN = "SELECT id, login, name, access_level FROM users WHERE login = ?";
     private static final String USER_COUNT = "SELECT count(*) FROM users WHERE login=?";
     private static final String UPDATE_USER_NAME = "UPDATE users SET name = ? WHERE login = ?";
+    private static final String GET_USER_WITH_PASS_AND_ROLE = "SELECT login, pass, access_level FROM users WHERE login = ?";
 
     @Autowired
     private NamedParameterJdbcOperations namedParameterJdbcOperations;
@@ -67,6 +68,12 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean updateUserNameByLogin(User user) {
         return namedParameterJdbcOperations.getJdbcOperations().update(UPDATE_USER_NAME, user.getName(), user.getLogin()) > 0;
+    }
+
+    @Override
+    public User getUserWithPassByLogin(String login) {
+        return namedParameterJdbcOperations.getJdbcOperations().queryForObject(
+                GET_USER_WITH_PASS_AND_ROLE, new Object[]{login}, new BeanPropertyRowMapper<>(User.class));
     }
 
 }

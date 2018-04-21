@@ -74,4 +74,13 @@ public interface UserDao {
      */
     boolean updateUserNameByLogin(User user);
 
+    /**
+     * Takes user's login, password and role
+     * @ Method should only use in security authentication</>
+     *
+     * @param login user's login in database
+     * @return instance of user with filled login, password and role
+     */
+    User getUserWithPassByLogin (String login);
+
 }

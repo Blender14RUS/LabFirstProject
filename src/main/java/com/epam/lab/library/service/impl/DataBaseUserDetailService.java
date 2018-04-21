@@ -34,7 +34,7 @@ public class DataBaseUserDetailService implements UserDetailsService {
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
-        User user = userDao.getUserByLogin(login);
+        User user = userDao.getUserWithPassByLogin(login);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority((ROLE + user.getAccessLevel().toString())));
         return new org.springframework.security.core.userdetails.User(user.getLogin(),
