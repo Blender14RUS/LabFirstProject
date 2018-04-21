@@ -7,14 +7,21 @@
 <fmt:bundle basename="messages">
     <body>
 
-    <jsp:include page="../layout/_menu.jsp"></jsp:include>
-    <title><fmt:message key="menu.addBook"/></title>
-    <c:if test="${empty book}">
-        <div class="col-sm-6">
-            <form method="POST" action="/books/create-book">
-                <div class="form-group col-md-12">
-                    <label><fmt:message key="tab.title"/></label>
-                    <input name="title" class="form-control" placeholder="War and Peace">
+<jsp:include page="../layout/_menu.jsp"></jsp:include>
+    <title><fmt:message  key="menu.addBook"/></title>
+
+<c:if test="${not empty bookCreateFailed}">
+    <div class="alert alert-danger" role="alert" align="center">
+        <strong>Oh snap!</strong> Creating a book ended with an error.
+    </div>
+</c:if>
+
+<c:if test="${empty book}">
+    <div class="col-sm-6">
+        <form method="POST" action="/books/create-book">
+            <div class="form-group col-md-12">
+                <label>Title</label>
+                <input name="title" class="form-control" placeholder="War and Peace">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -64,14 +71,14 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-2 pull-right">
-                        <div class="text-right">
-                            <a href="${pageContext.request.contextPath}/books/" class="btn btn-danger"><fmt:message
-                                    key="addBook.cancel"/></a>
-                            <button type="submit" class="btn btn-primary" name="id" value="${book.id}"><fmt:message
-                                    key="addBook.save"/></button>
-                        </div>
+                <div class="form-group col-md-2 pull-right">
+                    <div class="text-right">
+                        <a href="${pageContext.request.contextPath}/books/" class="btn btn-danger"><fmt:message
+                                key="addBook.cancel"/></a>
+                        <button type="submit" class="btn btn-primary" name="id" value="${book.id}"><fmt:message
+                                key="addBook.save"/></button>
                     </div>
+                </div>
                 </div>
             </form>
         </div>

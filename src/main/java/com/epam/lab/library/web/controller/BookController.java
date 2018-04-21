@@ -1,12 +1,8 @@
 package com.epam.lab.library.web.controller;
 
 import com.epam.lab.library.domain.Book;
-import com.epam.lab.library.domain.Location;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
 import com.epam.lab.library.service.BookService;
-import com.epam.lab.library.service.UserService;
-import com.epam.lab.library.service.impl.DataBaseUserDetailService;
+import com.epam.lab.library.service.impl.LocalizationController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import com.epam.lab.library.service.impl.LocalizationController;
 
-import java.security.Principal;
 import java.util.List;
-
-import static com.epam.lab.library.domain.Status.*;
 
 @Controller
 public class BookController {
@@ -32,40 +24,6 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private DataBaseUserDetailService detailsService;
-
-    @RequestMapping("/lib/requested-books")
-    public String librarianRequestsForBooksIssue(Model model,
-                                                 @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                                                 @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
-        List<Order> orders = userService.getAllOrderByStatus(REQUESTED);
-        model.addAttribute("orders", orders);
-        if(lang_changed) {
-
-            LocalizationController.setLang(language);
-        }
-        model.addAttribute("language", LocalizationController.getLang());
-        return "librarian/requestedBooks";
-    }
-
-    @RequestMapping("/lib/returned-books")
-    public String librarianGivenBooks(Model model,
-                                      @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                                      @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
-        List<Order> orders = userService.getAllOrderByStatus(GIVEN);
-        model.addAttribute("orders", orders);
-        if(lang_changed) {
-
-            LocalizationController.setLang(language);
-        }
-        model.addAttribute("language", LocalizationController.getLang());
-        return "librarian/returnedBooks";
-    }
 
     @RequestMapping("/lib/addBook")
     public String addBook(Model model,
@@ -76,7 +34,7 @@ public class BookController {
             Book book = bookService.getBook(bookId);
             model.addAttribute("book", book);
         }
-        if(lang_changed) {
+        if (lang_changed) {
 
             LocalizationController.setLang(language);
         }
@@ -84,7 +42,7 @@ public class BookController {
         return "librarian/addBook";
     }
 
-    @RequestMapping(value = "/books", method ={RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/books", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView listOfUsers(@RequestParam(required = false) Integer page,
                                     @RequestParam(value = "bookTitle", defaultValue = "") String bookTitle,
                                     @RequestParam(value = "available", required = false) boolean showNotAvailable,
@@ -108,7 +66,7 @@ public class BookController {
             pagedListHolder.setPage(page - 1);
             modelAndView.addObject("books", pagedListHolder.getPageList());
         }
-        if(lang_changed) {
+        if (lang_changed) {
 
             LocalizationController.setLang(language);
         }
@@ -123,9 +81,7 @@ public class BookController {
                            @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         Book book = bookService.getBook(id);
         model.addAttribute("book", book);
-        model.addAttribute("role", detailsService.getRole());
-        if(lang_changed) {
-
+        if (lang_changed) {
             LocalizationController.setLang(language);
         }
         model.addAttribute("language", LocalizationController.getLang());
@@ -138,63 +94,18 @@ public class BookController {
                              @RequestParam("author") String author, @RequestParam("available") int available,
                              @RequestParam(value = "lang", defaultValue = "en_US") String language,
                              @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
-        Book book = bookService.addBook(new Book(null, title, year, available), author);
-        if(lang_changed) {
-
+        Book book = new Book(null, title, year, available);
+        Long bookId = bookService.addBook(book, author);
+        if (lang_changed) {
             LocalizationController.setLang(language);
         }
         model.addAttribute("language", LocalizationController.getLang());
-        return book.getId() == null ? "bookCreationFailure" : "redirect:/books";
-    }
-
-    @RequestMapping(value = "/books/give/{id}", method = RequestMethod.POST)
-    public String giveBook(Model model,
-                           @PathVariable("id") Long id,
-                           @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                           @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
-        bookService.setBookStatus(GIVEN, id);
-        if(lang_changed) {
-
-            LocalizationController.setLang(language);
-        }
-        model.addAttribute("language", LocalizationController.getLang());
-        return "redirect:/lib/requested-books";
-    }
-
-    @RequestMapping(value = "/books/return/{id}", method = RequestMethod.POST)
-    public String returnBook(Model model,
-                             @PathVariable("id") Long id,
-                             @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                             @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
-        bookService.setBookStatus(IN_LIBRARY, id);
-        if(lang_changed) {
-
-            LocalizationController.setLang(language);
-        }
-        model.addAttribute("language", LocalizationController.getLang());
-        return "redirect:/lib/returned-books";
-    }
-
-    @RequestMapping(value = "/books/request/{id}", method = RequestMethod.POST)
-    public String requestBook(@PathVariable("id") Long bookId,
-                              @RequestParam("location") Location location, Model model,
-                              @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                              @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
-        Order order = new Order(null, null, bookId, location, Status.REQUESTED);
-        Order orderCreated = bookService.requestBook(order);
-        if(lang_changed) {
-
-            LocalizationController.setLang(language);
-        }
-        model.addAttribute("language", LocalizationController.getLang());
-        if (orderCreated.getId() == null) {
-            model.addAttribute("alreadyRequsted", true);
-            Book book = bookService.getBook(bookId);
-            model.addAttribute("book", book);
-            model.addAttribute("role", detailsService.getRole());
-            return "common/viewBook";
+        if (bookId == null) {
+            LOG.error("Creating a book ended with an error. {} and Author[{}]", book.toString(), author);
+            model.addAttribute("bookCreateFailed", true);
+            return "librarian/addBook";
         } else {
-            return "redirect:/user/orders/";
+            return "redirect:/books";
         }
     }
 
@@ -211,9 +122,7 @@ public class BookController {
         bookService.updateBook(book, authors);
         book = bookService.getBook(id);
         model.addAttribute("book", book);
-        model.addAttribute("role", detailsService.getRole());
-        if(lang_changed) {
-
+        if (lang_changed) {
             LocalizationController.setLang(language);
         }
         model.addAttribute("language", LocalizationController.getLang());

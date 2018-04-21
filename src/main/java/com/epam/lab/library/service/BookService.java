@@ -1,8 +1,6 @@
 package com.epam.lab.library.service;
 
 import com.epam.lab.library.domain.Book;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
 
 import java.util.List;
 
@@ -15,23 +13,14 @@ public interface BookService {
      * @param authors String with all names authors
      * @return instances of Book with id
      */
-    Book addBook(Book book, String authors);
+    Long addBook(Book book, String authors);
 
     /**
      * Returns list of Books
      *
      * @return books
      */
-    List<Book> getBooks(String searchingTitle, boolean showNotAvailable,String sortType);
-
-    /**
-     * Set book status
-     *
-     * @param status
-     * @param id
-     */
-    void setBookStatus(Status status, Long id);
-
+    List<Book> getBooks(String searchingTitle, boolean showNotAvailable, String sortType);
 
     /**
      * Splitting names and added author_id to list
@@ -40,13 +29,31 @@ public interface BookService {
      * @param names String with several author name
      * @return List of author_id
      */
-    List<Long> createAuthors(String names);
+    List<Long> createAuthorIdList(String names);
 
+    /**
+     * Insert book authors to database
+     *
+     * @param bookId It's book id value in database
+     * @param listAuthorId List author id
+     */
     void createBookAuthors(Long bookId, List<Long> listAuthorId);
 
+    /**
+     * Update book and book authors
+     *
+     * @param book an instances of Book filled with data
+     * @param authors String with all names authors
+     * @return instances of Book
+     */
     Book updateBook(Book book, String authors);
 
-    Order requestBook(Order order);
-
+    /**
+     * Takes book data from database by id
+     *
+     * @param id It's book id value in database
+     * @return an instances of Book filled with data from the database
+     */
     Book getBook(Long id);
+
 }
