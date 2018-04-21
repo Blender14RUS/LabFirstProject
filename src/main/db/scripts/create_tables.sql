@@ -16,7 +16,7 @@ ALTER TABLE public.users
 CREATE TABLE IF NOT EXISTS public.books
 (
   id        BIGINT                NOT NULL,
-  title     CHARACTER VARYING(50) NOT NULL,
+  title     CHARACTER VARYING(150) NOT NULL,
   year      INTEGER               NOT NULL,
   available INTEGER,
   PRIMARY KEY (id)

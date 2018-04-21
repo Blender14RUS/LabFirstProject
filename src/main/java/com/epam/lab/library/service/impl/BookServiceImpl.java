@@ -1,7 +1,7 @@
 package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.BookDao;
-import com.epam.lab.library.domain.*;
+import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +18,6 @@ public class BookServiceImpl implements BookService {
     private BookDao bookDao;
 
     @Autowired
-    private DataBaseUserDetailService detailsService;
-
-    @Autowired
-    private UserServiceImpl userService;
-
-    @Autowired
     BookServiceImpl(BookDao bookDao) {
         this.bookDao = bookDao;
     }
@@ -31,15 +25,18 @@ public class BookServiceImpl implements BookService {
     @Override
     public void createBookAuthors(Long bookId, List<Long> listAuthorId) {
         for (Long authorId : listAuthorId) {
-            bookDao.createBookAuthors(bookId, authorId);
+            if (!bookDao.createBookAuthors(bookId, authorId)) {
+                LOG.error("Book authors don't inserted to database.");
+            }
         }
     }
 
     @Override
     public Book updateBook(Book book, String authors) {
-        bookDao.updateBook(book);
-        bookDao.deleteBookAuthors(book.getId());
-        createBookAuthors(book.getId(), createAuthors(authors));
+        if (!bookDao.updateBook(book) || !bookDao.deleteBookAuthors(book.getId())) {
+            LOG.error("Update book failed.");
+        }
+        createBookAuthors(book.getId(), createAuthorIdList(authors));
         return bookDao.getBook(book.getId());
     }
 
@@ -49,59 +46,38 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Long> createAuthors(String names) {
+    public List<Long> createAuthorIdList(String names) {
         String[] arrayNames = names.split(",");
         List<Long> authorIdList = new ArrayList<>();
         for (String name : arrayNames) {
-            if (bookDao.checkAuthor(name.trim()) > 0) {
-                Author author = bookDao.getAuthor(name.trim());
-                authorIdList.add(author.getId());
+            if (bookDao.authorExist(name.trim())) {
+                authorIdList.add(bookDao.getAuthor(name.trim()));
             } else {
                 authorIdList.add(bookDao.addAuthor(name.trim()));
             }
+        }
+        if (authorIdList.isEmpty()) {
+            LOG.error("Authors list is empty.");
         }
         return authorIdList;
     }
 
     @Override
-    public void setBookStatus(Status status, Long id) {
-        bookDao.setBookStatus(status, id);
-        bookDao.plusBook(id);
-    }
-
-    @Override
-    public Book addBook(Book book, String authors) {
-        int row = bookDao.checkBook(book.getTitle(), book.getYear());
-        if (row == 0) {
-            book = bookDao.addBook(book);
-            LOG.info("Created new book = {}", book);
-            createBookAuthors(book.getId(), createAuthors(authors));
+    public Long addBook(Book book, String authors) {
+        Long bookId = null;
+        if (bookDao.checkBookInDB(book.getTitle(), book.getYear())) {
+            bookId = bookDao.addBook(book);
+            LOG.debug("Created new book with id: {}", bookId);
+            createBookAuthors(bookId, createAuthorIdList(authors));
+        } else {
+            LOG.warn("Book already exist.");
         }
-        return book;
+        return bookId;
     }
 
     @Override
     public List<Book> getBooks(String searchingTitle, boolean showNotAvailable, String sortType) {
         return bookDao.getBooks(searchingTitle, showNotAvailable, sortType);
     }
-
-    @Override
-    public Order requestBook(Order order) {
-        String userName = detailsService.getCurrentUsername();
-        User user = userService.getUserByLogin(userName);
-        order.setUserId(user.getId());
-        Book book = getBook(order.getBookId());
-        Order orderCreated = new Order();
-        if (book.getAvailable() > 0 && bookDao.checkOrderGiven(order.getBookId(), order.getUserId()) == 0) {
-            int countRequested = bookDao.checkOrderRequested(order.getBookId(), order.getUserId());
-            if (countRequested > 0)
-                return orderCreated;
-            bookDao.requestBook(book);
-            if (book.getAvailable() > getBook(order.getBookId()).getAvailable())
-                orderCreated = bookDao.createOrder(order);
-        }
-        return orderCreated;
-    }
-
 
 }

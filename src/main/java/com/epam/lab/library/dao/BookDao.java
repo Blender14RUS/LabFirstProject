@@ -1,69 +1,109 @@
 package com.epam.lab.library.dao;
 
-import com.epam.lab.library.domain.Author;
 import com.epam.lab.library.domain.Book;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
 
 import java.util.List;
 
 public interface BookDao {
 
     /**
-     * Creates new book
+     * Add new book in database
      *
-     * @param book an instances of Book filled with data (not include id) must be recorded in the database
-     * @return instances of Book with id
+     * @param book - book is instance filled with data (not include id) must be recorded in the database
+     * @return Book id value in database
      */
-    Book addBook(Book book);
+    Long addBook(Book book);
 
     /**
-     * Selects list of books
+     * Creates List of all books from database
      *
      * @param searchingTitle
-     * @return
+     * @param showNotAvailable
+     * @param sortType
+     * @return List of Book instances filled with data from the database
      */
-    List<Book> getBooks(String searchingTitle,boolean showNotAvailable,String sortType);
+    List<Book> getBooks(String searchingTitle, boolean showNotAvailable, String sortType);
 
     /**
-     * Set book status
+     * By author name takes author id from database
      *
-     * @param status
-     * @param id
+     * @param name - author name
+     * @return Author id value in database
      */
-    void setBookStatus(Status status, Long id);
+    Long getAuthor(String name);
 
     /**
-     * Takes author data from database by author name
-     * if author with such name does not exist in database - inserting author
+     * Insert book authors to database
      *
-     * @param name
-     * @return
+     * @param bookId - It's book id value in database
+     * @param authorId - It's author id value in database
+     * @return true if data inserted, false if not
      */
-    Author getAuthor(String name);
+    boolean createBookAuthors(Long bookId, Long authorId);
 
-    void createBookAuthors(Long bookId, Long authorId);
-
+    /**
+     * Takes book data from database by id
+     *
+     * @param id It's book id value in database
+     * @return an instances of Book filled with data from the database
+     */
     Book getBook(Long id);
 
-    int checkBook(String title, int year);
+    /**
+     * Checks book with current params in database
+     *
+     * @param title Book title
+     * @param year Book year
+     * @return true if book don't exist in database
+     */
+    boolean checkBookInDB(String title, int year);
 
-    void updateBook(Book book);
+    /**
+     * Update book in database
+     *
+     * @param book - book is instance filled with data must be update in the database
+     * @return true if book updated
+     */
+    boolean updateBook(Book book);
 
-    int checkAuthor(String name);
+    /**
+     * Checks author with name in database
+     *
+     * @param name Author name
+     * @return true author exist
+     */
+    boolean authorExist(String name);
 
+    /**
+     * Add new author in database
+     *
+     * @param name - Author name
+     * @return Author id value in database
+     */
     Long addAuthor(String name);
 
-    void deleteBookAuthors(Long bookId);
+    /**
+     * Method removes book authors from database
+     *
+     * @param bookId It's id of book which must be deleted from the database
+     * @return true if deleted successful
+     */
+    boolean deleteBookAuthors(Long bookId);
 
-    void requestBook(Book book);
+    /**
+     * Decrement the book count available
+     *
+     * @param book is instance filled with data
+     * @return true if decrement successful
+     */
+    boolean requestBook(Book book);
 
-    Order createOrder(Order order);
-
-    int checkOrderGiven(Long bookId, Long userId);
-
-    int checkOrderRequested(Long bookId, Long userId);
-
-    void plusBook(Long id);
+    /**
+     * Increment the book count available
+     *
+     * @param id It's id of book
+     * @return true if increment successful
+     */
+    boolean incrementBookCountAvailable(Long id);
 
 }
