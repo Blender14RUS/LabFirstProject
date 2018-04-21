@@ -1,29 +1,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" %>?
 <script src="../../resources/jquery/jquery-3.3.1.min.js"></script>
 
 <html>
 <head>
-    <title>Admin board</title>
+<fmt:setLocale value="${language}"/>
+<fmt:bundle basename = "messages">
+    <title><fmt:message  key="adminBoard.adminBoard"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+</fmt:bundle>
 </head>
 <body>
-
+<fmt:setLocale value="${language}"/>
+<fmt:bundle basename = "messages">
 <jsp:include page="../layout/_menu.jsp"></jsp:include>
 
 <div class="container">
-    <h2>User list</h2>
-    <p>Set or take away the librarian rights</p>
+    <h2><fmt:message  key="adminBoard.userList"/></h2>
+    <p><fmt:message  key="adminBoard.setOrTakeAwayTheLibrarianRights"/></p>
     <table class="table table-striped ">
         <thead>
         <tr>
         <tbody>
         <tr>
             <th>ID</th>
-            <th>Login</th>
-            <th>Name</th>
-            <th>Librarian</th>
-            <th>Actions</th>
+            <th><fmt:message  key="adminBoard.login"/></th>
+            <th><fmt:message  key="adminBoard.name"/></th>
+            <th><fmt:message  key="adminBoard.librarian"/></th>
+            <th><fmt:message  key="adminBoard.actions"/></th>
         </tr>
         <c:forEach items="${users}" var="user">
         <tr>
@@ -49,6 +54,7 @@
         </tbody>
     </table>
 </div>
+</fmt:bundle>
 </body>
 </html>
 
