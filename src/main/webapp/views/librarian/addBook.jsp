@@ -8,7 +8,7 @@
     <body>
 
     <jsp:include page="../layout/_menu.jsp"></jsp:include>
-    <title><fmt:message  key="menu.addBook"/></title>
+    <title><fmt:message key="menu.addBook"/></title>
     <c:if test="${empty book}">
         <div class="col-sm-6">
             <form method="POST" action="/books/create-book">
@@ -64,14 +64,14 @@
                     </div>
                 </div>
                 <div class="form-row">
-                <div class="form-group col-md-2 pull-right">
-                    <div class="text-right">
-                        <a href="${pageContext.request.contextPath}/books/" class="btn btn-danger"><fmt:message
-                                key="addBook.cancel"/></a>
-                        <button type="submit" class="btn btn-primary" name="id" value="${book.id}"><fmt:message
-                                key="addBook.save"/></button>
+                    <div class="form-group col-md-2 pull-right">
+                        <div class="text-right">
+                            <a href="${pageContext.request.contextPath}/books/" class="btn btn-danger"><fmt:message
+                                    key="addBook.cancel"/></a>
+                            <button type="submit" class="btn btn-primary" name="id" value="${book.id}"><fmt:message
+                                    key="addBook.save"/></button>
+                        </div>
                     </div>
-                </div>
                 </div>
             </form>
         </div>
