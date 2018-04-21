@@ -1,13 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html; charset=UTF-8" %>?
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <html>
+
 <head>
-    <link rel="stylesheet" href="../../resources/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../resources/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
     <script src="../../resources/jquery/jquery-3.3.1.min.js"></script>
     <script src="../../resources/bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../../resources/css/custom.css"/>
 </head>
+
 <body>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename = "messages">
@@ -18,7 +21,10 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="${pageContext.request.contextPath}/books"><fmt:message  key="bookList.catalog"/></a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/board"><fmt:message  key="menu.adminBoard"/> </a></li>
+
+            <security:authorize access="hasRole('ADMIN')">
+                <li><a href="${pageContext.request.contextPath}/admin/board"><fmt:message  key="menu.adminBoard"/> </a></li>
+            </security:authorize>
             <li><a href="${pageContext.request.contextPath}/user/orders"><fmt:message  key="menu.myOrders"/></a></li>
             <li><a href="${pageContext.request.contextPath}/"><fmt:message  key="menu.register"/></a></li>
             <li><a href="${pageContext.request.contextPath}/lib/requested-books"><fmt:message  key="menu.requestedBooks"/></a></li>
@@ -29,7 +35,11 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <span class="glyphicon glyphicon-user"></span>   ${user.name}<b class="caret"></b></a>
+                    <span class="glyphicon glyphicon-user"></span>
+                    <security:authorize access="isAuthenticated()">
+                        <security:authentication property="principal.username"/>
+                    </security:authorize>
+                    <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/profile"><i class="icon-envelope"></i><fmt:message  key="menu.editProfile"/></a></li>
                     <li class="divider"></li>
@@ -52,3 +62,5 @@
 </div>
 </fmt:bundle>
 </body>
+</html>
+

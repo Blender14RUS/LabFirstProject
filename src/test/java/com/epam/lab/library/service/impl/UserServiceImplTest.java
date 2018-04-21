@@ -1,9 +1,7 @@
 package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.UserDao;
-import com.epam.lab.library.domain.Location;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
+import com.epam.lab.library.domain.*;
 import com.epam.lab.library.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,21 +27,36 @@ class UserServiceImplTest {
 
     @Test
     void getAllOrderByStatus() {
-        //Given
-        Status status = Status.GIVEN;
-        Order order = new Order(1L, 1L, 1L, Location.HOME, status);
-        List<Order> expectedOrders = new ArrayList<>();
-        expectedOrders.add(order);
-        List<Order> orders = new ArrayList<>();
-        orders.add(new Order(1L, 1L, 1L, Location.HOME, status));
-        doReturn(orders).when(mockUserDao).getAllOrderByStatus(status);
+//        //Given
+//        Status status = Status.GIVEN;
+//        Order order = new Order(1L, 1L, 1L, Location.HOME, status);
+//        List<Order> expectedOrders = new ArrayList<>();
+//        expectedOrders.add(order);
+//        List<Order> orders = new ArrayList<>();
+//        orders.add(new Order(1L, 1L, 1L, Location.HOME, status));
+//        doReturn(orders).when(mockUserDao).getAllOrderByStatus(status);
+//
+//        //When
+//        List<Order> actualOrders = userService.getAllOrderByStatus(status);
+//
+//        //Then
+//        verify(mockUserDao).getAllOrderByStatus(status);
+//        verifyNoMoreInteractions(mockUserDao);
+//        assertEquals(expectedOrders, actualOrders);
+    }
 
-        //When
-        List<Order> actualOrders = userService.getAllOrderByStatus(status);
+    @Test
+    void getUserByLoginTest() {
+        Long id = 2L;
+        String login = "login";
+        User expectedUser = new User(id, login, "pass", "name", AccessLevel.READER);
+        doReturn(new User(id, login, "pass", "name", AccessLevel.READER))
+                .when(mockUserDao).getUserByLogin("login");
 
-        //Then
-        verify(mockUserDao).getAllOrderByStatus(status);
+        User actualUser = userService.getUserByLogin(login);
+
+        verify(mockUserDao).getUserByLogin(login);
         verifyNoMoreInteractions(mockUserDao);
-        assertEquals(expectedOrders, actualOrders);
+        assertEquals(expectedUser, actualUser);
     }
 }

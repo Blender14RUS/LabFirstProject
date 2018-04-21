@@ -1,11 +1,12 @@
 <c:url value="/login" var="loginUrl"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html; charset=UTF-8" %>?
+<%@ page contentType="text/html; charset=UTF-8" %>
 
 <html>
+<fmt:setLocale value="${language}"/>
+<fmt:bundle basename = "messages">
 <head>
-    <fmt:setLocale value="${language}"/>
-    <fmt:bundle basename = "messages">
+
     <link rel="stylesheet" type="text/css" href="../../resources/css/custom.css"/>
     <link rel="icon" href="../../resources/logo.png">
 
@@ -52,6 +53,7 @@
 
 </form>
 </div>
-</fmt:bundle>
+
 </body>
+</fmt:bundle>
 </html>

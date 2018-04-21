@@ -1,11 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html; charset=UTF-8" %>?
+<%@ page contentType="text/html; charset=UTF-8" %>
 <link rel="stylesheet" type="text/css" href="../../resources/css/custom.css"/>
 
 <html>
+<fmt:setLocale value="${language}"/>
+<fmt:bundle basename = "messages">
 <head>
-    <title>Profile</title>
+    <title><th><fmt:message  key="userProfile.profile"/></th></title>
 </head>
 <body>
 
@@ -18,11 +20,11 @@
         <h2 class="panel-title">${user.accessLevel}</h2>
     </div>
     <div class="panel-body">
-        <div class="form-control">Login: ${user.login}
+        <div class="form-control"><fmt:message  key="login.Login"/>: ${user.login}
         </div>
         <form action="/profile/change-name/${user.login}" method="POST">
             <div class="form-control">
-                <p>Name:</p>
+                <p><fmt:message  key="adminBoard.name"/>:</p>
                 <input name="name" class="form-control" value="${user.name}"></td>
 
                 <button type="submit" class="btn btn-default">
@@ -31,9 +33,10 @@
 
             </div>
         </form>
-        <button type="submit" class="btn btn-default">Change password</button>
+        <button type="submit" class="btn btn-default"><fmt:message  key="userProfile.changePassword"/></button>
         </tbody>
         </table>
     </div>
 </div>
+</fmt:bundle>
 </html>

@@ -1,36 +1,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html; charset=UTF-8" %>?
+<%@ page contentType="text/html; charset=UTF-8" %>
 
 <link rel="stylesheet" type="text/css" href="../../resources/css/custom.css"/>
 
 <html>
+<fmt:setLocale value="${language}"/>
+<fmt:bundle basename = "messages">
 <head>
-    <title>Librarian board</title>
+    <title><fmt:message  key="requestedBook.librarianMenu"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
 <jsp:include page="../layout/_menu.jsp"></jsp:include>
-
+<title><fmt:message  key="menu.requestedBooks"/></title>
 <div class="container">
-    <h2>Given books</h2>
+    <h2></h2>
     <table class="table table-striped">
-        <thead>
-        <tbody>
         <tr>
-            <th>Order ID</th>
-            <th>User ID</th>
-            <th>Book ID</th>
-            <th>Location</th>
-            <th>Status</th>
-            <th>Book returned</th>
+            <th><fmt:message  key="requestedBook.orderID"/></th>
+            <th><fmt:message  key="requestedBook.user"/></th>
+            <th><fmt:message  key="requestedBook.bookTitle"/></th>
+            <th><fmt:message  key="requestedBook.location"/></th>
+            <th><fmt:message  key="requestedBook.status"/></th>
+            <th><fmt:message  key="requestedBook.bookReturned"/></th>
+            <th></th>
         </tr>
         <c:forEach items="${orders}" var="order">
             <tr>
                 <td>${order.id}</td>
-                <td>${order.userId}</td>
-                <td>${order.bookId}</td>
+                <td>${order.user.name}</td>
+                <td>${order.book.title} (${order.book.year})</td>
                 <td>${order.location}</td>
                 <td>${order.status}</td>
                 <td>
@@ -42,8 +43,8 @@
                 </td>
             </tr>
         </c:forEach>
-        </tbody>
     </table>
 </div>
 </body>
+</fmt:bundle>
 </html>

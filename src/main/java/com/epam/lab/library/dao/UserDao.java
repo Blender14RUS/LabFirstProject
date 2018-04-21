@@ -79,17 +79,12 @@ public interface UserDao {
 
     /**
      *
-     * @param login
-     * @return
-     */
-    User getUserDataDataByLogin(String login);
-
-    /**
-     *
      * @param
      * @return
      */
     int updateUserNameByLogin(User user);
 
     void deleteOrdersByUserId(Long id);
+
+    void deleteRequest(Long id);
 }

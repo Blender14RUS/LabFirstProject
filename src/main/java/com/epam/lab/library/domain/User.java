@@ -1,5 +1,7 @@
 package com.epam.lab.library.domain;
 
+import java.util.Objects;
+
 public class User {
 
     private Long id;
@@ -69,5 +71,22 @@ public class User {
         this.login = login;
         this.name = name;
         this.accessLevel = accessLevel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(pass, user.pass) &&
+                Objects.equals(name, user.name) &&
+                accessLevel == user.accessLevel;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, pass, name, accessLevel);
     }
 }
