@@ -1,9 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 
 <link rel="stylesheet" type="text/css" href="../../resources/css/custom.css"/>
 <script src="../../resources/jquery/jquery-3.3.1.min.js"></script>
 
 <html>
+<fmt:setLocale value="${language}"/>
+<fmt:bundle basename = "messages">
 <head>
     <title>Your orders</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,16 +17,16 @@
 <jsp:include page="../layout/_menu.jsp"></jsp:include>
 
 <div class="container">
-    <h2>Your orders</h2>
+    <h2><fmt:message  key="userOrders.yourOrders"/></h2>
     <table class="table table-striped">
         <thead>
         <tr>
         <tbody>
         <tr>
-            <th>Book title</th>
-            <th>Book authors</th>
-            <th>Order location</th>
-            <th>Order status</th>
+            <th><fmt:message  key="tab.title"/></th>
+            <th><fmt:message  key="tab.authors"/></th>
+            <th><fmt:message  key="requestedBook.location"/></th></th>
+            <th><fmt:message  key="requestedBook.status"/></th>
             <th></th>
         </tr>
         <c:forEach items="${orders}" var="order">
@@ -49,4 +53,5 @@
     </table>
 </div>
 </body>
+</fmt:bundle>
 </html>
