@@ -1,20 +1,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="messages">
     <body>
 
-    <jsp:include page="../layout/_menu.jsp"></jsp:include>
+<jsp:include page="../layout/_menu.jsp"></jsp:include>
     <title><fmt:message  key="menu.addBook"/></title>
-    <c:if test="${empty book}">
-        <div class="col-sm-6">
-            <form method="POST" action="/books/create-book">
-                <div class="form-group col-md-12">
-                    <label><fmt:message key="tab.title"/></label>
-                    <input name="title" class="form-control" placeholder="War and Peace">
+
+<c:if test="${not empty bookCreateFailed}">
+    <div class="alert alert-danger" role="alert" align="center">
+        <strong>Oh snap!</strong> Creating a book ended with an error.
+    </div>
+</c:if>
+
+<c:if test="${empty book}">
+    <div class="col-sm-6">
+        <form method="POST" action="/books/create-book">
+            <div class="form-group col-md-12">
+                <label>Title</label>
+                <input name="title" class="form-control" placeholder="War and Peace">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">

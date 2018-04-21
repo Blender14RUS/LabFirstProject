@@ -2,13 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
 <html>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename = "messages">
 <body>
 <jsp:include page="../layout/_menu.jsp"></jsp:include>
 
-    <c:if test="${not empty alreadyRequsted}">
+    <c:if test="${not empty alreadyRequested}">
         <div class="alert alert-warning" role="alert" align="center">
             <strong><fmt:message  key="viewBook.ohSnap"/></strong> <fmt:message  key="registration.youHaveAlreadyRequestedThisBook"/>
         </div>
@@ -36,11 +38,11 @@
                         </span>
                     </h3>
                 </div>
-                <c:if test="${(role eq 'ROLE_ADMIN') || (role eq 'ROLE_LIBRARIAN')}">
+                <security:authorize access="hasAnyRole('ADMIN', 'LIBRARIAN')">
                     <div class="form-row">
                         <h3><fmt:message  key="tab.available"/>: ${book.available} </h3>
                     </div>
-                </c:if>
+                </security:authorize>
                 <br>
                 <form action="/books/request/${book.id}" method="POST">
                     <div class="form-row">
@@ -59,13 +61,13 @@
                     </div>
                 </form>
                 <br>
-                <c:if test="${(role == 'ROLE_ADMIN') || (role == 'ROLE_LIBRARIAN')}">
+                <security:authorize access="hasAnyRole('ADMIN', 'LIBRARIAN')">
                     <form action="/lib/addBook" method="POST">
                         <div class="form-row">
-                            <button type="submit" class="btn btn-info" name="id" value="${book.id}"><fmt:message  key="viewBook.editBook"/>Edit book</button>
+                            <button type="submit" class="btn btn-info" name="id" value="${book.id}"><fmt:message  key="viewBook.editBook"/></button>
                         </div>
                     </form>
-                </c:if>
+                </security:authorize>
             </div>
         </div>
     </div>

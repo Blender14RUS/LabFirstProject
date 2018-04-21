@@ -1,12 +1,11 @@
 package com.epam.lab.library.service;
 
-import com.epam.lab.library.domain.*;
+import com.epam.lab.library.domain.AccessLevel;
+import com.epam.lab.library.domain.User;
 
 import java.util.List;
 
 public interface UserService {
-
-    List<Order> getAllOrderByStatus(Status status);
 
     /**
      * Takes user data from database by user id
@@ -47,25 +46,34 @@ public interface UserService {
     void updateUserAccessLevel(Long id, AccessLevel accessLevel);
 
     /**
-     * Get all user orders
-     *
-     * @param id user
-     * @return list of user's orders
-     */
-    List<Order> getAllUserOrders(Long id);
-
-    /**
+     * Takes user data from database by login
      *
      * @param login
-     * @return
+     * @return an instances of User filled with data from the database
      */
     User getUserDataByLogin(String login);
 
-    boolean updateUserNameByLogin(User user);
+    /**
+     * Update userName by login
+     *
+     * @param user
+     */
+    void updateUserNameByLogin(User user);
 
-    void deleteRequest(Long orderId, Long bookId);
-
+    /**
+     * Check is user already exists
+     *
+     * @param login
+     * @return true if exist
+     */
     boolean isUserLoginAlreadyExists(String login);
 
+    /**
+     *
+     * @param password
+     * @param confirmPassword
+     * @return
+     */
     boolean equalsPasswords(String password, String confirmPassword);
+
 }

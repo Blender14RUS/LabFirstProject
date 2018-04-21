@@ -1,7 +1,6 @@
 package com.epam.lab.library.web.controller;
 
 import com.epam.lab.library.domain.AccessLevel;
-import com.epam.lab.library.domain.Order;
 import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.UserService;
 import com.epam.lab.library.service.impl.DataBaseUserDetailService;
@@ -18,19 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-import static com.epam.lab.library.domain.Status.GIVEN;
-import static com.epam.lab.library.domain.Status.REQUESTED;
-
 @Controller
 public class UserController {
 
     private static final Logger LOG = LoggerFactory.getLogger(BookController.class);
 
     @Autowired
-    private UserService userService;
+    private final DataBaseUserDetailService detailsService;
 
     @Autowired
-    private final DataBaseUserDetailService detailsService;
+    private UserService userService;
 
     public UserController(UserService userService, DataBaseUserDetailService detailsService) {
         this.userService = userService;
@@ -49,33 +45,6 @@ public class UserController {
         return "common/index";
     }
 
-
-    @RequestMapping("/requested-books")
-    public String librarianRequestsForBooksIssue(Model model,
-                                                 @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                                                 @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
-        List<Order> orders = userService.getAllOrderByStatus(REQUESTED);
-        model.addAttribute("orders", orders);
-        if(lang_changed) {
-            LocalizationController.setLang(language);
-        }
-        model.addAttribute("language", LocalizationController.getLang());
-        return "librarian/requestedBooks";
-    }
-
-    @RequestMapping("/returned-books")
-    public String librarianGivenBooks(Model model,
-                                      @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                                      @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
-        List<Order> orders = userService.getAllOrderByStatus(GIVEN);
-        model.addAttribute("orders", orders);
-        if(lang_changed) {
-
-            LocalizationController.setLang(language);
-        }
-        model.addAttribute("language", LocalizationController.getLang());
-        return "librarian/returnedBooks";
-    }
 
     @RequestMapping("/admin/board")
     public String showAll(Model model,
@@ -186,35 +155,6 @@ public class UserController {
         }
         model.addAttribute("language", LocalizationController.getLang());
         return "redirect:/profile";
-    }
-
-    @RequestMapping("/user/orders")
-    public String userOrders(Model model,
-                             @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                             @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
-        User user = userService.getUserByLogin(detailsService.getCurrentUsername());
-        List<Order> orders = userService.getAllUserOrders(user.getId());
-        model.addAttribute("orders", orders);
-        if(lang_changed) {
-
-            LocalizationController.setLang(language);
-        }
-        model.addAttribute("language", LocalizationController.getLang());
-        return "user/userOrders";
-    }
-
-    @RequestMapping(value = "/user/delete-request", method = RequestMethod.POST)
-    public String returnBook(Model model,
-                             @RequestParam("orderId") Long orderId, @RequestParam("bookId") Long bookId,
-                             @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                             @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
-        if(lang_changed) {
-
-            LocalizationController.setLang(language);
-        }
-        model.addAttribute("language", LocalizationController.getLang());
-        userService.deleteRequest(orderId, bookId);
-        return "redirect:/user/orders";
     }
 
 }

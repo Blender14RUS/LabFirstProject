@@ -1,12 +1,9 @@
 package com.epam.lab.library.service.impl;
 
-import com.epam.lab.library.dao.BookDao;
 import com.epam.lab.library.dao.UserDao;
+import com.epam.lab.library.dao.impl.OrderDaoImpl;
 import com.epam.lab.library.domain.AccessLevel;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
 import com.epam.lab.library.domain.User;
-import com.epam.lab.library.service.BookService;
 import com.epam.lab.library.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,27 +17,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
     private final PasswordEncoder bcryptEncoder;
+
     private UserDao userDao;
 
     @Autowired
-    private BookDao bookDao;
-
-    @Autowired
-    private BookService bookService;
+    private OrderDaoImpl orderDao;
 
     public UserServiceImpl(UserDao userDao, PasswordEncoder bcryptEncoder) {
         this.userDao = userDao;
         this.bcryptEncoder = bcryptEncoder;
-    }
-
-    @Override
-    public List<Order> getAllOrderByStatus(Status status) {
-        List<Order> orderList = userDao.getAllOrderByStatus(status);
-        for (Order order : orderList) {
-            order.setBook(bookDao.getBook(order.getBookId()));
-            order.setUser(userDao.getUser(order.getUserId()));
-        }
-        return orderList;
     }
 
     public User getUserByLogin(String login) {
@@ -49,13 +34,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        List<User> users = userDao.getAllUsers();
+        if (users.isEmpty()) {
+            LOG.error("Users list is empty.");
+        }
+        return users;
     }
 
     @Override
     public void deleteUserById(Long id) {
-        userDao.deleteOrdersByUserId(id);
-        userDao.deleteUserById(id);
+        orderDao.deleteOrdersByUserId(id);
+        if (!userDao.deleteUserById(id)) {
+            LOG.error("Delete user failed.");
+        }
     }
 
     @Override
@@ -63,16 +54,9 @@ public class UserServiceImpl implements UserService {
         if (accessLevel.equals(AccessLevel.READER))
             accessLevel = AccessLevel.LIBRARIAN;
         else accessLevel = AccessLevel.READER;
-        userDao.updateUserAccessLevel(id, accessLevel);
-    }
-
-    @Override
-    public List<Order> getAllUserOrders(Long id) {
-        List<Order> orders = userDao.getAllUserOrders(id);
-        for (Order order : orders) {
-            order.setBook(bookService.getBook(order.getBookId()));
+        if (!userDao.updateUserAccessLevel(id, accessLevel)) {
+            LOG.error("Update userRole failed.");
         }
-        return orders;
     }
 
     @Override
@@ -81,33 +65,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUserNameByLogin(User user) {
-        return userDao.updateUserNameByLogin(user) != 0;
+    public void updateUserNameByLogin(User user) {
+        if (!userDao.updateUserNameByLogin(user)) {
+            LOG.error("Update userName by login failed.");
+        }
     }
 
     @Override
     public boolean createUser(User user) {
         if (user.getLogin() == null ||
                 user.getPass() == null ||
-                user.getLogin().length() == 0 ||
-                user.getPass().length() == 0 ||
+                user.getLogin().isEmpty() ||
+                user.getPass().isEmpty() ||
                 userDao.isUserLoginAlreadyExists(user.getLogin())) {
             return false;
         } else {
             user.setPass(bcryptEncoder.encode(user.getPass()));
-            return userDao.createUser(user, AccessLevel.READER) != 0;
+            if (userDao.createUser(user, AccessLevel.READER)) {
+                return true;
+            }
+            LOG.error("Create user failed.");
+            return false;
         }
     }
 
     @Override
-    public void deleteRequest(Long orderId, Long bookId) {
-        userDao.deleteRequest(orderId);
-        bookDao.plusBook(bookId);
-    }
-
-    @Override
     public boolean isUserLoginAlreadyExists(String login) {
-        if (login != null && !login.equals("")) {
+        if (login != null && !login.isEmpty()) {
             return userDao.isUserLoginAlreadyExists(login);
         } else {
             return false;
@@ -117,7 +101,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean equalsPasswords(String password, String confirmPassword) {
         return (password != null &&
-                password != "" &&
+                !password.isEmpty() &&
                 password.equals(confirmPassword));
     }
 

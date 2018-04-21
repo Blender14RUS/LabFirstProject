@@ -1,8 +1,6 @@
 package com.epam.lab.library.dao;
 
 import com.epam.lab.library.domain.AccessLevel;
-import com.epam.lab.library.domain.Order;
-import com.epam.lab.library.domain.Status;
 import com.epam.lab.library.domain.User;
 
 import java.util.List;
@@ -30,14 +28,14 @@ public interface UserDao {
      * @param user - an instances of User filled with data must be recorded in the database
      * @return Count of changes rows in database
      */
-    int createUser(User user, AccessLevel accessLevel);
+    boolean createUser(User user, AccessLevel accessLevel);
 
     /**
      * Method removes user from database
      *
      * @param id It's id of user which must be deleted from the database
      */
-    void deleteUserById(Long id);
+    boolean deleteUserById(Long id);
 
     /**
      * Changes user access level (READER / LIBRARIAN)
@@ -45,46 +43,28 @@ public interface UserDao {
      * @param id          It's id of user which access level must be changed
      * @param accessLevel current value of user access level
      */
-    void updateUserAccessLevel(Long id, AccessLevel accessLevel);
+    boolean updateUserAccessLevel(Long id, AccessLevel accessLevel);
 
     /**
-     * Get all orders by status
-     *
-     * @param status status of the book
-     * @return List of all orders by status
-     */
-    List<Order> getAllOrderByStatus(Status status);
-
-    /**
-     * Get all user's orders
-     *
-     * @param id user's id
-     * @return list of all user's orders
-     */
-    List<Order> getAllUserOrders(Long id);
-
-    /**
+     * Takes user data from database by login
      *
      * @param login
-     * @return
+     * @return an instances of User filled with data from the database
      */
     User getUserByLogin(String login);
 
     /**
+     * Check is user already exists.
      *
      * @param login
-     * @return
+     * @return true if exist
      */
     boolean isUserLoginAlreadyExists(String login);
 
     /**
-     *
      * @param
      * @return
      */
-    int updateUserNameByLogin(User user);
+    boolean updateUserNameByLogin(User user);
 
-    void deleteOrdersByUserId(Long id);
-
-    void deleteRequest(Long id);
 }
