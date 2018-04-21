@@ -82,7 +82,7 @@ public class UserController {
                 if (userService.createUser(user)) {
                     LOG.info("User has been created: " + login + " " + pass);
                     model.addAttribute("successCreate", true);
-                    return "login";
+                    return "common/login";
                 } else {
                     model.addAttribute("errorCreate", true);
                 }

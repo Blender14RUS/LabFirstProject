@@ -36,7 +36,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <security:authorize access="!isAuthenticated()">
-                <li><a class="btn btn-lg " href="${pageContext.request.contextPath}/login">Lod In</a></li>
+                <li><a class="btn btn-lg " href="${pageContext.request.contextPath}/login">Log In</a></li>
                 <li><a class="btn btn-clear " href="${pageContext.request.contextPath}/registration"><fmt:message  key="menu.register"/></a></li>
             </security:authorize>
             <security:authorize access="isAuthenticated()">
