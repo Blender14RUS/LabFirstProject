@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
         if ((!orderDao.setBookStatus(status, orderId)) || (order == null)) {
             LOG.error("Update bookStatus failed.");
         }
-        if (status == Status.IN_LIBRARY) {
+        if (status == Status.IN_LIBRARY && order != null) {
             bookDao.incrementBookCountAvailable(order.getBookId());
         }
     }
