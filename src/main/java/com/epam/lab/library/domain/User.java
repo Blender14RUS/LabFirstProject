@@ -4,6 +4,16 @@ import java.util.Objects;
 
 public class User {
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", name='" + name + '\'' +
+                ", accessLevel=" + accessLevel +
+                '}';
+    }
+
     private Long id;
     private String login;
     private String pass;
@@ -90,3 +100,4 @@ public class User {
         return Objects.hash(id, login, pass, name, accessLevel);
     }
 }
+

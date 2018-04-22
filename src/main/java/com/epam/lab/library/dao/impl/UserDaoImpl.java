@@ -13,16 +13,16 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private static final String GET_USER_DATA_BY_LOGIN = "SELECT login, name, access_level FROM users WHERE login = ?";
-    private static final String GET_USERS_BY_ID = "SELECT * FROM users WHERE id = ?";
-    private static final String GET_ALL_USERS = "SELECT * FROM users WHERE access_level != 'ADMIN' ORDER BY id";
+    private static final String GET_USERS_BY_ID = "SELECT id, login, name, access_level FROM users WHERE id = ?";
+    private static final String GET_ALL_USERS = "SELECT id, login, name, access_level FROM users WHERE access_level != 'ADMIN' ORDER BY id";
     private static final String CREATE_NEW_USER = "INSERT INTO users (id, login, name, access_level, pass) " +
             "VALUES (nextval('users_seq'),?,?,?,?)";
     private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id = ?";
     private static final String UPDATE_USER_ACCESS_LEVEL = "UPDATE users SET access_level = ? WHERE id = ?";
-    private static final String GET_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?";
+    private static final String GET_USER_BY_LOGIN = "SELECT id, login, name, access_level FROM users WHERE login = ?";
     private static final String USER_COUNT = "SELECT count(*) FROM users WHERE login=?";
     private static final String UPDATE_USER_NAME = "UPDATE users SET name = ? WHERE login = ?";
+    private static final String GET_USER_WITH_PASS_AND_ROLE = "SELECT login, pass, access_level FROM users WHERE login = ?";
 
     @Autowired
     private NamedParameterJdbcOperations namedParameterJdbcOperations;
@@ -68,6 +68,12 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean updateUserNameByLogin(User user) {
         return namedParameterJdbcOperations.getJdbcOperations().update(UPDATE_USER_NAME, user.getName(), user.getLogin()) > 0;
+    }
+
+    @Override
+    public User getUserWithPassByLogin(String login) {
+        return namedParameterJdbcOperations.getJdbcOperations().queryForObject(
+                GET_USER_WITH_PASS_AND_ROLE, new Object[]{login}, new BeanPropertyRowMapper<>(User.class));
     }
 
 }

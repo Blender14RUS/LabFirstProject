@@ -3,20 +3,20 @@
 
 <html>
 <fmt:setLocale value="${language}"/>
-<fmt:bundle basename = "messages">
-<head>
+<fmt:bundle basename="messages">
+    <head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><fmt:message  key="logout.loggedOut"/></title></head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title><fmt:message key="logout.loggedOut"/></title></head>
 </fmt:bundle>
 <body>
 <fmt:setLocale value="${language}"/>
-<fmt:bundle basename = "messages">
+<fmt:bundle basename="messages">
 <% session.removeAttribute("username");
     session.removeAttribute("password");
     session.invalidate(); %>
-<h1><fmt:message  key="logout.loggedOut"/>
-    </h1>
+<h1><fmt:message key="logout.loggedOut"/>
+</h1>
 
 </body>
 </fmt:bundle>
