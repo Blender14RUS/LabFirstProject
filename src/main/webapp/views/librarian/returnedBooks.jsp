@@ -19,22 +19,21 @@
         <h2></h2>
         <table class="table table-striped">
             <tr>
-                <th><fmt:message key="requestedBook.orderID"/></th>
-                <th><fmt:message key="requestedBook.user"/></th>
-                <th><fmt:message key="requestedBook.bookTitle"/></th>
-                <th><fmt:message key="requestedBook.location"/></th>
-                <th><fmt:message key="requestedBook.status"/></th>
-                <th><fmt:message key="requestedBook.bookReturned"/></th>
-                <th></th>
+                <th class="cell"><fmt:message key="requestedBook.orderID"/></th>
+                <th class="cell"><fmt:message key="requestedBook.user"/></th>
+                <th class="cell"><fmt:message key="requestedBook.bookTitle"/></th>
+                <th class="cell"><fmt:message key="requestedBook.location"/></th>
+                <th class="cell"><fmt:message key="requestedBook.status"/></th>
+                <th class="cell"><fmt:message key="requestedBook.bookReturned"/></th>
             </tr>
             <c:forEach items="${orders}" var="order">
                 <tr>
-                    <td>${order.id}</td>
-                    <td>${order.user.name}</td>
-                    <td>${order.book.title} (${order.book.year})</td>
-                    <td>${order.location}</td>
-                    <td>${order.status}</td>
-                    <td>
+                    <td class="cell">${order.id}</td>
+                    <td class="cell">${order.user.name}</td>
+                    <td class="cellVert">${order.book.title} (${order.book.year})</td>
+                    <td class="cell">${order.location}</td>
+                    <td class="cell">${order.status}</td>
+                    <td class="cell">
                         <form action="/books/return/${order.id}" method="POST">
                             <button type="submit" class="btn btn-success">
                                 <span class="glyphicon glyphicon-ok"></span>
