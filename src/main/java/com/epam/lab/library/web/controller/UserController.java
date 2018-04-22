@@ -5,8 +5,6 @@ import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.UserService;
 import com.epam.lab.library.service.impl.DataBaseUserDetailService;
 import com.epam.lab.library.service.impl.LocalizationController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -98,7 +96,7 @@ public class UserController {
                              @RequestParam(value = "lang", defaultValue = "en_US") String language,
                              @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         userService.deleteUserById(id);
-        if(lang_changed) {
+        if (lang_changed) {
 
             LocalizationController.setLang(language);
         }

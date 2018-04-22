@@ -70,5 +70,5 @@ public interface OrderDao {
      * @param id It's order id value in database
      * @return true if successful
      */
-    boolean deleteRequest(Long id);
+    boolean deleteOrder(Long id);
 }
