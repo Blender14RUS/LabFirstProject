@@ -23,7 +23,7 @@
                 <li><a href="${pageContext.request.contextPath}/books"><i class="fas fa-book fa-fw" style="color:white"></i> <fmt:message  key="bookList.catalog"/></a></li>
 
                 <security:authorize access="hasRole('ADMIN')">
-                    <li><a href="${pageContext.request.contextPath}/admin/board"><fmt:message  key="menu.adminBoard"/> </a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/board"><i class="far fa-unlock-alt" style="color: white"></i> <fmt:message  key="menu.adminBoard"/> </a></li>
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
                     <li><a href="${pageContext.request.contextPath}/user/orders"><i class="far fa-shopping-cart" style="color: white"></i> <fmt:message  key="menu.myOrders"/></a></li>

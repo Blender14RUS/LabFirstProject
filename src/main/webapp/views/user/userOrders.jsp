@@ -23,23 +23,23 @@
             <tr>
             <tbody>
             <tr>
-                <th><fmt:message key="tab.title"/></th>
-                <th><fmt:message key="tab.authors"/></th>
-                <th><fmt:message key="requestedBook.location"/></th>
-                <th><fmt:message key="requestedBook.status"/></th>
-                <th><fmt:message key="userOrders.cancel"/></th>
+                <th class="cell"><fmt:message key="tab.title"/></th>
+                <th class="cell"><fmt:message key="tab.authors"/></th>
+                <th class="cell"><fmt:message key="requestedBook.location"/></th>
+                <th class="cell"><fmt:message key="requestedBook.status"/></th>
+                <th class="cell"><fmt:message key="userOrders.cancel"/></th>
             </tr>
             <c:forEach items="${orders}" var="order">
                 <tr>
-                    <td>${order.book.title} (${order.book.year})</td>
-                    <td>
+                    <td class="cellVert">${order.book.title} (${order.book.year})</td>
+                    <td class="cellVert">
                         <c:forEach items="${order.book.authors}" var="author">
                             ${author}<br>
                         </c:forEach>
                     </td>
-                    <td>${order.location}</td>
-                    <td>${order.status}</td>
-                    <td><c:if test="${(order.status eq 'REQUESTED')}">
+                    <td class="cell">${order.location}</td>
+                    <td class="cell">${order.status}</td>
+                    <td class="cell"><c:if test="${(order.status eq 'REQUESTED')}">
                         <form action="/user/delete-request" method="POST">
                             <button type="submit" class="btn btn-danger" name="orderId" value="${order.id}">
                                 <span class="glyphicon glyphicon-trash"></span>

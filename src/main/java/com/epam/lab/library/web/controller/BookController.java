@@ -3,8 +3,7 @@ package com.epam.lab.library.web.controller;
 import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.service.BookService;
 import com.epam.lab.library.service.impl.LocalizationController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,7 @@ import java.util.List;
 @Controller
 public class BookController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BookController.class);
+    static final Logger LOG = Logger.getLogger(BookController.class);
 
     @Autowired
     private BookService bookService;
@@ -99,7 +98,7 @@ public class BookController {
         }
         model.addAttribute("language", LocalizationController.getLang());
         if (bookId == null) {
-            LOG.error("Creating a book ended with an error. {} and Author[{}]", book.toString(), author);
+            LOG.error("Creating a book ended with an error. "+ book.toString() +" and Author[" + author+"]");
             model.addAttribute("bookCreateFailed", true);
             return "librarian/addBook";
         } else {

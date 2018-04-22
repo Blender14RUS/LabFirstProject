@@ -17,15 +17,16 @@
         </div>
     </c:if>
 
-
-    <div class="col-sm-6">
+    <div class="container">
         <div items="${book}" var="book">
+            <div class="preview col-md-2">
+            </div>
             <div class="preview col-md-4">
                 <div id="pic"><img class="img-responsive"
                                    src="https://cdn.rbt.ru/images/item/image/420/419265_1553993988_3e21c40135b4fa96cb7c9437993fde3a.jpg"/>
                 </div>
             </div>
-            <div class="details col-md-8">
+            <div class="details col-md-6">
                 <div class="form-row">
                     <h3><fmt:message key="tab.title"/>: ${book.title}</h3>
                 </div>
@@ -69,7 +70,7 @@
                     <form action="/lib/addBook" method="POST">
                         <div class="form-row">
                             <button type="submit" class="btn btn-info" name="id" value="${book.id}"><fmt:message
-                                    key="viewBook.editBook"/>Edit book
+                                    key="viewBook.editBook"/>
                             </button>
                         </div>
                     </form>
