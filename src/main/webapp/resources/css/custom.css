@@ -37,11 +37,11 @@
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #08A9C1;
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #08A9C1;
 }
 
 input:checked + .slider:before {
@@ -105,6 +105,13 @@ input:checked + .slider:before {
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.form-profile {
+    padding: 15px 35px 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .form-control {
     position: relative;
     font-size: 16px;
@@ -113,6 +120,20 @@ input:checked + .slider:before {
 @include box-sizing(border-box);
 }
 
-p.blue {
-    color: #2D9CDB;
+.blue {
+    color: #37C2D7;
+}
+
+.button {
+    background-color: #37C2D7;
+    color: white;
+}
+
+.button:hover {
+    background-color: #08A9C1;
+    color: white;
+}
+
+.blue-background {
+    background-color: lightblue;
 }

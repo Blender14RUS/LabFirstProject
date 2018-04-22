@@ -6,39 +6,46 @@
 <html>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="messages">
-    <head>
-        <title>
-            <th><fmt:message key="userProfile.profile"/></th>
-        </title>
-    </head>
-    <body>
+<head>
+    <title>
+        <th><fmt:message key="userProfile.profile"/></th>
+    </title>
+</head>
+<body class="blue-background">
 
-    <jsp:include page="../layout/_menu.jsp"></jsp:include>
+<jsp:include page="../layout/_menu.jsp"></jsp:include>
 
-    </body class="text-center">
-    <div class=" center-pill panel panel-info form-signin ">
+<div class="container">
 
-        <div class="panel-heading">
-            <h2 class="panel-title">${user.accessLevel}</h2>
+    <div class="form-profile">
+
+        <div class="row">
+            <h4 class="col-sm-4 alert alert-info">${user.accessLevel}</h4>
         </div>
-        <div class="panel-body">
-            <div class="form-control"><fmt:message key="login.Login"/>: ${user.login}
-            </div>
-            <form action="/profile/change-name/${user.login}" method="POST">
-                <div class="form-control">
-                    <p><fmt:message key="adminBoard.name"/>:</p>
-                    <input name="name" class="form-control" value="${user.name}"></td>
-
-                    <button type="submit" class="btn btn-default">
-                        <span class="glyphicon glyphicon-pencil"></span>
+        <br class="divider">
+        <div class="row">
+            <div class="col-sm-1 blue"><h4><fmt:message key="login.Login"/>: </h4></div>
+            <div class="col-sm-2"><h4>${user.login}</h4></div>
+        </div>
+        <br>
+        <form action="/profile/change-name/${user.login}" method="POST">
+            <div class="row">
+                <div>
+                    <label for="name" class="col-sm-1 blue"><h4><fmt:message key="adminBoard.name"/>:</h4></label>
+                    <div class="col-sm-2">
+                        <input id="name" name="name" class="form-control" value="${user.name}">
+                    </div>
+                    <button type="submit" class="btn button">
+                        <span class="glyphicon glyphicon-pencil "></span>
                     </button>
-
                 </div>
-            </form>
-            <button type="submit" class="btn btn-default"><fmt:message key="userProfile.changePassword"/></button>
-            </tbody>
-            </table>
-        </div>
+            </div>
+        </form>
+        <br>
+        <button type="submit" class="btn btn-default"><fmt:message key="userProfile.changePassword"/></button>
     </div>
+</div>
 </fmt:bundle>
+</div>
+</body>
 </html>

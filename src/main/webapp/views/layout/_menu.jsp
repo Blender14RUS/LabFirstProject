@@ -60,9 +60,9 @@
                     </li>
                 </security:authorize>
 
-                <il btn btn-clear>
+                <il><a class="">
                     <form action="${self}" method="POST">
-                        <input name="lang_changed" value="true" hidden/>
+                        <input name="lang_changed" value="true" type="hidden"/>
                         <select name="lang" onchange="submit()">
                             <option value="en_US">EN</option>
                             <option value="ru_RU" <c:if test="${language == 'ru_RU'}">
@@ -72,6 +72,7 @@
                             </option>
                         </select>
                     </form>
+                </a>
                 </il>
             </ul>
         </div>

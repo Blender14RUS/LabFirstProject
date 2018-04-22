@@ -11,14 +11,17 @@
 </head>
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="messages">
-    <body class="text-center">
+    <body class="text-center blue-background">
 
     <jsp:include page="../layout/_menu.jsp"></jsp:include>
 
     <div class="wrapper">
         <form class="form-signin" action="/registration" method="POST">
-            <img class="mb-4" src="../../resources/static/logo.png" height="200">
-            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="login.REGISTER"/></h1>
+            <br>
+            <img class="mb-4" src="../../resources/img/logo.png" height="200">
+            <br>
+            <h1 class="h3 mb-3 font-weight-normal blue"><fmt:message key="login.REGISTER"/></h1>
+            <br>
             <c:if test="${not empty errorIsExist}">
                 <p class="blue">
                     <fmt:message key="registration.userWithThisNameAlreadyExists"/>
@@ -37,14 +40,19 @@
             </c:if>
             <input type="password" name="password" id=txtPassword" class="form-control" placeholder=
                 <fmt:message key="login.password"/>>
+            <br>
             <input type="password" name="confirm-password" id=txtConfirmPassword" class="form-control" placeholder=
                 <fmt:message key="registration.confirmPassword"/>>
             <br>
-            <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message
+            <button class="btn btn-lg btn-block button" type="submit"><fmt:message
                     key="registration.register"/></button>
+            <br>
+            <a href="/login" class="blue mt-5 mb-3">Already have an account</a>
+            <br>
+            <br>
+            <p class="mt-5 mb-3 text-muted">EPAM 2018</p>
+    </body>
         </form>
     </div>
-
-    </body>
 </fmt:bundle>
 </html>
