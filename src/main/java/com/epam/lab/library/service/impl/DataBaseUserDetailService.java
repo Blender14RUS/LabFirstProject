@@ -53,4 +53,10 @@ public class DataBaseUserDetailService implements UserDetailsService {
         return role.substring(1, role.length() - 1);
     }
 
+    public String getA() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String role = auth.toString();
+        return role;
+    }
+
 }

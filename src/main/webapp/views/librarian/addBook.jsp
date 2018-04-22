@@ -37,10 +37,9 @@
                         <input name="available" class="form-control" placeholder="20">
                     </div>
                 </div>
-                <div class="form-group col-md-3 pull-right">
+                <div class="form-group col-md-4 pull-right">
                     <div class="text-right">
-                        <a href="${pageContext.request.contextPath}/books/" class="btn btn-danger"><fmt:message
-                                key="addBook.cancel"/></a>
+                        <a href="${pageContext.request.contextPath}/books/" class="btn btn-danger"><fmt:message key="addBook.cancel"/></a>
                         <button type="submit" class="btn btn-primary"><fmt:message key="menu.addBook"/></button>
                     </div>
                 </div>
@@ -71,7 +70,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                <div class="form-group col-md-2 pull-right">
+                <div class="form-group col-md-4 pull-right">
                     <div class="text-right">
                         <a href="${pageContext.request.contextPath}/books/" class="btn btn-danger"><fmt:message
                                 key="addBook.cancel"/></a>
