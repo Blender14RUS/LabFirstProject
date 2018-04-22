@@ -1,14 +1,12 @@
 package com.epam.lab.library.service.impl;
 
 import com.epam.lab.library.dao.UserDao;
-import com.epam.lab.library.domain.*;
+import com.epam.lab.library.domain.AccessLevel;
+import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -18,7 +16,7 @@ class UserServiceImplTest {
     private UserService userService;
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         mockUserDao = mock(UserDao.class);
         PasswordEncoder mockBcryptEncoder;
         mockBcryptEncoder = mock(PasswordEncoder.class);
@@ -26,31 +24,11 @@ class UserServiceImplTest {
     }
 
     @Test
-    void getAllOrderByStatus() {
-//        //Given
-//        Status status = Status.GIVEN;
-//        Order order = new Order(1L, 1L, 1L, Location.HOME, status);
-//        List<Order> expectedOrders = new ArrayList<>();
-//        expectedOrders.add(order);
-//        List<Order> orders = new ArrayList<>();
-//        orders.add(new Order(1L, 1L, 1L, Location.HOME, status));
-//        doReturn(orders).when(mockUserDao).getAllOrderByStatus(status);
-//
-//        //When
-//        List<Order> actualOrders = userService.getAllOrderByStatus(status);
-//
-//        //Then
-//        verify(mockUserDao).getAllOrderByStatus(status);
-//        verifyNoMoreInteractions(mockUserDao);
-//        assertEquals(expectedOrders, actualOrders);
-    }
-
-    @Test
-    void getUserByLoginTest() {
+    public void getUserByLoginTest() {
         Long id = 2L;
         String login = "login";
-        User expectedUser = new User(id, login, "pass", "name", AccessLevel.READER);
-        doReturn(new User(id, login, "pass", "name", AccessLevel.READER))
+        User expectedUser = new User(id, login, "name", AccessLevel.READER);
+        doReturn(new User(id, login, "name", AccessLevel.READER))
                 .when(mockUserDao).getUserByLogin("login");
 
         User actualUser = userService.getUserByLogin(login);
@@ -58,5 +36,20 @@ class UserServiceImplTest {
         verify(mockUserDao).getUserByLogin(login);
         verifyNoMoreInteractions(mockUserDao);
         assertEquals(expectedUser, actualUser);
+    }
+
+    @Test
+    public void updateUserAccessLevel() {
+        Long id = 2L;
+        AccessLevel accessLevel = AccessLevel.READER;
+        boolean expectedValue = true;
+        doReturn(true)
+                .when(mockUserDao).updateUserAccessLevel(id, accessLevel);
+
+        boolean actualValue = userService.updateUserAccessLevel(id, accessLevel);
+
+        verify(mockUserDao).updateUserAccessLevel(id, accessLevel);
+        verifyNoMoreInteractions(mockUserDao);
+        assertEquals(expectedValue, actualValue);
     }
 }
