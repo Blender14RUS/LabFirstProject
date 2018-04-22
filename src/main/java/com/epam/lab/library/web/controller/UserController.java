@@ -92,13 +92,21 @@ public class UserController {
         return "common/registration";
     }
 
+    @RequestMapping("/login")
+    public String getLogin(@RequestParam(value = "error", required = false) String error,
+                           Model model) {
+            model.addAttribute("error", error != null);
+        return "common/login";
+    }
+
+
     @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.POST)
     public String deleteUser(Model model,
                              @PathVariable("id") long id,
                              @RequestParam(value = "lang", defaultValue = "en_US") String language,
                              @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         userService.deleteUserById(id);
-        if(lang_changed) {
+        if (lang_changed) {
 
             LocalizationController.setLang(language);
         }
@@ -150,5 +158,4 @@ public class UserController {
         model.addAttribute("language", LocalizationController.getLang());
         return "redirect:/profile";
     }
-
 }

@@ -1,4 +1,4 @@
-<c:url value="/login" var="loginUrl"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
@@ -20,7 +20,6 @@
 <body class="text-center blue-background">
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="messages">
-<c:url value="/login" var="loginUrl"/>
 <div class="wrapper">
     <form form class="form-signin" action="/login" method="post">
         <br>
@@ -44,21 +43,16 @@
                name="${_csrf.parameterName}"
                value="${_csrf.token}"/>
         <br>
-        <c:if test="${not empty param.error}">
-            <p>
+        <c:if test="${error eq true}">
+            <p class="blue">
                 <fmt:message key="login.invalidUsernameAndPassword"/>
-            </p>
-        </c:if>
-        <c:if test="${not empty param.logout}">
-            <p>
-                <fmt:message key="login.youHaveBeenLoggedOut"/>
             </p>
         </c:if>
         <br>
         <a href="/registration" class="blue mt-5 mb-3">Create an Account</a>
         <br>
         <br>
-        <p class="mt-5 mb-3 text-muted">EPAM 2018</p>
+        <p class="mt-5 mb-3 text-muted">EPAM LAB 2018</p>
     </form>
 </div>
 
