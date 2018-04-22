@@ -24,7 +24,7 @@
                 <th><fmt:message key="requestedBook.location"/></th>
                 <th><fmt:message key="requestedBook.status"/></th>
                 <th><fmt:message key="requestedBook.giveBook"/></th>
-                <th></th>
+                <th><fmt:message key="requestedBook.doNotGiveBook"/></th>
             </tr>
             <c:forEach items="${orders}" var="order">
                 <tr>
@@ -35,8 +35,15 @@
                     <td>${order.status}</td>
                     <td>
                         <form action="/books/give/${order.id}" method="POST">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-success">
                                 <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/books/delete/${order.id}" method="POST">
+                            <button type="submit" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove"></span>
                             </button>
                         </form>
                     </td>

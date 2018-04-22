@@ -20,14 +20,14 @@ public class BookDaoImpl implements BookDao {
 
     private static final String SELECT_AUTHOR = "SELECT COUNT(*) FROM authors WHERE name = ?";
     private static final String GET_AUTHOR = "SELECT id FROM authors WHERE name = ?";
-    private static final String GET_AUTHORS = "SELECT * FROM authors JOIN book_authors ON authors.id = book_authors.author_id WHERE book_authors.book_id=?";
+    private static final String GET_AUTHORS = "SELECT * FROM authors JOIN book_authors ON authors.id = book_authors.author_id WHERE book_authors.book_id = ?";
     private static final String ADD_BOOK = "INSERT INTO books (id, title, year, available) " +
             "VALUES (nextval('books_seq'), :title, :year, :available)";
     private static final String CREATE_NEW_AUTHOR = "INSERT INTO authors (id, name) " +
             "VALUES (nextval('authors_seq'), :name)";
     private static final String DELETE_BOOK_AUTHORS = "DELETE FROM book_authors WHERE book_id = :id";
     private static final String CREATE_BOOK_AUTHORS = "INSERT INTO book_authors (book_id, author_id) VALUES (:bookId, :authorId)";
-    private static final String GET_BOOK_BY_ID = "SELECT * FROM books WHERE id=?";
+    private static final String GET_BOOK_BY_ID = "SELECT * FROM books WHERE id = ?";
     private static final String SELECT_BOOK = "SELECT COUNT(*) FROM books WHERE title = ? AND year = ?";
     private static final String UPDATE_BOOK_BY_ID = "UPDATE books SET title = :title, year = :year, available = :available WHERE id = :id";
     private static final String REQUEST_BOOK = "UPDATE books SET available = :newCount WHERE id = :bookId AND available = :nowCount";

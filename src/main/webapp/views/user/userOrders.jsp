@@ -26,9 +26,8 @@
                 <th><fmt:message key="tab.title"/></th>
                 <th><fmt:message key="tab.authors"/></th>
                 <th><fmt:message key="requestedBook.location"/></th>
-                </th>
                 <th><fmt:message key="requestedBook.status"/></th>
-                <th></th>
+                <th><fmt:message key="userOrders.cancel"/></th>
             </tr>
             <c:forEach items="${orders}" var="order">
                 <tr>
@@ -45,7 +44,6 @@
                             <button type="submit" class="btn btn-danger" name="orderId" value="${order.id}">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
-                            <input type="hidden" name="bookId" value="${order.book.id}"></input>
                         </form>
                     </c:if></td>
                 </tr>

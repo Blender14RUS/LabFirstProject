@@ -10,8 +10,8 @@ public interface OrderService {
     /**
      * Set book status
      *
-     * @param status
-     * @param id It's book id value in database
+     * @param status book
+     * @param id It's order id value in database
      */
     void setBookStatus(Status status, Long id);
 
@@ -43,8 +43,7 @@ public interface OrderService {
      * Removes order request from database
      *
      * @param orderId order id
-     * @param bookId It's book id value in database
      */
-    void deleteRequest(Long orderId, Long bookId);
+    void deleteOrder(Long orderId);
 
 }

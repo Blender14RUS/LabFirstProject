@@ -7,7 +7,7 @@
     <fmt:bundle basename="messages">
     <title><fmt:message key="bookList.catalog"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../../css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/custom.css"/>
 </head>
 <body>
 
@@ -42,8 +42,7 @@
             <th><fmt:message key="tab.year"/></th>
             <th><fmt:message key="tab.available"/></th>
             <th><fmt:message key="tab.authors"/></th>
-
-            <th></th>
+            <th><fmt:message key="tab.information"/></th>
         </tr>
         <c:forEach items="${books}" var="book">
             <tr>
