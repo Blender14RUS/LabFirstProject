@@ -90,6 +90,14 @@ public class UserController {
         return "common/registration";
     }
 
+    @RequestMapping("/login")
+    public String getLogin(@RequestParam(value = "error", required = false) String error,
+                           Model model) {
+            model.addAttribute("error", error != null);
+        return "common/login";
+    }
+
+
     @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.POST)
     public String deleteUser(Model model,
                              @PathVariable("id") long id,
@@ -148,5 +156,4 @@ public class UserController {
         model.addAttribute("language", LocalizationController.getLang());
         return "redirect:/profile";
     }
-
 }

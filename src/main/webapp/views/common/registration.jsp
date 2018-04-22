@@ -50,7 +50,7 @@
             <a href="/login" class="blue mt-5 mb-3">Already have an account</a>
             <br>
             <br>
-            <p class="mt-5 mb-3 text-muted">EPAM 2018</p>
+            <p class="mt-5 mb-3 text-muted">EPAM LAB 2018</p>
     </body>
         </form>
     </div>
