@@ -54,13 +54,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserAccessLevel(Long id, AccessLevel accessLevel) {
+    public boolean updateUserAccessLevel(Long id, AccessLevel accessLevel) {
         if (accessLevel.equals(AccessLevel.READER))
             accessLevel = AccessLevel.LIBRARIAN;
         else accessLevel = AccessLevel.READER;
         if (!userDao.updateUserAccessLevel(id, accessLevel)) {
             LOG.error("Update userRole failed.");
+            return false;
         }
+        return true;
     }
 
     @Override
