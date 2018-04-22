@@ -33,11 +33,12 @@ INSERT INTO public.book_authors(book_id, author_id) VALUES (9, 2);
 INSERT INTO public.book_authors(book_id, author_id) VALUES (10, 3);
 
 
-INSERT INTO public.users(id, login, pass, name, access_level) VALUES (nextval('users_seq'), 'admin', '{bcrypt}$2a$10$V/YgEsxpLddGdyRwNL6GDuKGn.tnLXmDbUIe9QhxEkDjErLysTUyi', 'Vladimir Vladimirovich', 'ADMIN');
-INSERT INTO public.users(id, login, pass, name, access_level) VALUES (nextval('users_seq'), 'lib', '{bcrypt}$2a$10$UzzbGYtT.tu.nOlWafAyxOAl1pzTxr/WjinhqMIuDbxSdV6X8X34y', 'Vasya Nevskiy', 'LIBRARIAN');
-INSERT INTO public.users(id, login, pass, name, access_level) VALUES (nextval('users_seq'), '111', '{bcrypt}$2a$10$.HNNjs3eXwcNFk8ehwnqZOakwD3xzyQFmQk6PlDsUY3xKTVPLm7ee', 'Gocha Novlyansckiy', 'READER');
-INSERT INTO public.users(id, login, pass, name, access_level) VALUES (nextval('users_seq'), 'abba', '{bcrypt}$2a$10$BLhrpiue9kPhouVEtdu.IekRaAAwfCXgUG7kVQyJcKELANc0gLYLS', 'Harry Zaycev', 'READER');
-INSERT INTO public.users(id, login, pass, name, access_level) VALUES (nextval('users_seq'), 'as', '{bcrypt}$2a$10$.I2dyE1W4vvUWIP5onzL2.5dqWD7YH32t1aCoCJce3DKtjv9C/jTu', 'Ivan Ivanov', 'READER');
+INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), 'admin', '{bcrypt}$2a$10$V/YgEsxpLddGdyRwNL6GDuKGn.tnLXmDbUIe9QhxEkDjErLysTUyi', 'Vladimir Vladimirovich', 'ADMIN','en_US');
+INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), 'lib', '{bcrypt}$2a$10$UzzbGYtT.tu.nOlWafAyxOAl1pzTxr/WjinhqMIuDbxSdV6X8X34y', 'Vasya Nevskiy', 'LIBRARIAN','en_US');
+INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), '111', '{bcrypt}$2a$10$.HNNjs3eXwcNFk8ehwnqZOakwD3xzyQFmQk6PlDsUY3xKTVPLm7ee', 'Gocha Novlyansckiy', 'READER','en_US');
+INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), 'abba', '{bcrypt}$2a$10$BLhrpiue9kPhouVEtdu.IekRaAAwfCXgUG7kVQyJcKELANc0gLYLS', 'Harry Zaycev', 'READER','ru_RU');
+INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), 'as', '{bcrypt}$2a$10$.I2dyE1W4vvUWIP5onzL2.5dqWD7YH32t1aCoCJce3DKtjv9C/jTu', 'Ivan Ivanov', 'READER','en_EN');
+
 
 
 INSERT INTO public.orders(id, user_id, book_id, location, status) VALUES (nextval('orders_seq'), 3, 1, 'READING_ROOM', 'IN_LIBRARY');
@@ -46,3 +47,4 @@ INSERT INTO public.orders(id, user_id, book_id, location, status) VALUES (nextva
 INSERT INTO public.orders(id, user_id, book_id, location, status) VALUES (nextval('orders_seq'), 4, 3, 'HOME', 'GIVEN');
 INSERT INTO public.orders(id, user_id, book_id, location, status) VALUES (nextval('orders_seq'), 4, 1, 'HOME', 'REQUESTED');
 INSERT INTO public.orders(id, user_id, book_id, location, status) VALUES (nextval('orders_seq'), 5, 7, 'READING_ROOM', 'REQUESTED');
+

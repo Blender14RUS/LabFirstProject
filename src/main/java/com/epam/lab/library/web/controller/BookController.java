@@ -2,7 +2,7 @@ package com.epam.lab.library.web.controller;
 
 import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.service.BookService;
-import com.epam.lab.library.service.impl.LocalizationController;
+import com.epam.lab.library.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,9 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/lib/addBook")
     public String addBook(Model model,
                           @RequestParam(value = "id", required = false) Long bookId,
@@ -35,9 +38,9 @@ public class BookController {
             model.addAttribute("book", book);
         }
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "librarian/addBook";
     }
 
@@ -66,9 +69,9 @@ public class BookController {
             modelAndView.addObject("books", pagedListHolder.getPageList());
         }
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        modelAndView.addObject("language", LocalizationController.getLang());
+        modelAndView.addObject("language", userService.getUsersLanguage());
         return modelAndView;
     }
 
@@ -80,9 +83,9 @@ public class BookController {
         Book book = bookService.getBook(id);
         model.addAttribute("book", book);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "common/viewBook";
     }
 
@@ -95,9 +98,9 @@ public class BookController {
         Book book = new Book(null, title, year, available);
         Long bookId = bookService.addBook(book, author);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         if (bookId == null) {
             LOG.error("Creating a book ended with an error. {} and Author[{}]", book.toString(), author);
             model.addAttribute("bookCreateFailed", true);
@@ -121,9 +124,9 @@ public class BookController {
         book = bookService.getBook(id);
         model.addAttribute("book", book);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "/common/viewBook";
     }
 

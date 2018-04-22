@@ -11,6 +11,7 @@ public class User {
                 ", login='" + login + '\'' +
                 ", name='" + name + '\'' +
                 ", accessLevel=" + accessLevel +
+                ", lang=" + language+
                 '}';
     }
 
@@ -18,10 +19,37 @@ public class User {
     private String login;
     private String pass;
     private String name;
-
     private AccessLevel accessLevel;
 
-    public User() {}
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    private String language;
+
+    public User() {
+    }
+
+    public User(Long id, String login, String pass, String name, AccessLevel accessLevel, String language) {
+        this.id = id;
+        this.login = login;
+        this.pass = pass;
+        this.name = name;
+        this.accessLevel = accessLevel;
+        this.language = language;
+    }
+
+    public User(Long id, String login, String name, AccessLevel accessLevel, String language) {
+        this.id = id;
+        this.login = login;
+        this.name = name;
+        this.accessLevel = accessLevel;
+        this.language = language;
+    }
 
     public User(Long id, String login, String pass, String name, AccessLevel accessLevel) {
         this.id = id;
@@ -99,5 +127,7 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, login, pass, name, accessLevel);
     }
+
+
 }
 

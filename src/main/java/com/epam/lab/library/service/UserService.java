@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface UserService {
 
+    String getUsersLanguage();
+
+    void setUsersLanguage(String language);
     /**
      * Takes user data from database by user id
      *

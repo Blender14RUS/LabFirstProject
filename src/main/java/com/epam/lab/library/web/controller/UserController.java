@@ -4,9 +4,6 @@ import com.epam.lab.library.domain.AccessLevel;
 import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.UserService;
 import com.epam.lab.library.service.impl.DataBaseUserDetailService;
-import com.epam.lab.library.service.impl.LocalizationController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,9 +34,9 @@ public class UserController {
                               @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed
     ) {
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "common/index";
     }
 
@@ -50,9 +47,10 @@ public class UserController {
                           @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        if (lang_changed)
-            LocalizationController.setLang(language);
-        model.addAttribute("language", LocalizationController.getLang());
+        if (lang_changed) {
+            userService.setUsersLanguage(language);
+        }
+        model.addAttribute("language", userService.getUsersLanguage());
         return "admin/adminBoard";
     }
 
@@ -66,9 +64,10 @@ public class UserController {
         User user = new User();
         user.setName(name);
         user.setLogin(login);
-        if (lang_changed)
-            LocalizationController.setLang(language);
-        model.addAttribute("language", LocalizationController.getLang());
+        if (lang_changed) {
+            userService.setUsersLanguage(language);
+        }
+        model.addAttribute("language", userService.getUsersLanguage());
         boolean validPasswords = userService.equalsPasswords(pass, confPass);
         if (userService.isUserLoginAlreadyExists(login)) {
             model.addAttribute("errorIsExist", true);
@@ -85,9 +84,10 @@ public class UserController {
                 }
             }
         }
-        if (lang_changed)
-            LocalizationController.setLang(language);
-        model.addAttribute("language", LocalizationController.getLang());
+        if (lang_changed) {
+            userService.setUsersLanguage(language);
+        }
+        model.addAttribute("language", userService.getUsersLanguage());
         model.addAttribute("user", user);
         return "common/registration";
     }
@@ -98,11 +98,10 @@ public class UserController {
                              @RequestParam(value = "lang", defaultValue = "en_US") String language,
                              @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         userService.deleteUserById(id);
-        if(lang_changed) {
-
-            LocalizationController.setLang(language);
+        if (lang_changed) {
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "redirect:/admin/board";
     }
 
@@ -114,9 +113,9 @@ public class UserController {
                                         @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         userService.updateUserAccessLevel(id, accessLevel);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "redirect:/admin/board";
     }
 
@@ -127,9 +126,9 @@ public class UserController {
         User user = userService.getUserDataByLogin(detailsService.getCurrentUsername());
         model.addAttribute(user);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "user/UserProfile";
     }
 
@@ -145,9 +144,9 @@ public class UserController {
         user.setName(newName);
         userService.updateUserNameByLogin(user);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "redirect:/profile";
     }
 
