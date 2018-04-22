@@ -98,7 +98,7 @@ public class UserController {
                              @RequestParam(value = "lang", defaultValue = "en_US") String language,
                              @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         userService.deleteUserById(id);
-        if (lang_changed) {
+        if(lang_changed) {
 
             LocalizationController.setLang(language);
         }
@@ -114,7 +114,6 @@ public class UserController {
                                         @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         userService.updateUserAccessLevel(id, accessLevel);
         if (lang_changed) {
-
             LocalizationController.setLang(language);
         }
         model.addAttribute("language", LocalizationController.getLang());
@@ -128,7 +127,6 @@ public class UserController {
         User user = userService.getUserDataByLogin(detailsService.getCurrentUsername());
         model.addAttribute(user);
         if (lang_changed) {
-
             LocalizationController.setLang(language);
         }
         model.addAttribute("language", LocalizationController.getLang());
@@ -147,7 +145,6 @@ public class UserController {
         user.setName(newName);
         userService.updateUserNameByLogin(user);
         if (lang_changed) {
-
             LocalizationController.setLang(language);
         }
         model.addAttribute("language", LocalizationController.getLang());

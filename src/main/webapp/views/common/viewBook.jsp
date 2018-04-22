@@ -49,23 +49,15 @@
                 <br>
                 <form action="/books/request/${book.id}" method="POST">
                     <div class="form-row">
-                        <a href="${pageContext.request.contextPath}/books" class="btn btn-danger">Cancel</a>
+                        <a href="${pageContext.request.contextPath}/books" class="btn btn-danger"><fmt:message key="addBook.cancel"/></a>
                         <div class="btn-group">
                             <button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle">
                                 <fmt:message key="viewBook.requestBook"/> <span class="caret"></span></button>
                             <ul class="dropdown-menu">
                                 <div class="col-sm-12">
-                                    <li>
-                                        <button type="submit" class="btn btn-default btn-lg btn-block" name="location"
-                                                value="HOME"><fmt:message key="viewBook.home"/></button>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <button type="submit" class="btn btn-default btn-lg btn-block" name="location"
-                                                value="READING_ROOM"><fmt:message key="viewBook.readingRoom"/>Reading
-                                            room
-                                        </button>
-                                    </li>
+                                <li><button type="submit" class="btn btn-default btn-lg btn-block" name="location" value="HOME"><fmt:message  key="viewBook.home"/></button></li>
+                                <li class="divider"></li>
+                                <li><button type="submit" class="btn btn-default btn-lg btn-block" name="location" value="READING_ROOM"><fmt:message  key="viewBook.readingRoom"/></button></li>
                                 </div>
                             </ul>
 

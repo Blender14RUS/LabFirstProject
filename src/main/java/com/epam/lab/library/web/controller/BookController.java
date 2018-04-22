@@ -35,7 +35,6 @@ public class BookController {
             model.addAttribute("book", book);
         }
         if (lang_changed) {
-
             LocalizationController.setLang(language);
         }
         model.addAttribute("language", LocalizationController.getLang());
@@ -67,7 +66,6 @@ public class BookController {
             modelAndView.addObject("books", pagedListHolder.getPageList());
         }
         if (lang_changed) {
-
             LocalizationController.setLang(language);
         }
         modelAndView.addObject("language", LocalizationController.getLang());
