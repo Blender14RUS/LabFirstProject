@@ -17,7 +17,7 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">LibApp</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/">LibApp</a>
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="${pageContext.request.contextPath}/books"><i class="fas fa-book fa-fw"
@@ -59,10 +59,13 @@
                             <security:authentication property="principal.username"/>
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/profile"><i class="far fa-cog" style="color: black"></i> <fmt:message
+                            <li><a href="${pageContext.request.contextPath}/profile"><i class="far fa-cog"
+                                                                                        style="color: black"></i>
+                                <fmt:message
                                     key="menu.editProfile"/></a></li>
                             <li class="divider"></li>
-                            <li><a href="/auth/logout"><i class="far fa-sign-out-alt" style="color: black"></i>
+                            <li><a href="${pageContext.request.contextPath}/auth/logout"><i class="far fa-sign-out-alt"
+                                                                                            style="color: black"></i>
                                 <fmt:message key="menu.logOut"/></a></li>
                         </ul>
                     </li>

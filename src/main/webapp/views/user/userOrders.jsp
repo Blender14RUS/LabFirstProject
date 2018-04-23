@@ -40,7 +40,7 @@
                     <td class="cell">${order.location}</td>
                     <td class="cell">${order.status}</td>
                     <td class="cell"><c:if test="${(order.status eq 'REQUESTED')}">
-                        <form action="/user/delete-request" method="POST">
+                        <form action="${pageContext.request.contextPath}/user/delete-request" method="POST">
                             <button type="submit" class="btn btn-danger" name="orderId" value="${order.id}">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>

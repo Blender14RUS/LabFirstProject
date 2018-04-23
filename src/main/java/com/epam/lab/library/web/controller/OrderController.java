@@ -60,9 +60,9 @@ public class OrderController {
 
     @RequestMapping(value = "/books/give/{id}", method = RequestMethod.POST)
     public String giveBookLibrarian(Model model,
-                           @PathVariable("id") Long id,
-                           @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                           @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
+                                    @PathVariable("id") Long id,
+                                    @RequestParam(value = "lang", defaultValue = "en_US") String language,
+                                    @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         orderService.setBookStatus(GIVEN, id);
         if (lang_changed) {
             userService.setUsersLanguage(language);
@@ -73,9 +73,9 @@ public class OrderController {
 
     @RequestMapping(value = "/books/return/{id}", method = RequestMethod.POST)
     public String returnBookLibrarian(Model model,
-                             @PathVariable("id") Long id,
-                             @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                             @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
+                                      @PathVariable("id") Long id,
+                                      @RequestParam(value = "lang", defaultValue = "en_US") String language,
+                                      @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         orderService.setBookStatus(IN_LIBRARY, id);
         if (lang_changed) {
             userService.setUsersLanguage(language);
@@ -122,9 +122,9 @@ public class OrderController {
 
     @RequestMapping(value = "/user/delete-request", method = RequestMethod.POST)
     public String returnBookUser(Model model,
-                             @RequestParam("orderId") Long orderId,
-                             @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                             @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
+                                 @RequestParam("orderId") Long orderId,
+                                 @RequestParam(value = "lang", defaultValue = "en_US") String language,
+                                 @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         if (lang_changed) {
             userService.setUsersLanguage(language);
         }
@@ -135,9 +135,9 @@ public class OrderController {
 
     @RequestMapping(value = "/books/delete/{id}", method = RequestMethod.POST)
     public String doNotGiveBook(Model model,
-                           @PathVariable("id") Long id,
-                           @RequestParam(value = "lang", defaultValue = "en_US") String language,
-                           @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
+                                @PathVariable("id") Long id,
+                                @RequestParam(value = "lang", defaultValue = "en_US") String language,
+                                @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         orderService.deleteOrder(id);
         if (lang_changed) {
             userService.setUsersLanguage(language);

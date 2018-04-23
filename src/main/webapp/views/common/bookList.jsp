@@ -40,36 +40,38 @@
         </div>
         <div align="center" class="form-group col-md-3 center">
             <fmt:message key="bookList.sort"/>
-            <select name="sort">
-                <option value="alphabet"
-                        <c:if test= "${sort == 'alphabet'}">
-                            selected
-                        </c:if>>
+            <label>
+                <select name="sort">
+                    <option value="alphabet"
+                            <c:if test="${sort == 'alphabet'}">
+                                selected
+                            </c:if>>
                     A-Z</option>
-                <option value="alphabetRev"
-                        <c:if test= "${sort == 'alphabetRev'}">
-                            selected
-                        </c:if>>
+                    <option value="alphabetRev"
+                            <c:if test="${sort == 'alphabetRev'}">
+                                selected
+                            </c:if>>
                     Z-A</option>
-                <option value="year"
-                        <c:if test= "${sort == 'year'}">
-                            selected
-                        </c:if>>
+                    <option value="year"
+                            <c:if test="${sort == 'year'}">
+                                selected
+                            </c:if>>
                     <fmt:message key="tab.year"/>
-                </option>
-                <option value="amountL"
-                        <c:if test= "${sort == 'amountL'}">
-                            selected
-                        </c:if>>
+                    </option>
+                    <option value="amountL"
+                            <c:if test="${sort == 'amountL'}">
+                                selected
+                            </c:if>>
                     <fmt:message key="bookList.amountLH"/>
-                </option>
-                <option value="amountH"
-                        <c:if test= "${sort == 'amountH'}">
-                            selected
-                        </c:if>>
+                    </option>
+                    <option value="amountH"
+                            <c:if test="${sort == 'amountH'}">
+                                selected
+                            </c:if>>
                     <fmt:message key="bookList.amountHL"/>
-                </option>
-            </select>
+                    </option>
+                </select>
+            </label>
         </div>
         <div align="center" class="form-group col-md-2 centerButton">
             <button type="submit" class="btn btn-primary"><fmt:message key="tab.search"/></button>

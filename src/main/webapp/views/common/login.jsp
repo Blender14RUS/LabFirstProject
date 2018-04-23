@@ -21,7 +21,7 @@
 <fmt:setLocale value="${language}"/>
 <fmt:bundle basename="messages">
 <div class="wrapper">
-    <form form class="form-signin" action="/login" method="post">
+    <form form class="form-signin" action="${pageContext.request.contextPath}/login" method="post">
         <br>
         <img class="mb-4" src="../../resources/img/logo.png" height="200">
         <br>
@@ -53,7 +53,7 @@
             </p>
         </c:if>
         <br>
-        <a href="/registration" class="blue mt-5 mb-3">Create an Account</a>
+        <a href="${pageContext.request.contextPath}/registration" class="blue mt-5 mb-3">Create an Account</a>
         <br>
         <br>
         <p class="mt-5 mb-3 text-muted">EPAM LAB 2018</p>

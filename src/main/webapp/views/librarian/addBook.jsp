@@ -17,7 +17,7 @@
 </c:if>
 <div class="container">
 <c:if test="${empty book}">
-        <form method="POST" action="/books/create-book">
+    <form method="POST" action="${pageContext.request.contextPath}/books/create-book">
             <div class="form-group col-md-12">
                 <label>Title</label>
                 <input name="title" class="form-control" placeholder="War and Peace">
@@ -50,7 +50,7 @@
 </div>
 <div class="container">
     <c:if test="${not empty book}">
-            <form method="POST" action="/books/edit">
+    <form method="POST" action="${pageContext.request.contextPath}/books/edit">
                 <div class="form-group col-md-12">
                     <label><fmt:message key="tab.title"/></label>
                     <input name="title" class="form-control" value="${book.title}">
@@ -84,7 +84,5 @@
         </div>
     </c:if>
     </body>
-</dir>
 </fmt:bundle>
-
 </html>

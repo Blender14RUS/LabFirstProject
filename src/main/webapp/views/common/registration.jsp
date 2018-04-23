@@ -16,7 +16,7 @@
     <jsp:include page="../layout/_menu.jsp"></jsp:include>
 
     <div class="wrapper">
-        <form class="form-signin" action="/registration" method="POST">
+        <form class="form-signin" action="${pageContext.request.contextPath}/registration" method="POST">
             <br>
             <img class="mb-4" src="../../resources/img/logo.png" height="200">
             <br>
@@ -47,12 +47,10 @@
             <button class="btn btn-lg btn-block button" type="submit"><fmt:message
                     key="registration.register"/></button>
             <br>
-            <a href="/login" class="blue mt-5 mb-3">Already have an account</a>
+            <a href="${pageContext.request.contextPath}/login" class="blue mt-5 mb-3">Already have an account</a>
             <br>
             <br>
             <p class="mt-5 mb-3 text-muted">EPAM LAB 2018</p>
     </body>
-        </form>
-    </div>
 </fmt:bundle>
 </html>

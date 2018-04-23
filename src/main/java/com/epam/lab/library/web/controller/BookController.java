@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 public class BookController {
 
-    static final Logger LOG = Logger.getLogger(BookController.class);
+    private static final Logger LOG = Logger.getLogger(BookController.class);
 
     @Autowired
     private BookService bookService;
@@ -85,9 +85,9 @@ public class BookController {
         if (lang_changed) {
             userService.setUsersLanguage(language);
         }
-        modelAndView.addObject("bookTitle",bookTitle);
-        modelAndView.addObject("available",showNotAvailable);
-        modelAndView.addObject("sort",sortType);
+        modelAndView.addObject("bookTitle", bookTitle);
+        modelAndView.addObject("available", showNotAvailable);
+        modelAndView.addObject("sort", sortType);
         modelAndView.addObject("language", userService.getUsersLanguage());
         return modelAndView;
     }

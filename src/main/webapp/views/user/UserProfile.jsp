@@ -42,7 +42,6 @@
             </div>
         </form>
         <br>
-        <button type="submit" class="btn btn-default"><fmt:message key="userProfile.changePassword"/></button>
     </div>
 </div>
 </fmt:bundle>
