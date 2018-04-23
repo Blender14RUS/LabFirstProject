@@ -24,18 +24,18 @@
             <tr>
             <tbody>
             <tr>
-                <th>ID</th>
-                <th><fmt:message key="adminBoard.login"/></th>
-                <th><fmt:message key="adminBoard.name"/></th>
-                <th><fmt:message key="adminBoard.librarian"/></th>
-                <th><fmt:message key="adminBoard.actions"/></th>
+                <th class="cell">ID</th>
+                <th class="cell"><fmt:message key="adminBoard.login"/></th>
+                <th class="cell"><fmt:message key="adminBoard.name"/></th>
+                <th class="cell"><fmt:message key="adminBoard.librarian"/></th>
+                <th class="cell"><fmt:message key="adminBoard.actions"/></th>
             </tr>
             <c:forEach items="${users}" var="user">
             <tr>
-                <td>${user.id}</td>
-                <td>${user.login}</td>
-                <td>${user.name}</td>
-                <td>
+                <td class="cell">${user.id}</td>
+                <td class="cell">${user.login}</td>
+                <td class="cell">${user.name}</td>
+                <td class="cell">
                     <form action="../admin/update-access/${user.id}/${user.accessLevel}" method="POST">
                         <label class="switch">
                             <input type="checkbox"
@@ -44,7 +44,7 @@
                         </label>
                     </form>
                 </td>
-                <td>
+                <td class="cell">
                     <form action="../admin/delete-user/${user.id}" method="POST">
                         <button type="submit" class="btn btn-danger">
                             <span class="glyphicon glyphicon-trash"></span>

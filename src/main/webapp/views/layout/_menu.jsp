@@ -13,7 +13,7 @@
 </head>
 
 <fmt:setLocale value="${language}"/>
-<fmt:bundle basename="messages">
+<fmt:bundle basename = "messages">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -25,8 +25,7 @@
                         key="bookList.catalog"/></a></li>
 
                 <security:authorize access="hasRole('ADMIN')">
-                    <li><a href="${pageContext.request.contextPath}/admin/board"><fmt:message
-                            key="menu.adminBoard"/> </a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/board"><i class="far fa-unlock-alt" style="color: white"></i> <fmt:message  key="menu.adminBoard"/> </a></li>
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
                     <li><a href="${pageContext.request.contextPath}/user/orders"><i class="far fa-shopping-cart"

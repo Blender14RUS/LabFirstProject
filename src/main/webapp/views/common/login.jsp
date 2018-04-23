@@ -28,14 +28,18 @@
         <h1 class="h3 mb-3 font-weight-normal blue"><fmt:message key="login.LOGIN"/></h1>
         <br>
         <p>
-            <label for="username" class="sr-only"><fmt:message key="login.username"/> </label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
             <input type="text" id="username" class="form-control" placeholder=
                 <fmt:message key="login.username"/> name="username"/>
+        </div>
         </p>
         <p>
-            <label for="password" class="sr-only"><fmt:message key="login.password"/></label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
             <input type="password" id="password" class="form-control" placeholder=
                 <fmt:message key="login.password"/> name="password"/>
+        </div>
         </p>
         <button class="btn btn-lg btn-block button" type="submit" class="btn"><fmt:message
                 key="login.Log_in"/></button>

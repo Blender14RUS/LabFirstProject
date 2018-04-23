@@ -15,9 +15,8 @@
         <strong>Oh snap!</strong> Creating a book ended with an error.
     </div>
 </c:if>
-
+<div class="container">
 <c:if test="${empty book}">
-    <div class="col-sm-6">
         <form method="POST" action="/books/create-book">
             <div class="form-group col-md-12">
                 <label>Title</label>
@@ -37,18 +36,20 @@
                         <input name="available" class="form-control" placeholder="20">
                     </div>
                 </div>
+            <div class="form-row">
                 <div class="form-group col-md-4 pull-right">
                     <div class="text-right">
                         <a href="${pageContext.request.contextPath}/books/" class="btn btn-danger"><fmt:message key="addBook.cancel"/></a>
                         <button type="submit" class="btn btn-primary"><fmt:message key="menu.addBook"/></button>
                     </div>
                 </div>
+            </div>
             </form>
-        </div>
-    </c:if>
 
+    </c:if>
+</div>
+<div class="container">
     <c:if test="${not empty book}">
-        <div class="col-sm-6">
             <form method="POST" action="/books/edit">
                 <div class="form-group col-md-12">
                     <label><fmt:message key="tab.title"/></label>
@@ -83,6 +84,7 @@
         </div>
     </c:if>
     </body>
+</dir>
 </fmt:bundle>
 
 </html>
