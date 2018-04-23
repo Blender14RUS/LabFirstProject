@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
         if ((!orderDao.setBookStatus(status, orderId)) || (order == null)) {
             LOG.error("Update bookStatus failed.");
         }
-        if (status == Status.IN_LIBRARY) {
+        if (status == Status.IN_LIBRARY && order != null) {
             bookDao.incrementBookCountAvailable(order.getBookId());
         }
     }
@@ -79,9 +79,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteRequest(Long orderId, Long bookId) {
-        if (!((orderDao.deleteRequest(orderId)) && (bookDao.incrementBookCountAvailable(bookId)))) {
-            LOG.error("deleteRequest failed.");
+    public void deleteOrder(Long orderId) {
+        Long bookId = orderDao.getOrder(orderId).getBookId();
+        if (!((orderDao.deleteOrder(orderId)) && (bookDao.incrementBookCountAvailable(bookId)))) {
+            LOG.error("deleteOrder failed.");
         }
     }
 

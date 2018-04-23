@@ -25,7 +25,7 @@ public class OrderDaoImpl implements OrderDao {
     private static final String GET_ALL_ORDER_BY_STATUS = "SELECT * FROM orders WHERE status = ?";
     private static final String GET_ALL_USER_ORDERS = "SELECT * FROM orders WHERE user_id = ?";
     private static final String DELETE_ORDERS_BY_USER_ID = "DELETE FROM orders WHERE user_id = ?";
-    private static final String DELETE_REQUEST = "DELETE FROM orders WHERE id = ? AND status = 'REQUESTED'";
+    private static final String DELETE_ORDER_BY_ORDER_ID = "DELETE FROM orders WHERE id = ?";
 
     @Autowired
     private NamedParameterJdbcOperations namedParameterJdbcOperations;
@@ -70,8 +70,8 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean deleteRequest(Long id) {
-        return namedParameterJdbcOperations.getJdbcOperations().update(DELETE_REQUEST, id) > 0;
+    public boolean deleteOrder(Long id) {
+        return namedParameterJdbcOperations.getJdbcOperations().update(DELETE_ORDER_BY_ORDER_ID, id) > 0;
     }
 
 }

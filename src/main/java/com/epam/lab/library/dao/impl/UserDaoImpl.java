@@ -15,15 +15,14 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
 
     private static final String GET_USERS_BY_ID = "SELECT id, login, name, access_level FROM users WHERE id = ?";
-    private static final String GET_USERS_BY_NAME = "SELECT id, login, name, access_level FROM users WHERE name = ?";
     private static final String GET_ALL_USERS = "SELECT id, login, name, access_level FROM users WHERE access_level != 'ADMIN' ORDER BY id";
     private static final String CREATE_NEW_USER = "INSERT INTO users (id, login, name, access_level, pass) " +
             "VALUES (nextval('users_seq'),?,?,?,?)";
     private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id = ?";
     private static final String UPDATE_USER_LANGUAGE="UPDATE users SET language = ? WHERE login = ?";
     private static final String UPDATE_USER_ACCESS_LEVEL = "UPDATE users SET access_level = ? WHERE id = ?";
-    private static final String GET_USER_BY_LOGIN = "SELECT id, login, name, access_level, language FROM users WHERE login = ?";
-    private static final String GET_USER_LANGUAGE_BY_LOGIN = "SELECT lang FROM users WHERE login = ?";
+    private static final String GET_USER_BY_LOGIN = "SELECT id, login, name, access_level FROM users WHERE login = ?";
+    private static final String GET_USER_AND_LANGUAGE_BY_LOGIN = "SELECT id, login, name, access_level, language FROM users WHERE login = ?";
     private static final String USER_COUNT = "SELECT count(*) FROM users WHERE login=?";
     private static final String UPDATE_USER_NAME = "UPDATE users SET name = ? WHERE login = ?";
     private static final String GET_USER_WITH_PASS_AND_ROLE = "SELECT login, pass, access_level FROM users WHERE login = ?";
@@ -44,7 +43,7 @@ public class UserDaoImpl implements UserDao {
     public String getUsersLanguage(String login) {
         if(!"anonymousUser".equals(login)){
         User current = jdbcOperations.queryForObject(
-                GET_USER_BY_LOGIN, new Object[]{login}, new BeanPropertyRowMapper<>(User.class));
+                GET_USER_AND_LANGUAGE_BY_LOGIN, new Object[]{login}, new BeanPropertyRowMapper<>(User.class));
             return current.getLanguage() ;
         }
         else return "en_US";

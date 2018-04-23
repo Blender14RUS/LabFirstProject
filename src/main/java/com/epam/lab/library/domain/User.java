@@ -34,7 +34,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String login, String pass, String name, AccessLevel accessLevel, String language) {
+    public User(Long id, String login, String pass, String name, AccessLevel accessLevel) {
         this.id = id;
         this.login = login;
         this.pass = pass;
@@ -51,10 +51,9 @@ public class User {
         this.language = language;
     }
 
-    public User(Long id, String login, String pass, String name, AccessLevel accessLevel) {
+    public User(Long id, String login, String name, AccessLevel accessLevel) {
         this.id = id;
         this.login = login;
-        this.pass = pass;
         this.name = name;
         this.accessLevel = accessLevel;
     }
