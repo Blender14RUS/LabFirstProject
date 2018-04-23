@@ -8,6 +8,26 @@ INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'
 INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Milk and Honey', 2015, 1);
 INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Best of Us: A Novel', 2013, 1);
 INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Importance of Being Ernest', 2013, 50);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'A Long Way Gone: Memoirs of a Boy Soldier', 2008, 1);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Catch-22: 50th Anniversary Edition', 2011, 13);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Gone Girl', 2014, 2);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'In Cold Blood', 2004, 5);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Lolita', 1993, 5);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Me Talk Pretty One Day', 2001, 9);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Out of Africa', 1992, 6);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Silent Spring', 2002, 5);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Diary of a Young Girl', 2010, 1);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Hunger Games (Book 1)', 2010, 5);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Lord of the Rings', 2012, 1);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Right Stuff', 2008, 3);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Shining', 2012, 2);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Sun Also Rises', 2006, 5);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Wind in the Willows', 2003, 5);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Things Fall Apart', 1994, 10);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), '2001: a Space Odyssey', 2000, 2);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Fahrenheit 451', 2012, 1);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Frankenstein ', 1994, 1);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Martian', 2014, 10);
 
 
 INSERT INTO public.authors(id, name) VALUES (nextval('authors_seq'), 'Greer Hendricks');
@@ -31,7 +51,29 @@ INSERT INTO public.book_authors(book_id, author_id) VALUES (7, 7);
 INSERT INTO public.book_authors(book_id, author_id) VALUES (8, 8);
 INSERT INTO public.book_authors(book_id, author_id) VALUES (9, 2);
 INSERT INTO public.book_authors(book_id, author_id) VALUES (10, 3);
-
+INSERT INTO public.book_authors(book_id, author_id) VALUES (11, 1);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (12, 2);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (13, 5);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (14, 3);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (15, 4);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (16, 6);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (17, 7);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (18, 7);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (19, 8);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (20, 2);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (21, 3);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (22, 1);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (23, 2);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (23, 6);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (23, 7);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (24, 5);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (25, 3);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (26, 4);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (27, 6);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (28, 7);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (29, 7);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (30, 8);
+INSERT INTO public.book_authors(book_id, author_id) VALUES (30, 1);
 
 INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), 'admin', '{bcrypt}$2a$10$V/YgEsxpLddGdyRwNL6GDuKGn.tnLXmDbUIe9QhxEkDjErLysTUyi', 'Vladimir Vladimirovich', 'ADMIN','en_US');
 INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), 'lib', '{bcrypt}$2a$10$UzzbGYtT.tu.nOlWafAyxOAl1pzTxr/WjinhqMIuDbxSdV6X8X34y', 'Vasya Nevskiy', 'LIBRARIAN','en_US');

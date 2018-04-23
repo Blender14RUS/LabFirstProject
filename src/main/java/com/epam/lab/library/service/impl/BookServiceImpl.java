@@ -3,8 +3,7 @@ package com.epam.lab.library.service.impl;
 import com.epam.lab.library.dao.BookDao;
 import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.service.BookService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
-    private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
 
     private BookDao bookDao;
 
@@ -67,7 +66,7 @@ public class BookServiceImpl implements BookService {
         Long bookId = null;
         if (bookDao.checkBookInDB(book.getTitle(), book.getYear())) {
             bookId = bookDao.addBook(book);
-            LOG.debug("Created new book with id: {}", bookId);
+            LOG.debug("Created new book with id: " + bookId);
             createBookAuthors(bookId, createAuthorIdList(authors));
         } else {
             LOG.warn("Book already exist.");
@@ -78,6 +77,16 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> getBooks(String searchingTitle, boolean showNotAvailable, String sortType) {
         return bookDao.getBooks(searchingTitle, showNotAvailable, sortType);
+    }
+
+    @Override
+    public boolean deleteBook(Long id) {
+        return bookDao.deleteBook(id);
+    }
+
+    @Override
+    public boolean deleteBookAuthors(Long id) {
+        return bookDao.deleteBookAuthors(id);
     }
 
 }

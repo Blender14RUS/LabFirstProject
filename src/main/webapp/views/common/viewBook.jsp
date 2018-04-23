@@ -23,7 +23,7 @@
             </div>
             <div class="preview col-md-4">
                 <div id="pic"><img class="img-responsive"
-                                   src="https://cdn.rbt.ru/images/item/image/420/419265_1553993988_3e21c40135b4fa96cb7c9437993fde3a.jpg"/>
+                                   src="../../resources/img/bookDefault.jpg">
                 </div>
             </div>
             <div class="details col-md-6">
@@ -66,15 +66,23 @@
                     </div>
                 </form>
                 <br>
-                <security:authorize access="hasAnyRole('ADMIN', 'LIBRARIAN')">
-                    <form action="/lib/addBook" method="POST">
-                        <div class="form-row">
-                            <button type="submit" class="btn btn-info" name="id" value="${book.id}"><fmt:message
-                                    key="viewBook.editBook"/>
-                            </button>
-                        </div>
-                    </form>
-                </security:authorize>
+                <div class="form-row">
+                    <security:authorize access="hasAnyRole('ADMIN', 'LIBRARIAN')">
+                        <form action="/lib/book-delete" method="POST">
+                                <button type="submit" class="btn btn-danger" name="id" value="${book.id}"><fmt:message
+                                        key="viewBook.delBook"/>
+                                </button>
+                        </form>
+                    </security:authorize>
+                    <security:authorize access="hasAnyRole('ADMIN', 'LIBRARIAN')">
+                        <form action="/lib/addBook" method="POST">
+
+                                <button type="submit" class="btn btn-info" name="id" value="${book.id}"><fmt:message
+                                        key="viewBook.editBook"/>
+                                </button>
+                            </form>
+                    </security:authorize>
+                </div>
             </div>
         </div>
     </div>

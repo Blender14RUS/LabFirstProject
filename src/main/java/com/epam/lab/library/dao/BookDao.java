@@ -35,7 +35,7 @@ public interface BookDao {
     /**
      * Insert book authors to database
      *
-     * @param bookId - It's book id value in database
+     * @param bookId   - It's book id value in database
      * @param authorId - It's author id value in database
      * @return true if data inserted, false if not
      */
@@ -53,7 +53,7 @@ public interface BookDao {
      * Checks book with current params in database
      *
      * @param title Book title
-     * @param year Book year
+     * @param year  Book year
      * @return true if book don't exist in database
      */
     boolean checkBookInDB(String title, int year);
@@ -105,5 +105,13 @@ public interface BookDao {
      * @return true if increment successful
      */
     boolean incrementBookCountAvailable(Long id);
+
+    /**
+     * Method removes book from database
+     *
+     * @param id id of book
+     * @return true if delete executed
+     */
+    boolean deleteBook(Long id);
 
 }

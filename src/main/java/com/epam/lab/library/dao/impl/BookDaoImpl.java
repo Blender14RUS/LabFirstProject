@@ -26,6 +26,7 @@ public class BookDaoImpl implements BookDao {
     private static final String CREATE_NEW_AUTHOR = "INSERT INTO authors (id, name) " +
             "VALUES (nextval('authors_seq'), :name)";
     private static final String DELETE_BOOK_AUTHORS = "DELETE FROM book_authors WHERE book_id = :id";
+    private static final String DELETE_BOOK = "DELETE FROM books WHERE id = :id";
     private static final String CREATE_BOOK_AUTHORS = "INSERT INTO book_authors (book_id, author_id) VALUES (:bookId, :authorId)";
     private static final String GET_BOOK_BY_ID = "SELECT * FROM books WHERE id = ?";
     private static final String SELECT_BOOK = "SELECT COUNT(*) FROM books WHERE title = ? AND year = ?";
@@ -38,6 +39,12 @@ public class BookDaoImpl implements BookDao {
     @Override
     public boolean authorExist(String name) {
         return namedParameterJdbcOperations.getJdbcOperations().queryForObject(SELECT_AUTHOR, Integer.class, name) > 0;
+    }
+
+    @Override
+    public boolean deleteBook(Long id) {
+        SqlParameterSource params = new MapSqlParameterSource().addValue("id", id);
+        return namedParameterJdbcOperations.update(DELETE_BOOK, params) > 0;
     }
 
     @Override

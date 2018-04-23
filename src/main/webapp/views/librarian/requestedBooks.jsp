@@ -14,8 +14,9 @@
     <body>
 
     <jsp:include page="../layout/_menu.jsp"></jsp:include>
-    <title><fmt:message key="menu.requestedBooks"/></title>
+
     <div class="container">
+        <h2><fmt:message key="menu.requestedBooks"/></h2>
         <table class="table table-striped">
             <tr>
                 <th class="cell"><fmt:message key="requestedBook.orderID"/></th>

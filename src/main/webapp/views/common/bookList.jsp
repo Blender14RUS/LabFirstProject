@@ -74,7 +74,7 @@
         <div align="center" class="form-group col-md-2 centerButton">
             <button type="submit" class="btn btn-primary"><fmt:message key="tab.search"/></button>
         </div>
-        <div class="form-group col-md-5">
+        <div class="form-group col-md-3">
         </div>
     </form>
     <table class="table table-striped">

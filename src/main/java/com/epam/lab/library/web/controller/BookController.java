@@ -2,9 +2,8 @@ package com.epam.lab.library.web.controller;
 
 import com.epam.lab.library.domain.Book;
 import com.epam.lab.library.service.BookService;
-import org.apache.log4j.Logger;
 import com.epam.lab.library.service.UserService;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
@@ -44,6 +43,21 @@ public class BookController {
         return "librarian/addBook";
     }
 
+    @RequestMapping("/lib/book-delete")
+    public String deleteBook(Model model,
+                             @RequestParam(value = "id", required = false) Long bookId,
+                             @RequestParam(value = "lang", defaultValue = "en_US") String language,
+                             @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
+        if ((bookId != null) && (bookService.deleteBookAuthors(bookId)) && (bookService.deleteBook(bookId))) {
+            LOG.info("Book delete executed.");
+        } else LOG.error("deleteBook failed.");
+        if (lang_changed) {
+            userService.setUsersLanguage(language);
+        }
+        model.addAttribute("language", userService.getUsersLanguage());
+        return "redirect:/books";
+    }
+
     @RequestMapping(value = "/books", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView listOfUsers(@RequestParam(required = false) Integer page,
                                     @RequestParam(value = "bookTitle", defaultValue = "") String bookTitle,
@@ -54,7 +68,7 @@ public class BookController {
         ModelAndView modelAndView = new ModelAndView("common/bookList");
         List<Book> books = bookService.getBooks(bookTitle, showNotAvailable, sortType);
         PagedListHolder<Book> pagedListHolder = new PagedListHolder<>(books);
-        int booksByPage = 5;
+        int booksByPage = 8;
         pagedListHolder.setPageSize(booksByPage);
         modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
         if (page == null || page < 1 || page > pagedListHolder.getPageCount()) {
@@ -105,7 +119,7 @@ public class BookController {
         }
         model.addAttribute("language", userService.getUsersLanguage());
         if (bookId == null) {
-            LOG.error("Creating a book ended with an error. "+ book.toString() +" and Author[" + author+"]");
+            LOG.error("Creating a book ended with an error. " + book.toString() + " and Author[" + author + "]");
             model.addAttribute("bookCreateFailed", true);
             return "librarian/addBook";
         } else {

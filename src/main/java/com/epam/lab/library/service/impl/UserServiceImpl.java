@@ -5,8 +5,7 @@ import com.epam.lab.library.dao.impl.OrderDaoImpl;
 import com.epam.lab.library.domain.AccessLevel;
 import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
     private final PasswordEncoder bcryptEncoder;
 
     private UserDao userDao;

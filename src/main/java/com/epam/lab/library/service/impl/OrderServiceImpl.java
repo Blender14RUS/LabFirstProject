@@ -8,8 +8,7 @@ import com.epam.lab.library.domain.Order;
 import com.epam.lab.library.domain.Status;
 import com.epam.lab.library.domain.User;
 import com.epam.lab.library.service.OrderService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    private static final Logger LOG = LoggerFactory.getLogger(OrderServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(OrderServiceImpl.class);
 
     @Autowired
     private OrderDao orderDao;

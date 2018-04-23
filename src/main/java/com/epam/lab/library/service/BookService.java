@@ -56,4 +56,20 @@ public interface BookService {
      */
     Book getBook(Long id);
 
+    /**
+     * Method removes book from database
+     *
+     * @param id id of book
+     * @return true if delete executed
+     */
+    boolean deleteBook(Long id);
+
+    /**
+     * Method removes book authors from database
+     *
+     * @param bookId It's id of book which must be deleted from the database
+     * @return true if deleted successful
+     */
+    boolean deleteBookAuthors(Long bookId);
+
 }
