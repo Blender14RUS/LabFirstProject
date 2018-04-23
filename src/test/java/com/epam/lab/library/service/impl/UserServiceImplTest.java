@@ -16,7 +16,7 @@ class UserServiceImplTest {
     private UserService userService;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mockUserDao = mock(UserDao.class);
         PasswordEncoder mockBcryptEncoder;
         mockBcryptEncoder = mock(PasswordEncoder.class);
@@ -24,7 +24,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    public void getUserByLoginTest() {
+    void getUserByLoginTest() {
         Long id = 2L;
         String login = "login";
         User expectedUser = new User(id, login, "name", AccessLevel.READER);
@@ -38,18 +38,4 @@ class UserServiceImplTest {
         assertEquals(expectedUser, actualUser);
     }
 
-//    @Test
-//    public void updateUserAccessLevel() {
-//        Long id = 2L;
-//        AccessLevel accessLevel = AccessLevel.READER;
-//        boolean expectedValue = true;
-//        doReturn(true)
-//                .when(mockUserDao).updateUserAccessLevel(id, accessLevel);
-//
-//        boolean actualValue = userService.updateUserAccessLevel(id, accessLevel);
-//
-//        verify(mockUserDao).updateUserAccessLevel(id, accessLevel);
-//        verifyNoMoreInteractions(mockUserDao);
-//        assertEquals(expectedValue, actualValue);
-//    }
 }

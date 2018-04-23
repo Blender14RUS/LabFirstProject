@@ -46,7 +46,7 @@ public interface UserService {
      * @param id          It's id of user which access level must be changed
      * @param accessLevel current value of user access level
      */
-    void updateUserAccessLevel(Long id, AccessLevel accessLevel);
+    boolean updateUserAccessLevel(Long id, AccessLevel accessLevel);
 
     /**
      * Takes user data from database by login

@@ -12,7 +12,8 @@
 
 <c:if test="${not empty bookCreateFailed}">
     <div class="alert alert-danger" role="alert" align="center">
-        <strong>Oh snap!</strong> Creating a book ended with an error.
+        <strong><fmt:message key="viewBook.ohSnap"/></strong> <fmt:message
+            key="viewBook.addBook"/>
     </div>
 </c:if>
 <div class="container">

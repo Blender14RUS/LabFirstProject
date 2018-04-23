@@ -79,7 +79,9 @@ INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (
 INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), 'lib', '{bcrypt}$2a$10$UzzbGYtT.tu.nOlWafAyxOAl1pzTxr/WjinhqMIuDbxSdV6X8X34y', 'Vasya Nevskiy', 'LIBRARIAN','en_US');
 INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), '111', '{bcrypt}$2a$10$.HNNjs3eXwcNFk8ehwnqZOakwD3xzyQFmQk6PlDsUY3xKTVPLm7ee', 'Gocha Novlyansckiy', 'READER','en_US');
 INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), 'abba', '{bcrypt}$2a$10$BLhrpiue9kPhouVEtdu.IekRaAAwfCXgUG7kVQyJcKELANc0gLYLS', 'Harry Zaycev', 'READER','ru_RU');
-INSERT INTO public.users(id, login, pass, name, access_level, language) VALUES (nextval('users_seq'), 'as', '{bcrypt}$2a$10$.I2dyE1W4vvUWIP5onzL2.5dqWD7YH32t1aCoCJce3DKtjv9C/jTu', 'Ivan Ivanov', 'READER','en_EN');
+INSERT INTO public.users (id, login, pass, name, access_level, language) VALUES
+  (nextval('users_seq'), 'as', '{bcrypt}$2a$10$.I2dyE1W4vvUWIP5onzL2.5dqWD7YH32t1aCoCJce3DKtjv9C/jTu', 'Ivan Ivanov',
+   'READER', 'en_US');
 
 
 
