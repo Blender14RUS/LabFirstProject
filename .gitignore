@@ -1,10 +1,4 @@
 target
 .idea
 *.iml
-out
-_windows
-codestyles
-debugger.xml
-editor.xml
-github_settings.xml
-vcs.xml
+log
