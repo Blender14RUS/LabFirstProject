@@ -40,7 +40,6 @@ public class User {
         this.pass = pass;
         this.name = name;
         this.accessLevel = accessLevel;
-        this.language = language;
     }
 
     public User(Long id, String login, String name, AccessLevel accessLevel, String language) {

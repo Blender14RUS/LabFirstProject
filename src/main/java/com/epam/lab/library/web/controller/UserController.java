@@ -64,6 +64,7 @@ public class UserController {
         User user = new User();
         user.setName(name);
         user.setLogin(login);
+        user.setLanguage("en_US");
         if (lang_changed) {
             userService.setUsersLanguage(language);
         }

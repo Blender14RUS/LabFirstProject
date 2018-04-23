@@ -16,8 +16,8 @@ public class UserDaoImpl implements UserDao {
 
     private static final String GET_USERS_BY_ID = "SELECT id, login, name, access_level FROM users WHERE id = ?";
     private static final String GET_ALL_USERS = "SELECT id, login, name, access_level FROM users WHERE access_level != 'ADMIN' ORDER BY id";
-    private static final String CREATE_NEW_USER = "INSERT INTO users (id, login, name, access_level, pass) " +
-            "VALUES (nextval('users_seq'),?,?,?,?)";
+    private static final String CREATE_NEW_USER = "INSERT INTO users (id, login, name, access_level, pass, language) " +
+            "VALUES (nextval('users_seq'),?,?,?,?,?)";
     private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id = ?";
     private static final String UPDATE_USER_LANGUAGE="UPDATE users SET language = ? WHERE login = ?";
     private static final String UPDATE_USER_ACCESS_LEVEL = "UPDATE users SET access_level = ? WHERE id = ?";
@@ -62,7 +62,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean createUser(User user, AccessLevel accessLevel) {
         return namedParameterJdbcOperations.getJdbcOperations().update(CREATE_NEW_USER, user.getLogin(), user.getName(),
-                accessLevel.toString(), user.getPass()) > 0;
+                accessLevel.toString(), user.getPass(),user.getLanguage()) > 0;
     }
 
     @Override
