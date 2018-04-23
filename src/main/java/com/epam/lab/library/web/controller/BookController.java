@@ -71,6 +71,9 @@ public class BookController {
         if (lang_changed) {
             userService.setUsersLanguage(language);
         }
+        modelAndView.addObject("bookTitle",bookTitle);
+        modelAndView.addObject("available",showNotAvailable);
+        modelAndView.addObject("sort",sortType);
         modelAndView.addObject("language", userService.getUsersLanguage());
         return modelAndView;
     }
