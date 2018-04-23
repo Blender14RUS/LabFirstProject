@@ -10,7 +10,7 @@ INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'
 INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'The Importance of Being Ernest', 2013, 50);
 INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'A Long Way Gone: Memoirs of a Boy Soldier', 2008, 1);
 INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Catch-22: 50th Anniversary Edition', 2011, 13);
-INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Gone Girl', 2014, 2);
+INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Gone Girl', 2014, 0);
 INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'In Cold Blood', 2004, 5);
 INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Lolita', 1993, 5);
 INSERT INTO public.books(id, title, year, available) VALUES (nextval('books_seq'), 'Me Talk Pretty One Day', 2001, 9);
