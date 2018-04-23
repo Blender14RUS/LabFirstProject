@@ -38,18 +38,18 @@ class UserServiceImplTest {
         assertEquals(expectedUser, actualUser);
     }
 
-    @Test
-    public void updateUserAccessLevel() {
-        Long id = 2L;
-        AccessLevel accessLevel = AccessLevel.READER;
-        boolean expectedValue = true;
-        doReturn(true)
-                .when(mockUserDao).updateUserAccessLevel(id, accessLevel);
-
-        boolean actualValue = userService.updateUserAccessLevel(id, accessLevel);
-
-        verify(mockUserDao).updateUserAccessLevel(id, accessLevel);
-        verifyNoMoreInteractions(mockUserDao);
-        assertEquals(expectedValue, actualValue);
-    }
+//    @Test
+//    public void updateUserAccessLevel() {
+//        Long id = 2L;
+//        AccessLevel accessLevel = AccessLevel.READER;
+//        boolean expectedValue = true;
+//        doReturn(true)
+//                .when(mockUserDao).updateUserAccessLevel(id, accessLevel);
+//
+//        boolean actualValue = userService.updateUserAccessLevel(id, accessLevel);
+//
+//        verify(mockUserDao).updateUserAccessLevel(id, accessLevel);
+//        verifyNoMoreInteractions(mockUserDao);
+//        assertEquals(expectedValue, actualValue);
+//    }
 }

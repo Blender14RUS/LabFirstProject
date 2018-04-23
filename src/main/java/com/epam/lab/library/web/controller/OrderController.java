@@ -5,7 +5,6 @@ import com.epam.lab.library.service.BookService;
 import com.epam.lab.library.service.OrderService;
 import com.epam.lab.library.service.UserService;
 import com.epam.lab.library.service.impl.DataBaseUserDetailService;
-import com.epam.lab.library.service.impl.LocalizationController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,9 +39,9 @@ public class OrderController {
         List<Order> orders = orderService.getAllOrderByStatus(REQUESTED);
         model.addAttribute("orders", orders);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "librarian/requestedBooks";
     }
 
@@ -53,9 +52,9 @@ public class OrderController {
         List<Order> orders = orderService.getAllOrderByStatus(GIVEN);
         model.addAttribute("orders", orders);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "librarian/returnedBooks";
     }
 
@@ -66,9 +65,9 @@ public class OrderController {
                            @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         orderService.setBookStatus(GIVEN, id);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "redirect:/lib/requested-books";
     }
 
@@ -79,9 +78,9 @@ public class OrderController {
                              @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         orderService.setBookStatus(IN_LIBRARY, id);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "redirect:/lib/returned-books";
     }
 
@@ -93,9 +92,9 @@ public class OrderController {
         Order order = new Order(null, null, bookId, location, Status.REQUESTED);
         Order orderCreated = orderService.requestBook(order);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         if (orderCreated.getId() == null) {
             model.addAttribute("alreadyRequested", true);
             Book book = bookService.getBook(bookId);
@@ -115,9 +114,9 @@ public class OrderController {
         List<Order> orders = orderService.getAllUserOrders(user.getId());
         model.addAttribute("orders", orders);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "user/userOrders";
     }
 
@@ -127,9 +126,9 @@ public class OrderController {
                              @RequestParam(value = "lang", defaultValue = "en_US") String language,
                              @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         orderService.deleteOrder(orderId);
         return "redirect:/user/orders";
     }
@@ -141,9 +140,9 @@ public class OrderController {
                            @RequestParam(value = "lang_changed", defaultValue = "false") boolean lang_changed) {
         orderService.deleteOrder(id);
         if (lang_changed) {
-            LocalizationController.setLang(language);
+            userService.setUsersLanguage(language);
         }
-        model.addAttribute("language", LocalizationController.getLang());
+        model.addAttribute("language", userService.getUsersLanguage());
         return "redirect:/lib/requested-books";
     }
 

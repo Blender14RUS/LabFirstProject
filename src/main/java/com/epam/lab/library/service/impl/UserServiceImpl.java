@@ -8,6 +8,7 @@ import com.epam.lab.library.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String getUsersLanguage(){
+        return userDao.getUsersLanguage(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    @Override
+    public void setUsersLanguage(String language) {
+        if(!userDao.setUsersLanguage(language,SecurityContextHolder.getContext().getAuthentication().getName())){
+            LOG.error("Language hadn't changed!");
+        }
+    }
+
+    @Override
     public List<User> getAllUsers() {
         List<User> users = userDao.getAllUsers();
         if (users.isEmpty()) {
@@ -54,15 +67,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUserAccessLevel(Long id, AccessLevel accessLevel) {
+    public void updateUserAccessLevel(Long id, AccessLevel accessLevel) {
         if (accessLevel.equals(AccessLevel.READER))
             accessLevel = AccessLevel.LIBRARIAN;
         else accessLevel = AccessLevel.READER;
-        if (!userDao.updateUserAccessLevel(id, accessLevel)) {
-            LOG.error("Update userRole failed.");
-            return false;
-        }
-        return true;
+//        if (!userDao.updateUserAccessLevel(id, accessLevel)) {
+//            LOG.error("Update userRole failed.");
+//            return false;
+//        }
+//        return true;
     }
 
     @Override

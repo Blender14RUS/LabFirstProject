@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface UserDao {
 
+    boolean setUsersLanguage(String language,String userName);
+
+    String getUsersLanguage(String name);
     /**
      * Takes user data from database by user id
      *

@@ -17,6 +17,7 @@
         <h2><fmt:message key="bookList.catalog"/></h2>
     </div>
     <form action="${pageContext.request.contextPath}/books" method="POST">
+
         <div class="form-row center-block">
             <input name="bookTitle" class="form-control" placeholder=<fmt:message key="bookList.enterTheTitle"/>>
         </div>
@@ -27,7 +28,7 @@
                 <span class="slider round"></span>
             </label>
         </div>
-        <div align="center" class="form-group col-md-2 center">
+        <div align="center" class="form-group col-md-3 center">
             <fmt:message key="bookList.sort"/>
             <select name="sort">
                 <option value="alphabet">A-Z</option>
